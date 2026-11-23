@@ -1,0 +1,193 @@
+{
+  "scenarios": [
+    {
+      "name": "normal",
+      "loginFound": true,
+      "loginDisabled": false,
+      "formMethod": "post",
+      "formAction": "/",
+      "messageText": "",
+      "noscriptVisible": false,
+      "finalPath": "/",
+      "finalQueryHadMarker": false,
+      "requestsAfterInput": [
+        {
+          "method": "POST",
+          "path": "/api/auth/login",
+          "queryHadMarker": false,
+          "bodyHadMarker": true,
+          "resourceType": "Fetch"
+        },
+        {
+          "method": "POST",
+          "path": "/api/auth/register",
+          "queryHadMarker": false,
+          "bodyHadMarker": true,
+          "resourceType": "Fetch"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/me",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Fetch"
+        },
+        {
+          "method": "GET",
+          "path": "/api/health",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Fetch"
+        },
+        {
+          "method": "GET",
+          "path": "/api/conversations",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Fetch"
+        }
+      ],
+      "scriptResponses": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/app.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/copy_feedback.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/upload_rules.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/input_rules.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/stream_state.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/templates.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/markdown.js",
+          "status": 200,
+          "mime": "text/javascript"
+        }
+      ],
+      "markerInUrl": false,
+      "authPost": [
+        {
+          "method": "POST",
+          "path": "/api/auth/login",
+          "queryHadMarker": false,
+          "bodyHadMarker": true,
+          "resourceType": "Fetch"
+        },
+        {
+          "method": "POST",
+          "path": "/api/auth/register",
+          "queryHadMarker": false,
+          "bodyHadMarker": true,
+          "resourceType": "Fetch"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/me",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Fetch"
+        }
+      ]
+    },
+    {
+      "name": "blocked-js",
+      "loginFound": true,
+      "loginDisabled": true,
+      "formMethod": "post",
+      "formAction": "/",
+      "messageText": "页面脚本没有加载，登录已关闭，口令不会提交。",
+      "noscriptVisible": true,
+      "finalPath": "/",
+      "finalQueryHadMarker": false,
+      "requestsAfterInput": [],
+      "scriptResponses": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        }
+      ],
+      "markerInUrl": false,
+      "authPost": []
+    },
+    {
+      "name": "disabled-js",
+      "loginFound": true,
+      "loginDisabled": true,
+      "formMethod": "post",
+      "formAction": "/",
+      "messageText": "",
+      "noscriptVisible": true,
+      "finalPath": "/",
+      "finalQueryHadMarker": false,
+      "requestsAfterInput": [],
+      "scriptResponses": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        }
+      ],
+      "markerInUrl": false,
+      "authPost": []
+    }
+  ],
+  "markerInAccessLog": false,
+  "error": null,
+  "markerInAppLog": false
+}

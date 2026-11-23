@@ -1,0 +1,4 @@
+# 开发与测试安装集。先装生产运行集，再加测试工具。
+-r requirements.txt
+pytest==9.0.3
+ruff==0.14.5

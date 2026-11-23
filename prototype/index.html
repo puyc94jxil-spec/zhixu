@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>知序 · 让思考，自有条理</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<div class="app">
+ <aside class="sidebar" id="sidebar">
+  <a class="brand" href="#" aria-label="知序首页"><span class="brandmark">✳</span><strong>知序</strong><small>ZHIXU</small></a>
+  <button class="new-chat" id="new-chat"><span>＋</span> 开启新对话 <kbd>Ctrl K</kbd></button>
+  <nav><button class="nav-item active" id="nav-chat"><span>◉</span> 智能问答</button><button class="nav-item" id="nav-docs"><span>▤</span> 文档工作台 <span class="nav-count" id="doc-count">0</span></button></nav>
+  <div class="history-head"><span>最近对话</span><button class="icon-btn" id="search-toggle" aria-label="搜索会话">⌕</button></div>
+  <input class="history-search hidden" id="history-search" placeholder="搜索会话标题" aria-label="搜索会话标题">
+  <div id="history" class="history"></div>
+  <div class="sidebar-bottom"><div class="local-note"><span>✧</span><div><strong>为每一个想法，找到线索</strong><p>从一个问题开始，连接更多可能</p></div></div><button class="profile" id="settings-open"><span class="avatar">林</span><span><strong>探索者</strong><small>个人工作空间</small></span><span class="gear">⚙</span></button></div>
+ </aside>
+ <div class="scrim hidden" id="scrim"></div>
+ <main>
+  <header class="topbar"><div class="top-left"><button id="menu" class="icon-btn mobile-menu" aria-label="打开导航">☰</button><span id="page-title">智能问答</span><span class="header-divider"></span><span class="workspace-label">你的灵感与思考空间</span></div><div class="top-right"><span class="demo-badge">交互原型</span><button class="icon-btn" id="help" aria-label="使用说明">?</button></div></header>
+  <section class="welcome" id="welcome">
+   <div class="eyebrow"><span class="tiny-spark">✳</span> 思考，从这里生长</div>
+   <h1>每一个好问题，<br>都值得一个<span>好答案。</span></h1>
+   <p class="intro">聊一聊灵感，读懂一份文档，或一起理清复杂的问题。</p>
+   <div id="composer-home"></div>
+   <div class="quick-label">让灵感，先走一步</div>
+   <div class="suggestions">
+    <button data-prompt="帮我将一个模糊的想法整理成清晰的行动计划"><span class="card-icon green">✧</span><strong>打开思路</strong><p>把零散灵感，变成清晰方向</p><span class="card-action">试着问问 ↗</span></button>
+    <button id="sample-card"><span class="card-icon blue">▤</span><strong>读懂一份文档</strong><p>提炼重点，让信息一目了然</p><span class="card-action">体验示例文档 ↗</span></button>
+    <button data-prompt="帮我把一段工作汇报写得更简洁、更有条理"><span class="card-icon sand">✎</span><strong>让表达更出色</strong><p>从第一句话，到完整好内容</p><span class="card-action">开始创作 ↗</span></button>
+   </div>
+   <div class="sample-strip"><span class="sample-icon">▧</span><div><strong>第一次使用？试试文档分析</strong><p>通过一份示例报告，体验从阅读到洞察</p></div><button id="sample-start">立即体验 <span>↗</span></button></div>
+  </section>
+  <section id="chat" class="chat hidden"><div class="messages" id="messages" aria-live="polite"></div><div class="chat-dock" id="composer-chat"></div></section>
+  <section id="documents" class="documents hidden"><div class="section-kicker">DOCUMENT WORKSPACE</div><h2>让资料，成为你的思考伙伴。</h2><p class="muted">当前会话中的文件 · 文件仅在浏览器本地处理</p><div class="doc-actions"><button class="primary" id="docs-upload">＋ 添加文档</button><button class="secondary" id="docs-sample">载入示例报告</button></div><div id="document-list"></div></section>
+  <footer class="footer">知序 · 让思考，自有条理 <span>演示回答由预设内容生成，请核对重要信息</span></footer>
+ </main>
+ <aside class="preview hidden" id="preview"><div class="preview-header"><div><small>文档预览</small><h3 id="preview-title"></h3></div><button class="icon-btn" id="preview-close" aria-label="关闭预览">×</button></div><div class="preview-meta" id="preview-meta"></div><article id="preview-content"></article></aside>
+</div>
+<form class="composer" id="composer"><div id="attachments" class="attachments"></div><textarea id="prompt" rows="2" maxlength="6000" placeholder="有问题，尽管问。也可以上传文档，一起读懂它。" aria-label="输入你的问题"></textarea><div class="composer-bottom"><div class="composer-tools"><button type="button" class="attach-btn" id="attach" aria-label="添加附件">＋</button><span class="tool-divider"></span><button type="button" class="mode-pill" id="deep" aria-pressed="false">✧ 深度思考</button><span class="model-label">知序 · 演示模型</span></div><button class="send" type="submit" id="send" aria-label="发送问题">↑</button></div><div class="drop-overlay">松开文件，开始阅读</div></form>
+<input type="file" id="files" multiple accept=".pdf,.docx,.txt,.md" hidden>
+<dialog id="settings"><div class="dialog-head"><h2>个人空间设置</h2><button class="icon-btn" id="settings-close" aria-label="关闭设置">×</button></div><p>这是本地交互原型，无需账号或模型密钥。</p><div class="setting-row"><strong>会话记录</strong><p>保存在当前浏览器。文件正文只保留在内存，刷新后需重新选择。请勿在演示中输入敏感内容。</p></div><div class="setting-row"><strong>模型与文档能力</strong><p>回答为预设演示；TXT、MD 可读取本地文字。PDF、Word 展示文件信息，完整解析将在正式版接入。</p></div><button class="danger" id="clear-data">清空本地对话记录</button></dialog>
+<div class="toast" id="toast" role="status"></div><script src="app.js"></script>
+</body></html>

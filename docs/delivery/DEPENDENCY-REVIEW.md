@@ -1,0 +1,48 @@
+# 依赖审查记录（实做与未做）
+
+这是 DEV 在 B 期安装并读取包元数据后写下的记录。它不是漏洞扫描通过，不是许可证合规签收，也不能写成「没有漏洞」。
+
+## 这次实际做了
+
+在本机已安装的包上读取了 `importlib.metadata` 里的版本和许可证字段：
+
+| 包 | 版本 | 元数据中的许可证字段 |
+| --- | --- | --- |
+| pypdf | 5.9.0 | BSD-3-Clause |
+| python-docx | 1.2.0 | MIT |
+| lxml | 6.1.3 | BSD-3-Clause |
+| jieba | 0.42.1 | MIT |
+| fastapi | 0.121.0 | MIT |
+
+版本钉在 `server/requirements.txt`。PDF/DOCX 只在隔离子进程中导入。父进程发现对应库不存在时，该格式解析失败，不改到主进程解析。
+
+## 这次没有做
+
+- 没有跑 CVE 或供应链扫描。
+- 没有做法律合规结论，也没有第三方审计。
+- 没有比较这些库的全部传递依赖是否还有别的许可证义务。`typing-extensions` 4.16.0 随 python-docx 安装，未单独做合规判断。
+- 没有因此宣布隔离有效或解析器无漏洞。已知解析不可信文件仍依赖子进程限制；限制是否足够属于 C 期安全验收，目前未签收。
+
+## C 期实际做过的漏洞查询
+
+上面的许可证表不是这次查询，也不能写成「扫描后没有漏洞」。
+
+工具是 pip-audit 2.10.1，漏洞库是 OSV（`https://api.osv.dev/v1/query`）。查询机是本开发环境，时间是 2026-11-23 07:01:35Z 至 07:01:47Z。依赖先装进临时虚拟环境 `/tmp/zhixu-audit-venv`，因为系统 Python 没有 `ensurepip`，直接对 `requirements.txt` 建临时环境的那次查询失败，没有连上漏洞库。
+
+随后两条查到了结果，退出码都是 1：
+
+- 对已安装的 55 个包做环境查询。其中包含 `requirements.txt` 的直接依赖和它们带进来的包，也包含 pip-audit 自己的包。
+- 对 `requirements.txt` 的 12 个钉死版本做 `--no-deps --disable-pip` 查询。这条不解析传递依赖，所以看不到 starlette。
+
+有已知记录的包：
+
+| 包 | 当时版本 | 工具给出的修复版本方向 | 本次是否改版本 |
+| --- | --- | --- | --- |
+| pypdf | 5.9.0 | 6.x，最高提到 6.21.4 | 否。离开已采用的 5.9 主版本，先回报，不自行换栈 |
+| python-multipart | 0.0.20 | 0.0.22 至 0.0.31 | 否。同库小版本也先留下，避免在未确认兼容前改上传解析 |
+| pytest | 9.0.1 | 9.0.3 | 否。只影响测试工具 |
+| starlette | 0.49.3（由 fastapi 0.121.0 带入） | 1.x | 否。会连带改 FastAPI 主线，不属于本次获批栈内的小修补 |
+
+其余已安装包这次没有返回漏洞记录。这只说明该工具在上述时间和范围内没有报它们，不是全量「没有漏洞」，也不是许可证合规通过。
+
+编号、修复版本和原始 JSON 后来抄进了 `docs/delivery/DOC-ZHIXU-DEPSEC-EVIDENCE-001.md` 与 `docs/delivery/scans/`。那一次只补充证据，没有改任何包的版本。上面表格里「pytest 只影响测试工具」和「starlette 会连带改 FastAPI 主线」是当时写下的方向。证据文档按已安装元数据写明：pytest 仍和运行库在同一份 `requirements.txt`，按这份文件安装会把它带进同一环境；工具列出的 starlette 修复版都是 1.x，而 fastapi 0.121.0 的元数据要求 `starlette<0.50.0,>=0.40.0`，所以不能强行钉到 1.x。主版本号本身不是变更请求的理由。这些候选仍是待判，不是批准。`docs/delivery/DOC-ZHIXU-DEPSEC-EVIDENCE-002.md` 接着读了更新的 FastAPI 元数据和公告正文。现状 0.121.0 加 starlette 0.49.3 不再当作修复候选。新的待判组合是 fastapi 0.137.2、starlette 1.3.1、pypdf 6.21.4、python-multipart 0.0.31、pytest 9.0.3，解析能满足，仍未写入依赖。上面这句停在调查提交。ARCH 闸门 v0.2 把它定为同范围普通修复之后，实施和已安装树复扫写在 `docs/delivery/DOC-ZHIXU-DEPSEC-EVIDENCE-003.md`。那不是安全准出。

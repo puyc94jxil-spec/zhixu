@@ -1,0 +1,529 @@
+{
+  "sha": "6265ee4972e1c1579f15db674fdf71311e4170ee",
+  "pageIndexMatchesB7cbfa0": true,
+  "pageBlobB7cbfa0": "295d8adb6f01bc5cc3d6b7b72098f4309dbcd620",
+  "pageBlobHead": "295d8adb6f01bc5cc3d6b7b72098f4309dbcd620",
+  "marker": "NOSSECRET-MARKER",
+  "http": [
+    {
+      "path": "/markdown.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/templates.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/upload_rules.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/app.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/input_rules.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/stream_state.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    }
+  ],
+  "chrome": {
+    "browser": "Chrome/157.0.8103.50",
+    "protocol": "1.3",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36"
+  },
+  "scenarios": [
+    {
+      "mode": "normal",
+      "action": "click",
+      "actionResult": {
+        "did": true,
+        "how": "Input.dispatchMouseEvent",
+        "disabledAtClick": false,
+        "typed": {
+          "usernameTyped": true,
+          "markerTyped": true
+        }
+      },
+      "loginDisabled": false,
+      "formMethod": "post",
+      "formAction": "/",
+      "appHidden": false,
+      "appClass": "app",
+      "evalError": null,
+      "finalPath": "/",
+      "finalQueryHadMarker": false,
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/auth/login",
+          "queryHadMarker": false,
+          "bodyHadMarker": true,
+          "resourceType": "Fetch"
+        },
+        {
+          "method": "POST",
+          "path": "/api/auth/register",
+          "queryHadMarker": false,
+          "bodyHadMarker": true,
+          "resourceType": "Fetch"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/me",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Fetch"
+        },
+        {
+          "method": "GET",
+          "path": "/api/health",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Fetch"
+        },
+        {
+          "method": "GET",
+          "path": "/api/conversations",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Fetch"
+        }
+      ],
+      "resources": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/app.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/templates.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/input_rules.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/upload_rules.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/markdown.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/stream_state.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/copy_feedback.js",
+          "status": 200,
+          "mime": "text/javascript"
+        }
+      ],
+      "markerInUrl": false
+    },
+    {
+      "mode": "blocked-js",
+      "action": "click",
+      "actionResult": {
+        "did": true,
+        "how": "Input.dispatchMouseEvent",
+        "disabledAtClick": true,
+        "typed": {
+          "usernameTyped": true,
+          "markerTyped": true
+        }
+      },
+      "loginDisabled": true,
+      "formMethod": "post",
+      "formAction": "/",
+      "appHidden": true,
+      "appClass": "app hidden",
+      "evalError": null,
+      "finalPath": "/",
+      "finalQueryHadMarker": false,
+      "requests": [],
+      "resources": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        }
+      ],
+      "markerInUrl": false
+    },
+    {
+      "mode": "blocked-js",
+      "action": "enter",
+      "actionResult": {
+        "did": true,
+        "how": "Input.dispatchKeyEvent Enter",
+        "typed": {
+          "usernameTyped": true,
+          "markerTyped": true
+        }
+      },
+      "loginDisabled": true,
+      "formMethod": "post",
+      "formAction": "/",
+      "appHidden": true,
+      "appClass": "app hidden",
+      "evalError": null,
+      "finalPath": "/",
+      "finalQueryHadMarker": false,
+      "requests": [],
+      "resources": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        }
+      ],
+      "markerInUrl": false
+    },
+    {
+      "mode": "blocked-js",
+      "action": "requestSubmit",
+      "actionResult": {
+        "did": true,
+        "result": "called",
+        "exception": false,
+        "typed": {
+          "usernameTyped": true,
+          "markerTyped": true
+        }
+      },
+      "loginDisabled": null,
+      "formMethod": null,
+      "formAction": null,
+      "appHidden": null,
+      "appClass": null,
+      "evalError": null,
+      "finalPath": "/",
+      "finalQueryHadMarker": false,
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Document"
+        }
+      ],
+      "resources": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/",
+          "status": 405,
+          "mime": "application/json"
+        }
+      ],
+      "markerInUrl": false
+    },
+    {
+      "mode": "blocked-js",
+      "action": "formSubmit",
+      "actionResult": {
+        "did": true,
+        "result": "called",
+        "exception": false,
+        "typed": {
+          "usernameTyped": true,
+          "markerTyped": true
+        }
+      },
+      "loginDisabled": null,
+      "formMethod": null,
+      "formAction": null,
+      "appHidden": null,
+      "appClass": null,
+      "evalError": null,
+      "finalPath": "/",
+      "finalQueryHadMarker": false,
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Document"
+        }
+      ],
+      "resources": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/",
+          "status": 405,
+          "mime": "application/json"
+        }
+      ],
+      "markerInUrl": false
+    },
+    {
+      "mode": "disabled-js",
+      "action": "click",
+      "actionResult": {
+        "did": true,
+        "how": "Input.dispatchMouseEvent",
+        "disabledAtClick": true,
+        "typed": {
+          "usernameTyped": true,
+          "markerTyped": true
+        }
+      },
+      "loginDisabled": true,
+      "formMethod": "post",
+      "formAction": "/",
+      "appHidden": true,
+      "appClass": "app hidden",
+      "evalError": null,
+      "finalPath": "/",
+      "finalQueryHadMarker": false,
+      "requests": [],
+      "resources": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        }
+      ],
+      "markerInUrl": false
+    },
+    {
+      "mode": "disabled-js",
+      "action": "enter",
+      "actionResult": {
+        "did": true,
+        "how": "Input.dispatchKeyEvent Enter",
+        "typed": {
+          "usernameTyped": true,
+          "markerTyped": true
+        }
+      },
+      "loginDisabled": true,
+      "formMethod": "post",
+      "formAction": "/",
+      "appHidden": true,
+      "appClass": "app hidden",
+      "evalError": null,
+      "finalPath": "/",
+      "finalQueryHadMarker": false,
+      "requests": [],
+      "resources": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        }
+      ],
+      "markerInUrl": false
+    },
+    {
+      "mode": "disabled-js",
+      "action": "requestSubmit",
+      "actionResult": {
+        "did": true,
+        "result": "called",
+        "exception": false,
+        "typed": {
+          "usernameTyped": true,
+          "markerTyped": true
+        }
+      },
+      "loginDisabled": null,
+      "formMethod": null,
+      "formAction": null,
+      "appHidden": null,
+      "appClass": null,
+      "evalError": null,
+      "finalPath": "/",
+      "finalQueryHadMarker": false,
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Document"
+        }
+      ],
+      "resources": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/",
+          "status": 405,
+          "mime": "application/json"
+        }
+      ],
+      "markerInUrl": false
+    },
+    {
+      "mode": "disabled-js",
+      "action": "formSubmit",
+      "actionResult": {
+        "did": true,
+        "result": "called",
+        "exception": false,
+        "typed": {
+          "usernameTyped": true,
+          "markerTyped": true
+        }
+      },
+      "loginDisabled": null,
+      "formMethod": null,
+      "formAction": null,
+      "appHidden": null,
+      "appClass": null,
+      "evalError": null,
+      "finalPath": "/",
+      "finalQueryHadMarker": false,
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Document"
+        }
+      ],
+      "resources": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/",
+          "status": 405,
+          "mime": "application/json"
+        }
+      ],
+      "markerInUrl": false
+    }
+  ],
+  "markerInAccessLog": false,
+  "error": null
+}

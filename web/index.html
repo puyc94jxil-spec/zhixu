@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>知序</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/extra.css">
+</head>
+<body>
+  <section class="auth-view" id="auth-view">
+    <form class="auth-card" id="auth-form" method="post" action="/">
+      <h1>知序</h1>
+      <p>登录后才能使用。这是生产界面，演示原型仍留在对照目录。</p>
+      <label for="username">用户名</label>
+      <input id="username" autocomplete="username" required>
+      <label for="password">密码</label>
+      <input id="password" type="password" autocomplete="current-password" required minlength="10">
+      <div class="auth-actions">
+        <button class="primary" type="submit" id="login" disabled>登录</button>
+        <button class="secondary" type="button" id="register" disabled>注册</button>
+      </div>
+      <p class="unavailable" id="auth-message" role="status"></p>
+      <noscript><p class="unavailable">页面脚本没有运行，登录已关闭，口令不会提交。</p></noscript>
+    </form>
+  </section>
+  <div class="app hidden" id="app">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="/" aria-label="知序首页"><span class="brandmark">✳</span><strong>知序</strong><small>ZHIXU</small></a>
+      <button class="new-chat" id="new-chat" type="button"><span>＋</span> 开启新对话</button>
+      <div class="history-head"><span>最近对话</span></div>
+      <input class="history-search" id="history-search" placeholder="搜索标题（简单包含）" aria-label="搜索会话标题">
+      <div id="history" class="history"></div>
+      <p class="unavailable" id="unavailable-note">扫描件识别、联网检索、语音和模型切换当前不可用。删除后的备份由运维在 30 天内清除，这里没有自助恢复。</p>
+      <button class="profile" id="delete-account" type="button">删除账号数据</button>
+      <button class="profile" id="logout" type="button">退出登录</button>
+    </aside>
+    <div class="scrim hidden" id="scrim"></div>
+    <main>
+      <header class="topbar">
+        <div class="top-left">
+          <button id="menu" class="icon-btn mobile-menu" type="button" aria-label="打开导航">☰</button>
+          <span id="page-title">智能问答</span>
+          <button id="rename" class="icon-btn" type="button">改标题</button>
+          <button id="delete-conversation" class="icon-btn" type="button">删除会话</button>
+        </div>
+        <div class="top-right"><span class="demo-badge">服务端会话</span></div>
+      </header>
+      <section class="welcome" id="welcome">
+        <h1>每一个好问题，<br>都值得一个<span>可核对的答案。</span></h1>
+        <p class="intro">回答在核对出处之前都标为未核验。模型是否真的连上内网，不由这个页面宣称。</p>
+        <div class="templates" id="templates">
+          <button type="button" data-prompt="请总结当前文档的要点。">总结文档</button>
+          <button type="button" data-prompt="请提取当前文档中的关键数据。">提取关键数据</button>
+          <button type="button" data-prompt="请梳理当前文档里的风险。">梳理风险</button>
+          <button type="button" data-prompt="">自由提问</button>
+        </div>
+        <p class="unavailable" id="template-note">模板在发送前可以修改。没有就绪文档时，文档类模板会说明原因。</p>
+      </section>
+      <section id="chat" class="chat hidden"><div class="messages" id="messages" aria-live="polite"></div></section>
+      <form class="composer" id="composer" method="post" action="/">
+        <div id="attachments" class="attachments"></div>
+        <textarea id="prompt" rows="2" maxlength="6000" placeholder="输入问题。Enter 发送，Shift+Enter 换行。" aria-label="输入你的问题"></textarea>
+        <div class="composer-bottom">
+          <div class="composer-tools">
+            <button type="button" class="attach-btn" id="attach" aria-label="添加附件">＋</button>
+            <span class="model-label" id="mode-label">模型模式未加载</span>
+          </div>
+          <button class="send" type="submit" id="send" aria-label="发送问题">↑</button>
+        </div>
+      </form>
+    </main>
+    <aside class="preview hidden" id="preview">
+      <div class="preview-header">
+        <div><small>文档预览</small><h3 id="preview-title"></h3></div>
+        <button class="icon-btn" id="preview-close" type="button" aria-label="关闭预览">×</button>
+      </div>
+      <div class="preview-meta" id="preview-meta"></div>
+      <article id="preview-content"></article>
+    </aside>
+  </div>
+  <input type="file" id="files" accept=".txt,.md,.pdf,.docx,text/plain,text/markdown,application/pdf" hidden>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="/app.js"></script>
+  <script>
+    var pageScript = document.querySelector("script[src='/app.js']");
+    if (pageScript) {
+      pageScript.addEventListener("error", function () {
+        var note = document.getElementById("auth-message");
+        if (note) note.textContent = "页面脚本没有加载，登录已关闭，口令不会提交。";
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+{
+  "scenarios": [
+    {
+      "name": "normal",
+      "loginFound": false,
+      "loginDisabled": null,
+      "formMethod": null,
+      "formAction": null,
+      "messageText": "",
+      "noscriptVisible": false,
+      "finalPath": "/",
+      "finalQueryHadMarker": true,
+      "requestsAfterInput": [
+        {
+          "method": "GET",
+          "path": "/",
+          "queryHadMarker": true,
+          "bodyHadMarker": false,
+          "resourceType": "Document"
+        },
+        {
+          "method": "GET",
+          "path": "/styles.css",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Stylesheet"
+        },
+        {
+          "method": "GET",
+          "path": "/extra.css",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Stylesheet"
+        },
+        {
+          "method": "GET",
+          "path": "/app.js",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Script"
+        },
+        {
+          "method": "GET",
+          "path": "/copy_feedback.js",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Script"
+        },
+        {
+          "method": "GET",
+          "path": "/input_rules.js",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Script"
+        },
+        {
+          "method": "GET",
+          "path": "/markdown.js",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Script"
+        },
+        {
+          "method": "GET",
+          "path": "/stream_state.js",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Script"
+        },
+        {
+          "method": "GET",
+          "path": "/templates.js",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Script"
+        },
+        {
+          "method": "GET",
+          "path": "/upload_rules.js",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Script"
+        }
+      ],
+      "scriptResponses": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/app.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/copy_feedback.js",
+          "status": 404,
+          "mime": "application/json"
+        },
+        {
+          "path": "/markdown.js",
+          "status": 404,
+          "mime": "application/json"
+        },
+        {
+          "path": "/templates.js",
+          "status": 404,
+          "mime": "application/json"
+        },
+        {
+          "path": "/upload_rules.js",
+          "status": 404,
+          "mime": "application/json"
+        },
+        {
+          "path": "/input_rules.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/stream_state.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/app.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/input_rules.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/stream_state.js",
+          "status": 200,
+          "mime": "text/javascript"
+        },
+        {
+          "path": "/copy_feedback.js",
+          "status": 404,
+          "mime": "application/json"
+        },
+        {
+          "path": "/markdown.js",
+          "status": 404,
+          "mime": "application/json"
+        },
+        {
+          "path": "/templates.js",
+          "status": 404,
+          "mime": "application/json"
+        },
+        {
+          "path": "/upload_rules.js",
+          "status": 404,
+          "mime": "application/json"
+        }
+      ],
+      "markerInUrl": true,
+      "authPost": []
+    },
+    {
+      "name": "blocked-js",
+      "loginFound": false,
+      "loginDisabled": null,
+      "formMethod": null,
+      "formAction": null,
+      "messageText": "",
+      "noscriptVisible": false,
+      "finalPath": "/",
+      "finalQueryHadMarker": true,
+      "requestsAfterInput": [
+        {
+          "method": "GET",
+          "path": "/",
+          "queryHadMarker": true,
+          "bodyHadMarker": false,
+          "resourceType": "Document"
+        },
+        {
+          "method": "GET",
+          "path": "/styles.css",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Stylesheet"
+        },
+        {
+          "method": "GET",
+          "path": "/extra.css",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Stylesheet"
+        },
+        {
+          "method": "GET",
+          "path": "/app.js",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Script"
+        }
+      ],
+      "scriptResponses": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        }
+      ],
+      "markerInUrl": true,
+      "authPost": []
+    },
+    {
+      "name": "disabled-js",
+      "loginFound": false,
+      "loginDisabled": null,
+      "formMethod": null,
+      "formAction": null,
+      "messageText": "",
+      "noscriptVisible": false,
+      "finalPath": "/",
+      "finalQueryHadMarker": true,
+      "requestsAfterInput": [
+        {
+          "method": "GET",
+          "path": "/",
+          "queryHadMarker": true,
+          "bodyHadMarker": false,
+          "resourceType": "Document"
+        },
+        {
+          "method": "GET",
+          "path": "/styles.css",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Stylesheet"
+        },
+        {
+          "method": "GET",
+          "path": "/extra.css",
+          "queryHadMarker": false,
+          "bodyHadMarker": false,
+          "resourceType": "Stylesheet"
+        }
+      ],
+      "scriptResponses": [
+        {
+          "path": "/",
+          "status": 200,
+          "mime": "text/html"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/styles.css",
+          "status": 200,
+          "mime": "text/css"
+        },
+        {
+          "path": "/extra.css",
+          "status": 200,
+          "mime": "text/css"
+        }
+      ],
+      "markerInUrl": true,
+      "authPost": []
+    }
+  ],
+  "markerInAccessLog": true,
+  "error": null,
+  "markerInAppLog": false
+}

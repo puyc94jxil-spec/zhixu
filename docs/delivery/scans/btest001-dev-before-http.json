@@ -1,0 +1,82 @@
+{
+  "label": "before",
+  "tree": "/tmp/zhixu-before-src",
+  "marker": "NOSSECRET-MARKER",
+  "assets": [
+    {
+      "path": "/",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 4876
+    },
+    {
+      "path": "/styles.css",
+      "status": 200,
+      "content_type": "text/css; charset=utf-8",
+      "bytes": 13856
+    },
+    {
+      "path": "/extra.css",
+      "status": 200,
+      "content_type": "text/css; charset=utf-8",
+      "bytes": 1192
+    },
+    {
+      "path": "/app.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 19322
+    },
+    {
+      "path": "/input_rules.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 421
+    },
+    {
+      "path": "/stream_state.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 1500
+    },
+    {
+      "path": "/markdown.js",
+      "status": 404,
+      "content_type": "application/json",
+      "bytes": 22
+    },
+    {
+      "path": "/templates.js",
+      "status": 404,
+      "content_type": "application/json",
+      "bytes": 22
+    },
+    {
+      "path": "/upload_rules.js",
+      "status": 404,
+      "content_type": "application/json",
+      "bytes": 22
+    },
+    {
+      "path": "/copy_feedback.js",
+      "status": 404,
+      "content_type": "application/json",
+      "bytes": 22
+    }
+  ],
+  "form_tag": "<form class=\"auth-card\" id=\"auth-form\">",
+  "method_attribute": null,
+  "effective_method": "get",
+  "action_attribute": null,
+  "named_enabled_controls": [
+    "username",
+    "password"
+  ],
+  "login_disabled": null,
+  "submitted_target_has_marker": true,
+  "submitted_target_has_query": true,
+  "response_status": 200,
+  "response_body_has_marker": false,
+  "access_log_has_marker": true,
+  "access_log_has_query": true
+}

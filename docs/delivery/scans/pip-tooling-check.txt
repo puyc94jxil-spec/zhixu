@@ -1,0 +1,8 @@
+product_prod_lock=/workspace/server/requirements-prod.lock
+product_dev_lock=/workspace/server/requirements-dev.lock
+pip_in_product_lock=no
+pip 24.0 from /usr/lib/python3/dist-packages/pip (python 3.12)
+prod_target_exists=True pip_dist_info=0
+dev_target_exists=True pip_dist_info=0
+system_pip_not_modified=yes
+apply=skipped

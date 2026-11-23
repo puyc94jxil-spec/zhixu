@@ -1,0 +1,40 @@
+Started server process [28967]
+Waiting for application startup.
+Application startup complete.
+Uvicorn running on http://127.0.0.1:37303 (Press CTRL+C to quit)
+127.0.0.1:59536 - "GET /api/health HTTP/1.1" 200
+127.0.0.1:59550 - "GET /markdown.js HTTP/1.1" 200
+127.0.0.1:59536 - "GET /templates.js HTTP/1.1" 200
+127.0.0.1:59550 - "GET /upload_rules.js HTTP/1.1" 200
+127.0.0.1:59536 - "GET /app.js HTTP/1.1" 200
+127.0.0.1:59550 - "GET /input_rules.js HTTP/1.1" 200
+127.0.0.1:59536 - "GET /stream_state.js HTTP/1.1" 200
+127.0.0.1:59562 - "GET / HTTP/1.1" 200
+127.0.0.1:59566 - "GET /extra.css HTTP/1.1" 200
+127.0.0.1:59578 - "GET /app.js HTTP/1.1" 200
+127.0.0.1:59562 - "GET /styles.css HTTP/1.1" 200
+127.0.0.1:59606 - "GET /templates.js HTTP/1.1" 200
+127.0.0.1:59566 - "GET /input_rules.js HTTP/1.1" 200
+127.0.0.1:59578 - "GET /markdown.js HTTP/1.1" 200
+127.0.0.1:59562 - "GET /copy_feedback.js HTTP/1.1" 200
+127.0.0.1:59590 - "GET /stream_state.js HTTP/1.1" 200
+127.0.0.1:59622 - "GET /upload_rules.js HTTP/1.1" 200
+127.0.0.1:59590 - "GET /api/auth/me HTTP/1.1" 401
+127.0.0.1:59590 - "GET /favicon.ico HTTP/1.1" 404
+127.0.0.1:59630 - "POST /api/auth/login HTTP/1.1" 401
+127.0.0.1:59630 - "POST /api/auth/register HTTP/1.1" 201
+127.0.0.1:59630 - "GET /api/auth/me HTTP/1.1" 200
+127.0.0.1:59630 - "GET /api/health HTTP/1.1" 200
+127.0.0.1:59630 - "GET /api/conversations?limit=30 HTTP/1.1" 200
+127.0.0.1:46132 - "GET / HTTP/1.1" 200
+127.0.0.1:46132 - "GET /styles.css HTTP/1.1" 200
+127.0.0.1:46134 - "GET /extra.css HTTP/1.1" 200
+127.0.0.1:46140 - "GET /favicon.ico HTTP/1.1" 404
+127.0.0.1:46140 - "POST / HTTP/1.1" 405
+127.0.0.1:46140 - "POST / HTTP/1.1" 405
+127.0.0.1:46158 - "GET / HTTP/1.1" 200
+127.0.0.1:46158 - "GET /styles.css HTTP/1.1" 200
+127.0.0.1:46172 - "GET /extra.css HTTP/1.1" 200
+127.0.0.1:46158 - "GET /favicon.ico HTTP/1.1" 404
+127.0.0.1:46182 - "POST / HTTP/1.1" 405
+127.0.0.1:46182 - "POST / HTTP/1.1" 405

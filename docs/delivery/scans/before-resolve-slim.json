@@ -1,0 +1,289 @@
+{
+  "pip_version": "26.3",
+  "environment": {
+    "implementation_name": "cpython",
+    "implementation_version": "3.12.3",
+    "os_name": "posix",
+    "platform_machine": "x86_64",
+    "platform_release": "6.12.113+",
+    "platform_system": "Linux",
+    "platform_version": "#1 SMP PREEMPT_DYNAMIC Thu Nov 19 03:09:05 UTC 2026",
+    "python_full_version": "3.12.3",
+    "platform_python_implementation": "CPython",
+    "python_version": "3.12",
+    "sys_platform": "linux"
+  },
+  "install": [
+    {
+      "name": "annotated-doc",
+      "version": "0.0.7",
+      "requires_python": ">=3.11",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "requires_python": ">=3.10",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "anyio",
+      "version": "4.16.0",
+      "requires_python": ">=3.10",
+      "requires_dist_core": [
+        "exceptiongroup>=1.0.2; python_version < \"3.11\"",
+        "idna>=2.8",
+        "typing_extensions>=4.16.0; python_version < \"3.15\""
+      ],
+      "yanked": false
+    },
+    {
+      "name": "argon2-cffi",
+      "version": "25.1.0",
+      "requires_python": ">=3.8",
+      "requires_dist_core": [
+        "argon2-cffi-bindings"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "argon2-cffi-bindings",
+      "version": "26.2.0",
+      "requires_python": ">=3.10",
+      "requires_dist_core": [
+        "cffi>=1.0.1; python_version < \"3.14\"",
+        "cffi>=2; python_version >= \"3.14\" and python_version < \"3.15\"",
+        "cffi>=2.1.1; python_version >= \"3.15\""
+      ],
+      "yanked": false
+    },
+    {
+      "name": "certifi",
+      "version": "2026.11.20",
+      "requires_python": ">=3.7",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "requires_python": ">=3.10",
+      "requires_dist_core": [
+        "pycparser; implementation_name != \"PyPy\""
+      ],
+      "yanked": false
+    },
+    {
+      "name": "click",
+      "version": "8.5.1",
+      "requires_python": ">=3.10",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "fastapi",
+      "version": "0.121.0",
+      "requires_python": ">=3.8",
+      "requires_dist_core": [
+        "starlette<0.50.0,>=0.40.0",
+        "pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4",
+        "typing-extensions>=4.8.0",
+        "annotated-doc>=0.0.2"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "requires_python": ">=3.8",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9",
+      "requires_python": ">=3.8",
+      "requires_dist_core": [
+        "certifi",
+        "h11>=0.16"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1",
+      "requires_python": ">=3.8",
+      "requires_dist_core": [
+        "anyio",
+        "certifi",
+        "httpcore==1.*",
+        "idna"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "idna",
+      "version": "3.20",
+      "requires_python": ">=3.9",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.1",
+      "requires_python": ">=3.10",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "jieba",
+      "version": "0.42.1",
+      "requires_python": null,
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "lxml",
+      "version": "6.1.3",
+      "requires_python": ">=3.8",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "requires_python": ">=3.9",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "pluggy",
+      "version": "1.7.0",
+      "requires_python": ">=3.10",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "pycparser",
+      "version": "3.12",
+      "requires_python": ">=3.11",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "pydantic",
+      "version": "2.14.4",
+      "requires_python": ">=3.10",
+      "requires_dist_core": [
+        "annotated-types>=0.6.0",
+        "pydantic-core==2.50.5",
+        "typing-extensions>=4.16.0",
+        "typing-inspection>=0.4.4"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.50.5",
+      "requires_python": ">=3.10",
+      "requires_dist_core": [
+        "typing-extensions>=4.16.0"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "Pygments",
+      "version": "2.21.0",
+      "requires_python": ">=3.9",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "pypdf",
+      "version": "5.9.0",
+      "requires_python": ">=3.8",
+      "requires_dist_core": [
+        "typing_extensions >= 4.0; python_version < '3.11'"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "pytest",
+      "version": "9.0.1",
+      "requires_python": ">=3.10",
+      "requires_dist_core": [
+        "colorama>=0.4; sys_platform == \"win32\"",
+        "exceptiongroup>=1; python_version < \"3.11\"",
+        "iniconfig>=1.0.1",
+        "packaging>=22",
+        "pluggy<2,>=1.5",
+        "pygments>=2.7.2",
+        "tomli>=1; python_version < \"3.11\""
+      ],
+      "yanked": false
+    },
+    {
+      "name": "python-docx",
+      "version": "1.2.0",
+      "requires_python": ">=3.9",
+      "requires_dist_core": [
+        "lxml>=3.1.0",
+        "typing_extensions>=4.9.0"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "python-multipart",
+      "version": "0.0.20",
+      "requires_python": ">=3.8",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "ruff",
+      "version": "0.14.5",
+      "requires_python": ">=3.7",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "starlette",
+      "version": "0.49.3",
+      "requires_python": ">=3.9",
+      "requires_dist_core": [
+        "anyio<5,>=3.6.2",
+        "typing-extensions>=4.10.0; python_version < '3.13'"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.5",
+      "requires_python": ">=3.10",
+      "requires_dist_core": [
+        "typing-extensions>=4.15.0"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "requires_python": ">=3.9",
+      "requires_dist_core": [],
+      "yanked": false
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.38.0",
+      "requires_python": ">=3.9",
+      "requires_dist_core": [
+        "click>=7.0",
+        "h11>=0.8",
+        "typing-extensions>=4.0; python_version < '3.11'"
+      ],
+      "yanked": false
+    }
+  ]
+}
