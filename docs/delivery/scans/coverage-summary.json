@@ -1,0 +1,1423 @@
+[
+  {
+    "id": "CVE-2026-113789",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes/large memory usage when retrieving form fields"
+  },
+  {
+    "id": "CVE-2026-113786",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Unvalidated JPEG image data loading"
+  },
+  {
+    "id": "CVE-2026-113794",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible infinite loop when hitting EOF in standard xref table"
+  },
+  {
+    "id": "CVE-2026-113791",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage when parsing content streams"
+  },
+  {
+    "id": "CVE-2026-113792",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible infinite loop in PdfWriter.find_outline_item"
+  },
+  {
+    "id": "CVE-2026-113790",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage when parsing arrays and dictionaries"
+  },
+  {
+    "id": "CVE-2026-113793",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible infinite loop when removing tree items"
+  },
+  {
+    "id": "CVE-2026-113795",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage for streams with multiple filters"
+  },
+  {
+    "id": "CVE-2026-115580",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes for large xref table header limits"
+  },
+  {
+    "id": "CVE-2026-119205",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible infinite loop when cloning dictionaries"
+  },
+  {
+    "id": "CVE-2026-115572",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes for repeated references to the same missing object"
+  },
+  {
+    "id": "CVE-2026-119203",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible infinite loop when hitting EOF in standard xref table during trailer search"
+  },
+  {
+    "id": "CVE-2026-119207",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage for exceptions in strict mode"
+  },
+  {
+    "id": "CVE-2026-115585",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes for repeated malformed cross-reference entries (Follow-up)"
+  },
+  {
+    "id": "CVE-2026-119204",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage when parsing page tree"
+  },
+  {
+    "id": "CVE-2026-119206",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes when retrieving page labels"
+  },
+  {
+    "id": "CVE-2026-57204",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Missing stream length values ignore defined limits"
+  },
+  {
+    "id": "CVE-2026-119209",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage when parsing cross-reference streams"
+  },
+  {
+    "id": "CVE-2026-119208",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": false,
+    "still_affected": false,
+    "fixed_events": [],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes/large memory usage for encrypted PDF files"
+  },
+  {
+    "id": "PYSEC-2026-1827",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.6.2"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf has possible Infinite Loop when processing outlines/bookmarks"
+  },
+  {
+    "id": "PYSEC-2026-1828",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.6.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U"
+      }
+    ],
+    "summary": "pypdf has possible long runtimes for malformed startxref"
+  },
+  {
+    "id": "PYSEC-2026-1829",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.6.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U"
+      }
+    ],
+    "summary": "pypdf has possible long runtimes for missing /Root object with large /Size values"
+  },
+  {
+    "id": "PYSEC-2026-1830",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.0.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U"
+      }
+    ],
+    "summary": "PyPDF's Manipulated FlateDecode streams can exhaust RAM"
+  },
+  {
+    "id": "PYSEC-2026-1831",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.1.3"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U"
+      }
+    ],
+    "summary": "pypdf can exhaust RAM via manipulated LZWDecode streams"
+  },
+  {
+    "id": "PYSEC-2026-1832",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.4.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U"
+      }
+    ],
+    "summary": "pypdf's LZWDecode streams be manipulated to exhaust RAM"
+  },
+  {
+    "id": "PYSEC-2026-1833",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.1.3"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U"
+      }
+    ],
+    "summary": "pypdf possibly loops infinitely when reading DCT inline images without EOF marker"
+  },
+  {
+    "id": "PYSEC-2026-3004",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.12.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L"
+      },
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes for zero-only width values in cross-reference streamsuntimes for zero-only width values in cross-reference streams"
+  },
+  {
+    "id": "PYSEC-2026-3006",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.10.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      },
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Manipulated XMP metadata entity declarations can exhaust RAM"
+  },
+  {
+    "id": "PYSEC-2026-3005",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.7.2"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U"
+      }
+    ],
+    "summary": "pypdf has a possible infinite loop when loading circular /Prev entries in cross-reference streams"
+  },
+  {
+    "id": "PYSEC-2026-3009",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.13.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible infinite loop when retrieving fonts for layout-mode text extraction"
+  },
+  {
+    "id": "PYSEC-2026-3007",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.10.2"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+      },
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes for wrong size values in incremental mode"
+  },
+  {
+    "id": "PYSEC-2026-3010",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.12.2"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Inefficient decoding of FlateDecode PNG predictor streams"
+  },
+  {
+    "id": "PYSEC-2026-3011",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.10.2"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+      },
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Manipulated FlateDecode predictor parameters can exhaust RAM"
+  },
+  {
+    "id": "PYSEC-2026-3012",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.9.2"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U"
+      }
+    ],
+    "summary": "pypdf: Possible infinite loop during recovery attempts in DictionaryObject.read_from_stream"
+  },
+  {
+    "id": "PYSEC-2026-3013",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.7.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf has a possible infinite loop when processing TreeObject"
+  },
+  {
+    "id": "PYSEC-2026-3016",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.12.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage for large offsets for layout mode text"
+  },
+  {
+    "id": "PYSEC-2026-3014",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.7.5"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf vulnerable to inefficient decoding of ASCIIHexDecode streams"
+  },
+  {
+    "id": "PYSEC-2026-3015",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.7.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf possibly has long runtimes for malformed FlateDecode streams"
+  },
+  {
+    "id": "PYSEC-2026-3017",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.7.4"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Manipulated RunLengthDecode streams can exhaust RAM"
+  },
+  {
+    "id": "PYSEC-2026-3018",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.13.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible infinite loop when processing threads/articles in writer"
+  },
+  {
+    "id": "PYSEC-2026-3019",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.8.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: manipulated stream length values can exhaust RAM"
+  },
+  {
+    "id": "PYSEC-2026-3020",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.12.2"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage for form XObjects during text extraction"
+  },
+  {
+    "id": "PYSEC-2026-3021",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.10.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      },
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf has long runtimes for wrong size values in cross-reference and object streams"
+  },
+  {
+    "id": "PYSEC-2026-3022",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.13.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible infinite loop when processing outlines/bookmarks in writer"
+  },
+  {
+    "id": "PYSEC-2026-3023",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.9.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf has inefficient decoding of array-based streams"
+  },
+  {
+    "id": "PYSEC-2026-3024",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.7.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf has possible long runtimes/large memory usage for large /ToUnicode streams"
+  },
+  {
+    "id": "PYSEC-2026-3025",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.12.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Manipulated XMP metadata streams can exhaust RAM"
+  },
+  {
+    "id": "PYSEC-2026-3026",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.10.2"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+      },
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Manipulated FlateDecode image dimensions can exhaust RAM"
+  },
+  {
+    "id": "PYSEC-2026-3027",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.7.3"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U"
+      }
+    ],
+    "summary": "pypdf: Manipulated FlateDecode XFA streams can exhaust RAM"
+  },
+  {
+    "id": "PYSEC-2026-3610",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.14.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes for repeated malformed cross-reference entries "
+  },
+  {
+    "id": "PYSEC-2026-3613",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.14.2"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible infinite loop for not terminated inline images (ASCII85 and ASCIIHex filter)"
+  },
+  {
+    "id": "PYSEC-2026-3611",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.14.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage for wrong image dimensions"
+  },
+  {
+    "id": "PYSEC-2026-3612",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.14.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible infinite loop for not terminated inline images"
+  },
+  {
+    "id": "PYSEC-2026-3656",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.15.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes/large memory usage for large CID font width ranges"
+  },
+  {
+    "id": "PYSEC-2026-3910",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.16.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes/large memory usage when retrieving outlines"
+  },
+  {
+    "id": "PYSEC-2026-3655",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.15.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage for large /ToUnicode streams"
+  },
+  {
+    "id": "PYSEC-2026-3911",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.16.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes/large memory usage when extracting XForm objects"
+  },
+  {
+    "id": "PYSEC-2026-3912",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.15.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Inefficient handling of non-whitespace inputs in read_until_whitespace"
+  },
+  {
+    "id": "PYSEC-2026-3913",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.16.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible infinite loop for TreeObject.insert_child"
+  },
+  {
+    "id": "PYSEC-2026-4153",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.18.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes/large memory usage when parsing indirect objects"
+  },
+  {
+    "id": "PYSEC-2026-4154",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.18.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage for large /ToUnicode streams (Follow-up 2)"
+  },
+  {
+    "id": "PYSEC-2026-4155",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.18.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage when parsing font data"
+  },
+  {
+    "id": "PYSEC-2026-4156",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.18.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes for partially malformed FlateDecode streams (Follow-up)"
+  },
+  {
+    "id": "PYSEC-2026-4158",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.17.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage when retrieving Roman page labels"
+  },
+  {
+    "id": "PYSEC-2026-4157",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.19.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes when generating appearance streams"
+  },
+  {
+    "id": "PYSEC-2026-1845",
+    "pkg": "pytest",
+    "candidate": "9.0.3",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "9.0.3"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L"
+      }
+    ],
+    "summary": "pytest has vulnerable tmpdir handling"
+  },
+  {
+    "id": "PYSEC-2026-4159",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.19.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible long runtimes with large amount of embedded files"
+  },
+  {
+    "id": "PYSEC-2026-4160",
+    "pkg": "pypdf",
+    "candidate": "6.21.4",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "6.19.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V4",
+        "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      }
+    ],
+    "summary": "pypdf: Possible large memory usage when retrieving alphabetical page labels"
+  },
+  {
+    "id": "PYSEC-2026-1852",
+    "pkg": "python-multipart",
+    "candidate": "0.0.31",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "0.0.22"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:L"
+      }
+    ],
+    "summary": "Python-Multipart has Arbitrary File Write via Non-Default Configuration"
+  },
+  {
+    "id": "PYSEC-2026-3036",
+    "pkg": "python-multipart",
+    "candidate": "0.0.31",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "0.0.30"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      }
+    ],
+    "summary": "python-multipart: Quadratic-time querystring parsing with semicolon separators causes CPU denial of service"
+  },
+  {
+    "id": "PYSEC-2026-3037",
+    "pkg": "python-multipart",
+    "candidate": "0.0.31",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "0.0.30"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N"
+      }
+    ],
+    "summary": "python-multipart: Semicolon treated as querystring field separator enables parameter smuggling"
+  },
+  {
+    "id": "PYSEC-2026-3038",
+    "pkg": "python-multipart",
+    "candidate": "0.0.31",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "0.0.26"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      }
+    ],
+    "summary": "python-multipart affected by Denial of Service via large multipart preamble or epilogue data"
+  },
+  {
+    "id": "PYSEC-2026-3039",
+    "pkg": "python-multipart",
+    "candidate": "0.0.31",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "0.0.27"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      }
+    ],
+    "summary": "python-multipart has Denial of Service via unbounded multipart part headers"
+  },
+  {
+    "id": "PYSEC-2026-2280",
+    "pkg": "starlette",
+    "candidate": "1.3.1",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "1.1.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+      }
+    ],
+    "summary": ""
+  },
+  {
+    "id": "PYSEC-2026-3040",
+    "pkg": "python-multipart",
+    "candidate": "0.0.31",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "0.0.31"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      }
+    ],
+    "summary": "python-multipart: Negative Content-Length in parse_form buffers the entire body in memory"
+  },
+  {
+    "id": "PYSEC-2026-3041",
+    "pkg": "python-multipart",
+    "candidate": "0.0.31",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "0.0.30"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N"
+      }
+    ],
+    "summary": "python-multipart: Content-Disposition parameter smuggling via RFC 2231/5987 extended parameters"
+  },
+  {
+    "id": "PYSEC-2026-161",
+    "pkg": "starlette",
+    "candidate": "1.3.1",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "1.0.1"
+    ],
+    "severity": [],
+    "summary": "BadHost: Missing Host header validation poisons request.url.path, bypassing path-based security checks"
+  },
+  {
+    "id": "PYSEC-2026-248",
+    "pkg": "starlette",
+    "candidate": "1.3.1",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "1.3.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+      }
+    ],
+    "summary": ""
+  },
+  {
+    "id": "PYSEC-2026-2281",
+    "pkg": "starlette",
+    "candidate": "1.3.1",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "1.1.0"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      }
+    ],
+    "summary": ""
+  },
+  {
+    "id": "PYSEC-2026-249",
+    "pkg": "starlette",
+    "candidate": "1.3.1",
+    "osv_status": 200,
+    "matched_pkg": true,
+    "still_affected": false,
+    "fixed_events": [
+      "1.3.1"
+    ],
+    "severity": [
+      {
+        "type": "CVSS_V3",
+        "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      }
+    ],
+    "summary": ""
+  }
+]

@@ -45,4 +45,4 @@
 
 其余已安装包这次没有返回漏洞记录。这只说明该工具在上述时间和范围内没有报它们，不是全量「没有漏洞」，也不是许可证合规通过。
 
-编号、修复版本和原始 JSON 后来抄进了 `docs/delivery/DOC-ZHIXU-DEPSEC-EVIDENCE-001.md` 与 `docs/delivery/scans/`。那一次只补充证据，没有改任何包的版本。上面表格里「pytest 只影响测试工具」和「starlette 会连带改 FastAPI 主线」是当时写下的方向。证据文档按已安装元数据写明：pytest 仍和运行库在同一份 `requirements.txt`，按这份文件安装会把它带进同一环境；工具列出的 starlette 修复版都是 1.x，而 fastapi 0.121.0 的元数据要求 `starlette<0.50.0,>=0.40.0`，所以不能强行钉到 1.x。主版本号本身不是变更请求的理由。这些候选仍是待判，不是批准。
+编号、修复版本和原始 JSON 后来抄进了 `docs/delivery/DOC-ZHIXU-DEPSEC-EVIDENCE-001.md` 与 `docs/delivery/scans/`。那一次只补充证据，没有改任何包的版本。上面表格里「pytest 只影响测试工具」和「starlette 会连带改 FastAPI 主线」是当时写下的方向。证据文档按已安装元数据写明：pytest 仍和运行库在同一份 `requirements.txt`，按这份文件安装会把它带进同一环境；工具列出的 starlette 修复版都是 1.x，而 fastapi 0.121.0 的元数据要求 `starlette<0.50.0,>=0.40.0`，所以不能强行钉到 1.x。主版本号本身不是变更请求的理由。这些候选仍是待判，不是批准。`docs/delivery/DOC-ZHIXU-DEPSEC-EVIDENCE-002.md` 接着读了更新的 FastAPI 元数据和公告正文。现状 0.121.0 加 starlette 0.49.3 不再当作修复候选。新的待判组合是 fastapi 0.137.2、starlette 1.3.1、pypdf 6.21.4、python-multipart 0.0.31、pytest 9.0.3，解析能满足，仍未写入依赖。
