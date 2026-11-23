@@ -56,6 +56,12 @@ def backup_consistent(settings: Settings, dest: Path) -> dict:
         json.dumps({"files": manifest}, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+    from zhixu_server.security import iso
+
+    (dest / "zhixu-backup.json").write_text(
+        json.dumps({"created_at": iso(), "kind": "zhixu-backup"}, ensure_ascii=False),
+        encoding="utf-8",
+    )
     return {"database": str(db_out), "files": len(manifest)}
 
 
@@ -87,3 +93,38 @@ def restore_consistent(backup_dir: Path, target_data: Path) -> dict:
         objects_dst.mkdir(parents=True, exist_ok=True)
     marker.write_text("zhixu-data\n", encoding="utf-8")
     return {"data_dir": str(target_data)}
+
+
+def purge_expired_backups(root: Path, retention_days: int = 30, now=None) -> dict:
+    """只删除备份根目录下、带 zhixu-backup.json 且超过保留期的子目录。
+
+    不提供给登录用户调用。调用方必须先确认 root 不是正在使用的数据目录。
+    """
+    from datetime import datetime, timedelta, timezone
+
+    if (root / "ZHIXU_DATA_MARKER").exists():
+        raise RuntimeError("refuse_purge_data_dir")
+    if not root.exists():
+        return {"removed": 0, "kept": 0}
+    moment = now or datetime.now(timezone.utc)
+    cutoff = moment - timedelta(days=retention_days)
+    removed = 0
+    kept = 0
+    for child in root.iterdir():
+        meta_path = child / "zhixu-backup.json"
+        if not child.is_dir() or not meta_path.exists():
+            continue
+        try:
+            payload = json.loads(meta_path.read_text(encoding="utf-8"))
+            created = datetime.fromisoformat(payload["created_at"])
+            if created.tzinfo is None:
+                created = created.replace(tzinfo=timezone.utc)
+        except (OSError, ValueError, KeyError, TypeError):
+            kept += 1
+            continue
+        if created <= cutoff:
+            shutil.rmtree(child)
+            removed += 1
+        else:
+            kept += 1
+    return {"removed": removed, "kept": kept}

@@ -42,6 +42,8 @@ class Settings:
     retry_delays: tuple[float, ...]
     # 仅 fixture 模式生效，live 模式忽略，避免和生产混用
     fixture_hold: bool
+    backup_dir: Path | None
+    backup_retention_days: int
     web_dir: Path
     prototype_dir: Path
     host: str
@@ -73,6 +75,7 @@ def load_settings() -> Settings:
         delays = (0.5, 1.5)
     root = Path(__file__).resolve().parents[2]
     hold = _flag("ZHIXU_FIXTURE_HOLD") and mode == "fixture"
+    backup_raw = os.environ.get("ZHIXU_BACKUP_DIR", "").strip()
     return Settings(
         data_dir=data_dir,
         db_path=data_dir / "zhixu.db",
@@ -90,6 +93,8 @@ def load_settings() -> Settings:
         total_timeout=_float("ZHIXU_UPSTREAM_TOTAL_TIMEOUT", 120),
         retry_delays=delays[:2],
         fixture_hold=hold,
+        backup_dir=Path(backup_raw).expanduser().resolve() if backup_raw else None,
+        backup_retention_days=int(os.environ.get("ZHIXU_BACKUP_RETENTION_DAYS", "30")),
         web_dir=root / "web",
         prototype_dir=root / "prototype",
         host=os.environ.get("ZHIXU_HOST", "127.0.0.1"),

@@ -116,12 +116,12 @@ def test_reject_empty_pdf_and_oversize(client):
         files={"file": ("空.txt", b"", "text/plain")},
     )
     assert empty.status_code == 400
-    pdf = client.post(
+    png = client.post(
         "/api/files",
         data={"conversation_id": conv},
-        files={"file": ("a.pdf", b"%PDF-1.4", "application/pdf")},
+        files={"file": ("a.png", b"\x89PNG\r\n", "image/png")},
     )
-    assert pdf.status_code == 415
+    assert png.status_code == 415
     big = client.post(
         "/api/files",
         data={"conversation_id": conv},
@@ -475,7 +475,7 @@ def test_no_private_address_in_runtime_tree():
     assert scanned
 
 
-def test_feedback_and_account_delete_not_in_phase_a(client):
+def test_account_delete_and_feedback_require_a_real_target(client):
     login(client, "user_o", PASSWORD)
-    assert client.delete("/api/auth/me").status_code == 405
-    assert client.post("/api/messages/missing/feedback", json={"reason": "other"}).status_code == 404
+    assert client.delete("/api/auth/me").status_code == 400
+    assert client.post("/api/messages/missing/feedback", json={"reason": "other"}).status_code == 403

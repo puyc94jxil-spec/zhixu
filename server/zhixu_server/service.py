@@ -10,19 +10,47 @@ from pathlib import Path
 
 from zhixu_server.config import Settings
 from zhixu_server.logutil import log_event
-from zhixu_server.sandbox import ParseFailed, extract_text
+from zhixu_server.sandbox import ParseFailed, extract_document
 from zhixu_server.security import iso, new_id
 from zhixu_server.textutil import PLACEHOLDER, lex, split_paragraphs
 
 MAX_FILE_BYTES = 20 * 1024 * 1024
 MAX_FILES = 5
 MAX_TOTAL_BYTES = 50 * 1024 * 1024
+MAX_PDF_PAGES = 200
 _WORKERS: dict[str, int] = {}
 _WORKER_LOCK = threading.Lock()
 
 _MIME = {
     ".txt": {"text/plain", "application/octet-stream", "text/markdown", ""},
     ".md": {"text/markdown", "text/plain", "application/octet-stream", "text/x-markdown", ""},
+    ".pdf": {"application/pdf", "application/octet-stream", ""},
+    ".docx": {
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/octet-stream",
+        "application/zip",
+        "",
+    },
+}
+
+ERROR_TEXT = {
+    "empty": "空文档，不能分析",
+    "encrypted": "文件已加密，不能分析",
+    "corrupt": "文件已损坏，不能分析",
+    "no_text": "不含可提取文字",
+    "too_many_pages": "PDF 超过 200 页",
+    "type_mismatch": "扩展名与文件内容不一致",
+    "binary": "文件不是可解析文本",
+    "unsupported_media": "只接受 TXT、MD、PDF、DOCX",
+    "isolation_unavailable": "解析隔离不可用，已拒绝解析",
+    "dependency_unavailable": "解析组件不可用，已拒绝解析",
+    "expand_limit": "展开后体积超过限制",
+    "timeout": "解析超时",
+    "cancelled": "解析已取消",
+    "interrupted": "服务中断，请重试",
+    "deleted": "文件已删除",
+    "limits": "解析超出资源限制",
+    "parse_failed": "解析失败",
 }
 
 
@@ -50,7 +78,45 @@ def _delete_fts(conn: sqlite3.Connection, rowid: int, fts_lex: str, chunk_id: st
     conn.execute("DELETE FROM chunks_fts WHERE rowid = ? OR chunk_id = ?", (rowid, chunk_id))
 
 
-def redact_messages_for_file(conn: sqlite3.Connection, file_id: str) -> None:
+def redact_request_events(conn: sqlite3.Connection, request_id: str) -> None:
+    """清掉已保存的增量原文和引用摘录。重连续传不能再把已删正文推回去。"""
+    import json
+
+    rows = conn.execute(
+        "SELECT seq, event, data FROM request_events WHERE request_id = ?",
+        (request_id,),
+    ).fetchall()
+    for row in rows:
+        if row["event"] not in {"delta", "citation"}:
+            continue
+        try:
+            payload = json.loads(row["data"])
+        except json.JSONDecodeError:
+            payload = {"request_id": request_id}
+        if row["event"] == "delta":
+            payload["text"] = ""
+        else:
+            payload["quote"] = ""
+            payload["verified"] = False
+        payload["redacted"] = True
+        conn.execute(
+            "UPDATE request_events SET data = ? WHERE request_id = ? AND seq = ?",
+            (json.dumps(payload, ensure_ascii=False), request_id, row["seq"]),
+        )
+
+
+def redact_events_for_file(conn: sqlite3.Connection, file_id: str) -> None:
+    rows = conn.execute(
+        """
+        SELECT DISTINCT r.id AS request_id
+          FROM requests r
+          JOIN conversation_files cf ON cf.conversation_id = r.conversation_id
+         WHERE cf.file_id = ?
+        """,
+        (file_id,),
+    ).fetchall()
+    for row in rows:
+        redact_request_events(conn, row["request_id"])
     rows = conn.execute(
         "SELECT message_id FROM message_sources WHERE file_id = ?",
         (file_id,),
@@ -106,7 +172,7 @@ def remove_online_file(conn: sqlite3.Connection, settings: Settings, file_row: s
         if chunk["fts_rowid"] is not None:
             _delete_fts(conn, chunk["fts_rowid"], chunk["fts_lex"], chunk["id"])
     conn.execute("DELETE FROM chunks WHERE file_id = ?", (file_id,))
-    redact_messages_for_file(conn, file_id)
+    redact_events_for_file(conn, file_id)
     object_path = settings.objects_dir / file_row["object_key"]
     if object_path.exists():
         object_path.unlink()
@@ -120,21 +186,32 @@ def signal_abort(request_ids: list[str]) -> None:
     signal_requests(request_ids)
 
 
-def validate_upload(filename: str, content_type: str | None, size: int) -> str:
+def validate_upload(filename: str, content_type: str | None, data: bytes) -> str:
     suffix = Path(filename).suffix.lower()
     if suffix not in _MIME:
-        raise ServiceError(415, "unsupported_media", "当前阶段只解析 TXT 和 MD")
+        raise ServiceError(415, "unsupported_media", ERROR_TEXT["unsupported_media"])
     mime = (content_type or "").split(";")[0].strip().lower()
-    if mime in {"application/pdf", "application/zip", "application/octet-stream"} and suffix not in {".txt", ".md"}:
-        raise ServiceError(415, "unsupported_media", "文件类型与扩展名不一致")
-    if mime and mime not in _MIME[suffix] and mime not in {"application/octet-stream"}:
-        if mime.startswith("image/") or mime in {"application/pdf", "application/msword"}:
-            raise ServiceError(415, "unsupported_media", "文件类型与扩展名不一致")
-    if size <= 0:
-        raise ServiceError(400, "empty", "空文件不能解析")
-    if size > MAX_FILE_BYTES:
+    if mime and mime not in _MIME[suffix]:
+        raise ServiceError(415, "type_mismatch", ERROR_TEXT["type_mismatch"])
+    if len(data) <= 0:
+        raise ServiceError(400, "empty", ERROR_TEXT["empty"])
+    if len(data) > MAX_FILE_BYTES:
         raise ServiceError(413, "file_too_large", "单个文件不能超过 20MB")
+    _sniff(suffix, data)
     return suffix
+
+
+def _sniff(suffix: str, data: bytes) -> None:
+    if suffix == ".pdf":
+        if not data.startswith(b"%PDF-"):
+            raise ServiceError(415, "type_mismatch", ERROR_TEXT["type_mismatch"])
+        return
+    if suffix == ".docx":
+        if not data.startswith(b"PK\x03\x04"):
+            raise ServiceError(415, "type_mismatch", ERROR_TEXT["type_mismatch"])
+        return
+    if b"\x00" in data[:8192] or data.startswith(b"%PDF-") or data.startswith(b"PK\x03\x04"):
+        raise ServiceError(415, "type_mismatch", ERROR_TEXT["type_mismatch"])
 
 
 def store_upload(
@@ -153,9 +230,7 @@ def store_upload(
     ).fetchone()
     if conv is None:
         raise ServiceError(403, "forbidden", "不能使用这个会话")
-    suffix = validate_upload(filename, content_type, len(data))
-    if b"\x00" in data[:8192]:
-        raise ServiceError(415, "binary", "文件不像文本")
+    suffix = validate_upload(filename, content_type, data)
     digest = hashlib.sha256(data).hexdigest()
     existing = conn.execute(
         """
@@ -316,7 +391,8 @@ def _parse_worker(settings: Settings, file_id: str, job_id: str) -> None:
         source = settings.objects_dir / row["object_key"]
         _mark_job(conn, job_id, file_id, row["version"], "parsing", 40, None)
         try:
-            text = extract_text(source, row["size"], job_id=job_id)
+            kind = {".pdf": "pdf", ".docx": "docx", ".md": "md"}.get(Path(row["name"]).suffix.lower(), "txt")
+            document = extract_document(source, row["size"], kind, job_id=job_id)
         except ParseFailed as exc:
             code = "cancelled" if _job_cancelled(conn, job_id) else exc.code
             _mark_job(conn, job_id, file_id, row["version"], "failed", 100, code)
@@ -331,16 +407,22 @@ def _parse_worker(settings: Settings, file_id: str, job_id: str) -> None:
             return
         _mark_job(conn, job_id, file_id, row["version"], "indexing", 70, None)
         try:
-            _index_text(conn, row, text)
+            _index_document(conn, row, document)
         except ParseFailed as exc:
             _mark_job(conn, job_id, file_id, row["version"], "failed", 100, exc.code)
             log_event("parse_failed", file_id=file_id, error_code=exc.code)
             return
         if _file_gone(conn, file_id):
             return
+        page_count = document.get("page_count")
+        notice = document.get("notice")
         conn.execute(
-            "UPDATE files SET page_count = 1, status = 'ready', error_code = NULL WHERE id = ?",
-            (file_id,),
+            """
+            UPDATE files
+               SET page_count = ?, parse_notice = ?, status = 'ready', error_code = NULL
+             WHERE id = ?
+            """,
+            (page_count, notice, file_id),
         )
         _status(conn, file_id, row["version"], "ready")
         conn.execute(
@@ -379,37 +461,44 @@ def _mark_job(conn, job_id, file_id, version, status, progress, error) -> None:
     _status(conn, file_id, version, file_status, error)
 
 
-def _index_text(conn: sqlite3.Connection, file_row: sqlite3.Row, text: str) -> None:
-    paragraphs = split_paragraphs(text)
-    if not paragraphs:
-        raise ParseFailed("empty")
-    for item in paragraphs:
-        chunk_id = new_id()
-        tokens = lex(item["text"])
-        cur = conn.execute(
-            "INSERT INTO chunks_fts(fts_lex, chunk_id) VALUES (?, ?)",
-            (tokens, chunk_id),
-        )
-        conn.execute(
-            """
-            INSERT INTO chunks(
-                id, file_id, version, owner_user_id, page, paragraph, offset, length, text, fts_lex, fts_rowid
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """,
-            (
-                chunk_id,
-                file_row["id"],
-                file_row["version"],
-                file_row["owner_user_id"],
-                item["page"],
-                item["paragraph"],
-                item["offset"],
-                item["length"],
-                item["text"],
-                tokens,
-                cur.lastrowid,
-            ),
-        )
+def _index_document(conn: sqlite3.Connection, file_row: sqlite3.Row, document: dict) -> None:
+    pages = document.get("pages") or []
+    wrote = 0
+    for page in pages:
+        if not isinstance(page, dict):
+            continue
+        paragraphs = split_paragraphs(str(page.get("text") or ""))
+        page_number = page.get("page")
+        for item in paragraphs:
+            chunk_id = new_id()
+            tokens = lex(item["text"])
+            cur = conn.execute(
+                "INSERT INTO chunks_fts(fts_lex, chunk_id) VALUES (?, ?)",
+                (tokens, chunk_id),
+            )
+            conn.execute(
+                """
+                INSERT INTO chunks(
+                    id, file_id, version, owner_user_id, page, paragraph, offset, length, text, fts_lex, fts_rowid
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    chunk_id,
+                    file_row["id"],
+                    file_row["version"],
+                    file_row["owner_user_id"],
+                    page_number,
+                    item["paragraph"],
+                    item["offset"],
+                    item["length"],
+                    item["text"],
+                    tokens,
+                    cur.lastrowid,
+                ),
+            )
+            wrote += 1
+    if wrote == 0:
+        raise ParseFailed("no_text" if document.get("kind") == "pdf" else "empty")
 
 
 def retry_parse(conn: sqlite3.Connection, settings: Settings, owner: str, file_id: str) -> dict:
@@ -538,3 +627,44 @@ def owned_file(conn, owner: str, file_id: str):
         "SELECT * FROM files WHERE id = ? AND owner_user_id = ? AND deleted_at IS NULL",
         (file_id, owner),
     ).fetchone()
+
+
+def delete_account_online(conn: sqlite3.Connection, settings: Settings, user_id: str) -> None:
+    """立刻从在线库和对象目录移除该账号的数据。备份目录留给 30 天清除，不在这里回滚。"""
+    from zhixu_server.security import DUMMY_HASH
+
+    files = conn.execute(
+        "SELECT * FROM files WHERE owner_user_id = ? AND deleted_at IS NULL",
+        (user_id,),
+    ).fetchall()
+    request_ids: list[str] = []
+    for file_row in files:
+        request_ids.extend(abort_requests_for_file(conn, file_row["id"]))
+        remove_online_file(conn, settings, file_row)
+    requests = conn.execute("SELECT id FROM requests WHERE owner_user_id = ?", (user_id,)).fetchall()
+    for row in requests:
+        redact_request_events(conn, row["id"])
+        request_ids.append(row["id"])
+    conn.execute(
+        """
+        UPDATE messages
+           SET content = ?, status = 'withdrawn', withdrawn_reason = 'account_deleted'
+         WHERE owner_user_id = ?
+        """,
+        ("[账号数据已删除]", user_id),
+    )
+    conn.execute("DELETE FROM feedback WHERE owner_user_id = ?", (user_id,))
+    conn.execute(
+        "UPDATE conversations SET deleted_at = ?, updated_at = ? WHERE owner_user_id = ? AND deleted_at IS NULL",
+        (iso(), iso(), user_id),
+    )
+    conn.execute(
+        "UPDATE sessions SET revoked_at = ? WHERE user_id = ? AND revoked_at IS NULL",
+        (iso(), user_id),
+    )
+    conn.execute(
+        "UPDATE users SET username = ?, password_hash = ?, deleted_at = ? WHERE id = ?",
+        (f"deleted-{user_id}", DUMMY_HASH, iso(), user_id),
+    )
+    signal_abort(request_ids)
+    log_event("account_deleted_online", user_id=user_id)

@@ -6,6 +6,8 @@
 
 from __future__ import annotations
 
+import importlib.util
+import json
 import os
 import shutil
 import subprocess
@@ -36,6 +38,44 @@ class ParseFailed(RuntimeError):
 
 def bwrap_path() -> str | None:
     return shutil.which("bwrap")
+
+
+def _site_roots() -> list[Path]:
+    """只读挂载解析库所在目录。不把数据目录或密钥目录挂进去。"""
+    roots: list[Path] = []
+    for name in ("pypdf", "docx", "lxml", "typing_extensions"):
+        spec = importlib.util.find_spec(name)
+        if spec is None:
+            continue
+        origin = spec.origin
+        if origin is None and spec.submodule_search_locations:
+            origin = spec.submodule_search_locations[0]
+        if not origin:
+            continue
+        path = Path(origin).resolve()
+        root = path.parent.parent if path.name == "__init__.py" else path.parent
+        if root not in roots:
+            roots.append(root)
+    return roots
+
+
+def _dep_mounts() -> list[tuple[Path, str]]:
+    return [(root, f"/deps/{index}") for index, root in enumerate(_site_roots())]
+
+
+def _pythonpath_value() -> str:
+    parts = ["/pkg"]
+    parts.extend(mount for _root, mount in _dep_mounts())
+    return ":".join(parts)
+
+
+def parser_dependency_ready(kind: str) -> bool:
+    if kind in {"txt", "md"}:
+        return True
+    name = "pypdf" if kind == "pdf" else "docx" if kind == "docx" else ""
+    if not name:
+        return False
+    return importlib.util.find_spec(name) is not None
 
 
 def _command(work: Path, sentinel: Path | None = None) -> list[str]:
@@ -80,15 +120,21 @@ def _command(work: Path, sentinel: Path | None = None) -> list[str]:
             "--ro-bind",
             str(work),
             "/work",
+        ]
+    )
+    for root, mount in _dep_mounts():
+        cmd.extend(["--ro-bind", str(root), mount])
+    cmd.extend(
+        [
             "--chdir",
             "/work",
             "--clearenv",
             "--setenv",
             "PATH",
-            "/usr/bin",
+            "/usr/bin:/usr/local/bin",
             "--setenv",
             "PYTHONPATH",
-            "/pkg",
+            _pythonpath_value(),
             "--setenv",
             "PYTHONDONTWRITEBYTECODE",
             "1",
@@ -209,10 +255,14 @@ def cancel_extract(job_id: str) -> None:
             return
 
 
-def extract_text(source: Path, size: int, job_id: str | None = None) -> str:
-    """在隔离子进程中读取原文。失败时抛出 ParseFailed，调用方不得改在本进程解析。"""
+def extract_document(source: Path, size: int, kind: str, job_id: str | None = None) -> dict:
+    """在隔离子进程中提取文字。失败时抛出 ParseFailed，调用方不得改在本进程解析。"""
+    if kind not in {"txt", "md", "pdf", "docx"}:
+        raise ParseFailed("unsupported_media")
     if not probe().get("ready"):
         raise ParseFailed("isolation_unavailable")
+    if not parser_dependency_ready(kind):
+        raise ParseFailed("dependency_unavailable")
     work = Path(tempfile.mkdtemp(prefix="zhixu-parse-"))
     try:
         target = work / "input.bin"
@@ -220,7 +270,7 @@ def extract_text(source: Path, size: int, job_id: str | None = None) -> str:
         os.chmod(target, 0o644)
         os.chmod(work, 0o755)
         cmd = _command(work)
-        cmd.extend(["--", "python3", "-m", "zhixu_server.parser_child"])
+        cmd.extend(["--", "python3", "-m", "zhixu_server.parser_child", kind])
         proc = subprocess.Popen(
             cmd,
             stdout=subprocess.PIPE,
@@ -240,20 +290,32 @@ def extract_text(source: Path, size: int, job_id: str | None = None) -> str:
             if job_id:
                 with _ACTIVE_LOCK:
                     _ACTIVE.pop(job_id, None)
-        completed = subprocess.CompletedProcess(cmd, proc.returncode, out, err)
-        stdout = completed.stdout or b""
+        stdout = out or b""
         limit = max(size * _EXPAND_FACTOR, 1)
         if len(stdout) > limit:
             raise ParseFailed("expand_limit")
-        err = (completed.stderr or b"").decode("utf-8", errors="replace")[:80]
-        if completed.returncode != 0:
-            if "ERR empty" in err:
-                raise ParseFailed("empty")
-            if "ERR binary" in err:
-                raise ParseFailed("binary")
-            if "ERR limits" in err:
-                raise ParseFailed("limits")
+        err_text = (err or b"").decode("utf-8", errors="replace")
+        if proc.returncode != 0:
+            for code in (
+                "empty",
+                "binary",
+                "limits",
+                "encrypted",
+                "corrupt",
+                "no_text",
+                "too_many_pages",
+                "dependency_unavailable",
+                "unsupported_media",
+            ):
+                if f"ERR {code}" in err_text:
+                    raise ParseFailed(code)
             raise ParseFailed("parse_failed")
-        return stdout.decode("utf-8")
+        try:
+            payload = json.loads(stdout.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise ParseFailed("parse_failed") from exc
+        if not isinstance(payload, dict) or not isinstance(payload.get("pages"), list):
+            raise ParseFailed("parse_failed")
+        return payload
     finally:
         shutil.rmtree(work, ignore_errors=True)

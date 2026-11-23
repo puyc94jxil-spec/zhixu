@@ -20,6 +20,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     get_logger(settings.log_path)
     init_db(settings)
     recovered = recover_jobs(settings)
+    purged = {"removed": 0}
+    if settings.backup_dir is not None:
+        from zhixu_server.backup import purge_expired_backups
+
+        try:
+            purged = purge_expired_backups(settings.backup_dir, settings.backup_retention_days)
+        except RuntimeError:
+            purged = {"removed": 0, "error": "refuse_purge_data_dir"}
     isolation = probe()
     log_event(
         "boot",
@@ -27,8 +35,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         model_configured=bool(settings.model_base_url and settings.model_name),
         isolation_ready=bool(isolation.get("ready")),
         recovered=recovered,
+        backup_purged=purged.get("removed", 0),
     )
-    app = FastAPI(title="知序", version="0.1.0-phase-a")
+    app = FastAPI(title="知序", version="0.2.0-phase-b")
     app.state.settings = settings
 
     @app.middleware("http")

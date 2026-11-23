@@ -91,9 +91,18 @@ def _generate(settings: Settings, request_id: str, event: threading.Event) -> No
         if built["revoked"]:
             _finish_withdrawn(conn, req, "source_deleted")
             return
-        if built["too_large"]:
-            _fail(conn, request_id, "internal", "上下文过长，请新建会话。附件仍保留。")
+        if built["needs_new_conversation"]:
+            _save_bound(conn, req, built["bound"])
+            _fail(
+                conn,
+                request_id,
+                "context_too_large",
+                "上下文放不下，请新建会话。附件仍保留。",
+                extra={"attachment_ids": built["bound"]["attachment_ids"]},
+            )
             return
+        if built["bound"]["strategy"] != "full":
+            _save_bound(conn, req, built["bound"])
         if built["files_enabled"] and not built["chunks"]:
             _finish_withdrawn(conn, req, "not_found")
             return
@@ -157,15 +166,22 @@ def _build_context(conn: sqlite3.Connection, req: sqlite3.Row) -> dict:
         content = item["content"]
         if item["role"] == "assistant" and _sources_revoked(conn, item["id"], req["conversation_id"]):
             content = PLACEHOLDER
-        messages.append({"role": "user" if item["role"] == "user" else "assistant", "content": content})
-    messages.append({"role": "user", "content": user_text})
-    size = sum(len(item["content"]) for item in messages)
+        messages.append(
+            {
+                "role": "user" if item["role"] == "user" else "assistant",
+                "content": content,
+                "message_id": item["id"],
+            }
+        )
+    messages.append({"role": "user", "content": user_text, "message_id": req["user_message_id"]})
+    messages, chunks, bound = _fit_context(messages, chunks, files)
     return {
         "messages": messages,
         "chunks": chunks,
         "files_enabled": bool(files),
         "revoked": False,
-        "too_large": size > _PROMPT_LIMIT,
+        "needs_new_conversation": bound["needs_new_conversation"],
+        "bound": bound,
     }
 
 
@@ -203,12 +219,120 @@ def _chunk_block(chunks: list[sqlite3.Row]) -> str:
     return "\n".join(lines)
 
 
+def _fit_context(messages: list[dict], chunks: list, files: list) -> tuple[list[dict], list, dict]:
+    """超限时先做可追踪摘要，并保留全部附件 ID。放不下就要求新建会话，不悄悄丢掉附件。"""
+    attachment_ids = [f"{row['id']}:{row['version']}" for row in files]
+    chars_before = sum(len(item["content"]) for item in messages)
+
+    def sized(items: list[dict]) -> int:
+        return sum(len(item["content"]) for item in items)
+
+    bound = {
+        "strategy": "full",
+        "summarized_ids": [],
+        "kept_ids": [item.get("message_id", "") for item in messages if item.get("message_id")],
+        "attachment_ids": attachment_ids,
+        "omitted_chunk_ids": [],
+        "chars_before": chars_before,
+        "chars_after": chars_before,
+        "needs_new_conversation": False,
+    }
+    if chars_before <= _PROMPT_LIMIT:
+        return messages, chunks, bound
+    history = messages[1:-1]
+    current = messages[-1]
+    lines = ["[摘要边界] 较早消息已改为可追踪摘要。附件 ID 全部保留：" + ",".join(attachment_ids)]
+    summarized = []
+    for item in history:
+        message_id = str(item.get("message_id") or "")
+        summarized.append(message_id)
+        lines.append(f"- {item['role']} {message_id} 原长度 {len(item['content'])}")
+    summary = {"role": "system", "content": "\n".join(lines)[:4000], "message_id": "summary"}
+    summarized_messages = [messages[0], summary, current]
+    if sized(summarized_messages) <= _PROMPT_LIMIT:
+        bound.update(
+            {
+                "strategy": "summary",
+                "summarized_ids": summarized,
+                "kept_ids": [str(current.get("message_id") or "")],
+                "chars_after": sized(summarized_messages),
+            }
+        )
+        return summarized_messages, chunks, bound
+    roster = "附件仍全部留在会话中，没有静默删除：" + ",".join(attachment_ids)
+    budget = _PROMPT_LIMIT - len(summary["content"]) - len(current["content"]) - len(roster) - 200
+    pieces = [roster]
+    used = len(roster)
+    kept_chunks = []
+    omitted = []
+    for chunk in chunks:
+        block = f"[chunk id={chunk['id']} page={chunk['page']} paragraph={chunk['paragraph']}]\n{chunk['text']}"
+        if used + len(block) > max(budget, 0):
+            omitted.append(chunk["id"])
+            continue
+        pieces.append(block)
+        used += len(block)
+        kept_chunks.append(chunk)
+    trimmed = [{"role": "system", "content": "\n".join(pieces), "message_id": "chunks"}, summary, current]
+    if sized(trimmed) <= _PROMPT_LIMIT:
+        bound.update(
+            {
+                "strategy": "summary_and_chunk_trim",
+                "summarized_ids": summarized,
+                "kept_ids": [str(current.get("message_id") or "")],
+                "omitted_chunk_ids": omitted,
+                "chars_after": sized(trimmed),
+            }
+        )
+        return trimmed, kept_chunks, bound
+    bound.update(
+        {
+            "strategy": "new_conversation",
+            "summarized_ids": summarized,
+            "omitted_chunk_ids": [chunk["id"] for chunk in chunks],
+            "chars_after": sized(trimmed),
+            "needs_new_conversation": True,
+        }
+    )
+    return trimmed, [], bound
+
+
+def _save_bound(conn, req, bound: dict) -> None:
+    import json
+
+    conn.execute(
+        """
+        INSERT INTO context_bounds(
+            id, request_id, owner_user_id, strategy, summarized_ids, kept_ids,
+            attachment_ids, omitted_chunk_ids, chars_before, chars_after, created_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            new_id(),
+            req["id"],
+            req["owner_user_id"],
+            bound["strategy"],
+            json.dumps(bound["summarized_ids"], ensure_ascii=False),
+            json.dumps(bound["kept_ids"], ensure_ascii=False),
+            json.dumps(bound["attachment_ids"], ensure_ascii=False),
+            json.dumps(bound["omitted_chunk_ids"], ensure_ascii=False),
+            bound["chars_before"],
+            bound["chars_after"],
+            iso(),
+        ),
+    )
+
+
 def _call_upstream(settings, request_id, messages, event, conn, req) -> str | None:
     url = settings.model_base_url.rstrip("/") + "/chat/completions"
     headers = {"Content-Type": "application/json"}
     if settings.model_api_key:
         headers["Authorization"] = "Bearer " + settings.model_api_key
-    payload = {"model": settings.model_name, "stream": True, "messages": messages}
+    payload = {
+        "model": settings.model_name,
+        "stream": True,
+        "messages": [{"role": item["role"], "content": item["content"]} for item in messages],
+    }
     delays = list(settings.retry_delays)
     attempt = 0
     while True:
@@ -339,6 +463,7 @@ def _public_error(code: str) -> str:
         "rate_limited": "模型服务限流",
         "unauthorized_upstream": "模型服务拒绝了服务端身份",
         "model_unconfigured": "模型尚未配置",
+        "context_too_large": "上下文放不下，请新建会话。附件仍保留。",
         "internal": "生成失败",
     }.get(code, "生成失败")
 
@@ -559,7 +684,7 @@ def _finish_stopped(conn, req, partial: str) -> None:
     log_event("generation_stopped", request_id=req["id"])
 
 
-def _fail(conn, request_id: str, code: str, message: str, partial: str = "") -> None:
+def _fail(conn, request_id: str, code: str, message: str, partial: str = "", extra: dict | None = None) -> None:
     req = conn.execute("SELECT * FROM requests WHERE id = ?", (request_id,)).fetchone()
     if req is None or req["finalized"]:
         return
@@ -573,12 +698,10 @@ def _fail(conn, request_id: str, code: str, message: str, partial: str = "") -> 
         """,
         (content, code, req["assistant_message_id"]),
     )
-    _append_event(
-        conn,
-        request_id,
-        "error",
-        {"request_id": request_id, "code": code, "message": message},
-    )
+    payload = {"request_id": request_id, "code": code, "message": message}
+    if extra:
+        payload.update(extra)
+    _append_event(conn, request_id, "error", payload)
     conn.execute(
         "UPDATE requests SET status = 'failed', finalized = 1, updated_at = ? WHERE id = ?",
         (stamp, request_id),
@@ -587,16 +710,9 @@ def _fail(conn, request_id: str, code: str, message: str, partial: str = "") -> 
 
 
 def _redact_deltas(conn, request_id: str) -> None:
-    rows = conn.execute(
-        "SELECT seq, data FROM request_events WHERE request_id = ? AND event = 'delta'",
-        (request_id,),
-    ).fetchall()
-    for row in rows:
-        payload = {"request_id": request_id, "text": "", "provisional": True, "redacted": True}
-        conn.execute(
-            "UPDATE request_events SET data = ? WHERE request_id = ? AND seq = ?",
-            (json.dumps(payload, ensure_ascii=False), request_id, row["seq"]),
-        )
+    from zhixu_server.service import redact_request_events
+
+    redact_request_events(conn, request_id)
 
 
 def _append_event(conn, request_id: str, event: str, data: dict) -> None:

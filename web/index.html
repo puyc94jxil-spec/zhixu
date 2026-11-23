@@ -30,7 +30,8 @@
       <div class="history-head"><span>最近对话</span></div>
       <input class="history-search" id="history-search" placeholder="搜索标题（简单包含）" aria-label="搜索会话标题">
       <div id="history" class="history"></div>
-      <p class="unavailable">标题搜索的完整交互仍在后续阶段。账号删除、反馈和 PDF 解析当前不可用。</p>
+      <p class="unavailable" id="unavailable-note">扫描件识别、联网检索、语音和模型切换当前不可用。删除后的备份由运维在 30 天内清除，这里没有自助恢复。</p>
+      <button class="profile" id="delete-account" type="button">删除账号数据</button>
       <button class="profile" id="logout" type="button">退出登录</button>
     </aside>
     <div class="scrim hidden" id="scrim"></div>
@@ -39,6 +40,8 @@
         <div class="top-left">
           <button id="menu" class="icon-btn mobile-menu" type="button" aria-label="打开导航">☰</button>
           <span id="page-title">智能问答</span>
+          <button id="rename" class="icon-btn" type="button">改标题</button>
+          <button id="delete-conversation" class="icon-btn" type="button">删除会话</button>
         </div>
         <div class="top-right"><span class="demo-badge">服务端会话</span></div>
       </header>
@@ -51,7 +54,7 @@
           <button type="button" data-prompt="请梳理当前文档里的风险。">梳理风险</button>
           <button type="button" data-prompt="">自由提问</button>
         </div>
-        <p class="unavailable">这些只是可修改的提示。OCR、联网检索、语音和模型切换当前不可用，没有无响应按钮。</p>
+        <p class="unavailable" id="template-note">模板在发送前可以修改。没有就绪文档时，文档类模板会说明原因。</p>
       </section>
       <section id="chat" class="chat hidden"><div class="messages" id="messages" aria-live="polite"></div></section>
       <form class="composer" id="composer">
@@ -75,7 +78,7 @@
       <article id="preview-content"></article>
     </aside>
   </div>
-  <input type="file" id="files" accept=".txt,.md,text/plain,text/markdown" hidden>
+  <input type="file" id="files" accept=".txt,.md,.pdf,.docx,text/plain,text/markdown,application/pdf" hidden>
   <div class="toast" id="toast" role="status"></div>
   <script type="module" src="/app.js"></script>
 </body>

@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS files (
     object_key TEXT NOT NULL,
     error_code TEXT,
     page_count INTEGER,
+    parse_notice TEXT,
     created_at TEXT NOT NULL,
     deleted_at TEXT
 );
@@ -166,6 +167,27 @@ CREATE TABLE IF NOT EXISTS idempotency (
     created_at TEXT NOT NULL,
     PRIMARY KEY (user_id, key)
 );
+CREATE TABLE IF NOT EXISTS feedback (
+    id TEXT PRIMARY KEY,
+    message_id TEXT NOT NULL,
+    owner_user_id TEXT NOT NULL,
+    reason TEXT NOT NULL,
+    note TEXT,
+    created_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS context_bounds (
+    id TEXT PRIMARY KEY,
+    request_id TEXT NOT NULL,
+    owner_user_id TEXT NOT NULL,
+    strategy TEXT NOT NULL,
+    summarized_ids TEXT NOT NULL,
+    kept_ids TEXT NOT NULL,
+    attachment_ids TEXT NOT NULL,
+    omitted_chunk_ids TEXT NOT NULL,
+    chars_before INTEGER NOT NULL,
+    chars_after INTEGER NOT NULL,
+    created_at TEXT NOT NULL
+);
 CREATE INDEX IF NOT EXISTS idx_conv_owner ON conversations(owner_user_id, updated_at);
 CREATE INDEX IF NOT EXISTS idx_msg_conv ON messages(conversation_id, created_at);
 CREATE INDEX IF NOT EXISTS idx_req_conv ON requests(conversation_id, status);
@@ -194,6 +216,9 @@ def init_db(settings: Settings) -> None:
     try:
         conn.execute("PRAGMA journal_mode=WAL")
         conn.executescript(SCHEMA)
+        columns = {row[1] for row in conn.execute("PRAGMA table_info(files)")}
+        if "parse_notice" not in columns:
+            conn.execute("ALTER TABLE files ADD COLUMN parse_notice TEXT")
     finally:
         conn.close()
 

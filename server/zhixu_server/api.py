@@ -32,10 +32,12 @@ from zhixu_server.security import (
     verify_password,
 )
 from zhixu_server.service import (
+    ERROR_TEXT,
     MAX_FILE_BYTES,
     ServiceError,
     abort_requests_for_file,
     cancel_parse,
+    delete_account_online,
     remove_online_file,
     retry_parse,
     start_parse,
@@ -239,6 +241,25 @@ def me(request: Request):
         conn.close()
 
 
+@router.delete("/auth/me")
+def delete_me(request: Request, confirm: bool = False):
+    conn = _conn(request)
+    try:
+        try:
+            user = _guard_write(request, conn)
+        except ServiceError as exc:
+            return _error(exc.status, exc.code, exc.message, _rid(request))
+        if not confirm:
+            return _error(400, "confirm_required", "删除账号需要 confirm=true", _rid(request))
+        delete_account_online(conn, _settings(request), user["user_id"])
+        response = Response(status_code=204)
+        response.delete_cookie(SESSION_COOKIE, path="/")
+        response.delete_cookie(CSRF_COOKIE, path="/")
+        return response
+    finally:
+        conn.close()
+
+
 @router.post("/conversations", status_code=201)
 def create_conversation(request: Request, body: dict | None = Body(default=None)):
     body = body or {}
@@ -343,7 +364,8 @@ def get_conversation(request: Request, conversation_id: str):
             dict(row)
             for row in conn.execute(
                 """
-                SELECT f.id AS file_id, f.version, f.name, f.status, f.error_code, cf.enabled
+                SELECT f.id AS file_id, f.version, f.name, f.status, f.error_code, f.page_count,
+                       f.parse_notice, cf.enabled
                   FROM conversation_files cf
                   JOIN files f ON f.id = cf.file_id AND f.version = cf.version
                  WHERE cf.conversation_id = ? AND f.deleted_at IS NULL
@@ -470,6 +492,11 @@ async def upload_file(
             if len(data) + len(chunk) > MAX_FILE_BYTES:
                 return _error(413, "file_too_large", "单个文件不能超过 20MB", _rid(request))
             data.extend(chunk)
+        key = request.headers.get("idempotency-key")
+        body_hash = hashlib.sha256(bytes(data) + b"\0" + (upload.filename or "").encode()).hexdigest()
+        cached = _idempotent(conn, user["user_id"], key, body_hash)
+        if cached is not None:
+            return cached
         try:
             with lock():
                 payload = store_upload(
@@ -487,6 +514,7 @@ async def upload_file(
         if payload.get("job_id"):
             start_parse(_settings(request), payload["file_id"], payload["job_id"])
         status = 200 if payload.get("reused") else 202
+        _store_idempotent(conn, user["user_id"], key, body_hash, status, payload)
         return JSONResponse(status_code=status, content=payload)
     finally:
         conn.close()
@@ -511,7 +539,9 @@ def file_status(request: Request, file_id: str):
             "version": row["version"],
             "status": row["status"],
             "error_code": row["error_code"],
+            "error_message": ERROR_TEXT.get(row["error_code"] or "", None),
             "page_count": row["page_count"],
+            "parse_notice": row["parse_notice"],
             "request_id": _rid(request),
         }
     finally:
@@ -610,6 +640,9 @@ def preview_file(
         if paragraph is not None:
             clauses += " AND paragraph = ?"
             params.append(paragraph)
+        if page is not None:
+            clauses += " AND (page = ? OR page IS NULL)"
+            params.append(page)
         chunks = conn.execute(
             f"SELECT * FROM chunks WHERE {clauses} ORDER BY offset ASC",
             params,
@@ -858,6 +891,55 @@ def cancel_request(request: Request, request_id: str):
             status = row["status"]
         log_event("cancel", request_id=request_id, status=status)
         return {"request_id": request_id, "status": status if status != "cancel_requested" else "stopped"}
+    finally:
+        conn.close()
+
+
+_FEEDBACK_REASONS = {"incorrect", "incomplete", "citation", "format", "other"}
+
+
+@router.post("/messages/{message_id}/feedback", status_code=201)
+def create_feedback(request: Request, message_id: str, body: dict = Body(...)):
+    conn = _conn(request)
+    try:
+        try:
+            user = _guard_write(request, conn)
+        except ServiceError as exc:
+            return _error(exc.status, exc.code, exc.message, _rid(request))
+        reason = str(body.get("reason") or "")
+        if reason not in _FEEDBACK_REASONS:
+            return _error(400, "invalid_reason", "请选择反馈原因", _rid(request))
+        note = str(body.get("note") or "").strip()
+        if len(note) > 200:
+            return _error(400, "note_too_long", "补充说明不能超过 200 字", _rid(request))
+        message = conn.execute(
+            """
+            SELECT id FROM messages
+             WHERE id = ? AND owner_user_id = ? AND role = 'assistant'
+            """,
+            (message_id, user["user_id"]),
+        ).fetchone()
+        if message is None:
+            return _error(403, "forbidden", "不能给这条回答反馈", _rid(request))
+        existing = conn.execute(
+            "SELECT id FROM feedback WHERE message_id = ? AND owner_user_id = ?",
+            (message_id, user["user_id"]),
+        ).fetchone()
+        if existing is not None:
+            return _error(409, "feedback_exists", "这条回答已经反馈过", _rid(request))
+        feedback_id = new_id()
+        conn.execute(
+            """
+            INSERT INTO feedback(id, message_id, owner_user_id, reason, note, created_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (feedback_id, message_id, user["user_id"], reason, note or None, iso()),
+        )
+        log_event("feedback_stored", message_id=message_id, reason=reason)
+        return JSONResponse(
+            status_code=201,
+            content={"id": feedback_id, "message_id": message_id, "reason": reason, "request_id": _rid(request)},
+        )
     finally:
         conn.close()
 

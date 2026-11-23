@@ -63,6 +63,9 @@ def main() -> None:
     restore = sub.add_parser("restore")
     restore.add_argument("--src", required=True)
     restore.add_argument("--data-dir", required=True)
+    purge = sub.add_parser("purge")
+    purge.add_argument("--yes", action="store_true")
+    purge.add_argument("--backup-root")
     sub.add_parser("fixture-users")
     args = parser.parse_args()
     settings = load_settings()
@@ -80,6 +83,17 @@ def main() -> None:
         from pathlib import Path
 
         print(restore_consistent(Path(args.src), Path(args.data_dir)))
+    elif args.command == "purge":
+        from pathlib import Path
+
+        from zhixu_server.backup import purge_expired_backups
+
+        if not args.yes:
+            raise SystemExit("清除过期备份需要 --yes")
+        root = Path(args.backup_root) if args.backup_root else settings.backup_dir
+        if root is None:
+            raise SystemExit("请设置 ZHIXU_BACKUP_DIR 或传入 --backup-root")
+        print(purge_expired_backups(root, settings.backup_retention_days))
     elif args.command == "fixture-users":
         fixture_users()
     else:
