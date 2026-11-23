@@ -1,0 +1,398 @@
+[
+  {
+    "id": "CVE-2026-113789",
+    "git_fixed": [
+      "1145329e8c80e1f72fbbb4001460fb8553236aeb",
+      "5ef728f0e16d225c853e89f861ba0a67402fe3f2"
+    ],
+    "notes": [
+      "1145329e8c80e1f72fbbb4001460fb8553236aeb",
+      "5ef728f0e16d225c853e89f861ba0a67402fe3f2",
+      "CPE_RANGE:6.21.0",
+      "REFERENCES_COMMIT:5ef728f0e16d225c853e89f861ba0a67402fe3f2",
+      "REFERENCES_TAG:1145329e8c80e1f72fbbb4001460fb8553236aeb"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible long runtimes/large memory usage when retrieving form fields",
+    "tag_contains": {
+      "1145329e8c80e1f72fbbb4001460fb8553236aeb": true,
+      "5ef728f0e16d225c853e89f861ba0a67402fe3f2": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-113786",
+    "git_fixed": [
+      "1a6de8d43c3a931b1ab3643c8dee2c9b51a32d42",
+      "512d8eb94eb04be1d1c90504e6da2dcef8679e07"
+    ],
+    "notes": [
+      "1a6de8d43c3a931b1ab3643c8dee2c9b51a32d42",
+      "512d8eb94eb04be1d1c90504e6da2dcef8679e07",
+      "AFFECTED_FIELD:6.21.1",
+      "REFERENCES_COMMIT:512d8eb94eb04be1d1c90504e6da2dcef8679e07",
+      "REFERENCES_TAG:1a6de8d43c3a931b1ab3643c8dee2c9b51a32d42"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Unvalidated JPEG image data loading",
+    "tag_contains": {
+      "1a6de8d43c3a931b1ab3643c8dee2c9b51a32d42": true,
+      "512d8eb94eb04be1d1c90504e6da2dcef8679e07": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-113794",
+    "git_fixed": [
+      "0309ab701a192fbd3228701a44dd009765a1629b",
+      "37e1cd681744bac38b159f7e1c614eee8d639c58"
+    ],
+    "notes": [
+      "0309ab701a192fbd3228701a44dd009765a1629b",
+      "37e1cd681744bac38b159f7e1c614eee8d639c58",
+      "CPE_RANGE:6.20.0",
+      "REFERENCES_COMMIT:37e1cd681744bac38b159f7e1c614eee8d639c58",
+      "REFERENCES_TAG:0309ab701a192fbd3228701a44dd009765a1629b"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible infinite loop when hitting EOF in standard xref table",
+    "tag_contains": {
+      "0309ab701a192fbd3228701a44dd009765a1629b": true,
+      "37e1cd681744bac38b159f7e1c614eee8d639c58": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-113791",
+    "git_fixed": [
+      "1145329e8c80e1f72fbbb4001460fb8553236aeb",
+      "18bd2981a74479483a0b9507602c58a63d6c9b12"
+    ],
+    "notes": [
+      "1145329e8c80e1f72fbbb4001460fb8553236aeb",
+      "18bd2981a74479483a0b9507602c58a63d6c9b12",
+      "CPE_RANGE:6.21.0",
+      "REFERENCES_COMMIT:18bd2981a74479483a0b9507602c58a63d6c9b12",
+      "REFERENCES_TAG:1145329e8c80e1f72fbbb4001460fb8553236aeb"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible large memory usage when parsing content streams",
+    "tag_contains": {
+      "1145329e8c80e1f72fbbb4001460fb8553236aeb": true,
+      "18bd2981a74479483a0b9507602c58a63d6c9b12": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-113792",
+    "git_fixed": [
+      "628c06057308b76a21cc9779df601c7a321399fb",
+      "c9c35b4471c2eb5fe078094f6c816e69d4ed25a0"
+    ],
+    "notes": [
+      "628c06057308b76a21cc9779df601c7a321399fb",
+      "c9c35b4471c2eb5fe078094f6c816e69d4ed25a0",
+      "CPE_RANGE:6.20.1",
+      "REFERENCES_COMMIT:c9c35b4471c2eb5fe078094f6c816e69d4ed25a0",
+      "REFERENCES_TAG:628c06057308b76a21cc9779df601c7a321399fb"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible infinite loop in PdfWriter.find_outline_item",
+    "tag_contains": {
+      "628c06057308b76a21cc9779df601c7a321399fb": true,
+      "c9c35b4471c2eb5fe078094f6c816e69d4ed25a0": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-113790",
+    "git_fixed": [
+      "1145329e8c80e1f72fbbb4001460fb8553236aeb",
+      "18bd2981a74479483a0b9507602c58a63d6c9b12"
+    ],
+    "notes": [
+      "1145329e8c80e1f72fbbb4001460fb8553236aeb",
+      "18bd2981a74479483a0b9507602c58a63d6c9b12",
+      "CPE_RANGE:6.21.0",
+      "REFERENCES_COMMIT:18bd2981a74479483a0b9507602c58a63d6c9b12",
+      "REFERENCES_TAG:1145329e8c80e1f72fbbb4001460fb8553236aeb"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible large memory usage when parsing arrays and dictionaries",
+    "tag_contains": {
+      "1145329e8c80e1f72fbbb4001460fb8553236aeb": true,
+      "18bd2981a74479483a0b9507602c58a63d6c9b12": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-113793",
+    "git_fixed": [
+      "628c06057308b76a21cc9779df601c7a321399fb",
+      "c9c35b4471c2eb5fe078094f6c816e69d4ed25a0"
+    ],
+    "notes": [
+      "628c06057308b76a21cc9779df601c7a321399fb",
+      "c9c35b4471c2eb5fe078094f6c816e69d4ed25a0",
+      "CPE_RANGE:6.20.1",
+      "REFERENCES_COMMIT:c9c35b4471c2eb5fe078094f6c816e69d4ed25a0",
+      "REFERENCES_TAG:628c06057308b76a21cc9779df601c7a321399fb"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible infinite loop when removing tree items",
+    "tag_contains": {
+      "628c06057308b76a21cc9779df601c7a321399fb": true,
+      "c9c35b4471c2eb5fe078094f6c816e69d4ed25a0": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-113795",
+    "git_fixed": [
+      "0309ab701a192fbd3228701a44dd009765a1629b",
+      "80a84d4be6022d910874ccb0d2365400f3f0e185"
+    ],
+    "notes": [
+      "0309ab701a192fbd3228701a44dd009765a1629b",
+      "80a84d4be6022d910874ccb0d2365400f3f0e185",
+      "CPE_RANGE:6.20.0",
+      "REFERENCES_COMMIT:80a84d4be6022d910874ccb0d2365400f3f0e185",
+      "REFERENCES_TAG:0309ab701a192fbd3228701a44dd009765a1629b"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible large memory usage for streams with multiple filters",
+    "tag_contains": {
+      "0309ab701a192fbd3228701a44dd009765a1629b": true,
+      "80a84d4be6022d910874ccb0d2365400f3f0e185": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-115580",
+    "git_fixed": [
+      "37d05f6916262371f01460d9c1705ab48c9e3a45",
+      "a3061e34b169d34478d520f5f049c53cfb1482b2"
+    ],
+    "notes": [
+      "37d05f6916262371f01460d9c1705ab48c9e3a45",
+      "a3061e34b169d34478d520f5f049c53cfb1482b2",
+      "AFFECTED_FIELD:6.21.2",
+      "REFERENCES_COMMIT:a3061e34b169d34478d520f5f049c53cfb1482b2",
+      "REFERENCES_TAG:37d05f6916262371f01460d9c1705ab48c9e3a45"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible long runtimes for large xref table header limits",
+    "tag_contains": {
+      "37d05f6916262371f01460d9c1705ab48c9e3a45": true,
+      "a3061e34b169d34478d520f5f049c53cfb1482b2": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-119205",
+    "git_fixed": [
+      "b2c3fa2ee689f582a0de256a45e30bd96c68f807",
+      "f176db1a1f7f9af3e472e69a843ef1175653b044"
+    ],
+    "notes": [
+      "b2c3fa2ee689f582a0de256a45e30bd96c68f807",
+      "f176db1a1f7f9af3e472e69a843ef1175653b044",
+      "CPE_RANGE:6.21.4",
+      "REFERENCES_COMMIT:f176db1a1f7f9af3e472e69a843ef1175653b044",
+      "REFERENCES_TAG:b2c3fa2ee689f582a0de256a45e30bd96c68f807"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible infinite loop when cloning dictionaries",
+    "tag_contains": {
+      "b2c3fa2ee689f582a0de256a45e30bd96c68f807": true,
+      "f176db1a1f7f9af3e472e69a843ef1175653b044": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-115572",
+    "git_fixed": [
+      "37d05f6916262371f01460d9c1705ab48c9e3a45",
+      "68a0e5046cc9e14a6c24a21a713f3c7fbde18b4b"
+    ],
+    "notes": [
+      "37d05f6916262371f01460d9c1705ab48c9e3a45",
+      "68a0e5046cc9e14a6c24a21a713f3c7fbde18b4b",
+      "AFFECTED_FIELD:6.21.2",
+      "REFERENCES_COMMIT:68a0e5046cc9e14a6c24a21a713f3c7fbde18b4b",
+      "REFERENCES_TAG:37d05f6916262371f01460d9c1705ab48c9e3a45"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible long runtimes for repeated references to the same missing object",
+    "tag_contains": {
+      "37d05f6916262371f01460d9c1705ab48c9e3a45": true,
+      "68a0e5046cc9e14a6c24a21a713f3c7fbde18b4b": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-119203",
+    "git_fixed": [
+      "b2c3fa2ee689f582a0de256a45e30bd96c68f807",
+      "06593f993789a4b573dd955730c1a7051128bb2a"
+    ],
+    "notes": [
+      "b2c3fa2ee689f582a0de256a45e30bd96c68f807",
+      "06593f993789a4b573dd955730c1a7051128bb2a",
+      "CPE_RANGE:6.21.4",
+      "REFERENCES_COMMIT:06593f993789a4b573dd955730c1a7051128bb2a",
+      "REFERENCES_TAG:b2c3fa2ee689f582a0de256a45e30bd96c68f807"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible infinite loop when hitting EOF in standard xref table during trailer search",
+    "tag_contains": {
+      "b2c3fa2ee689f582a0de256a45e30bd96c68f807": true,
+      "06593f993789a4b573dd955730c1a7051128bb2a": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-119207",
+    "git_fixed": [
+      "a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23",
+      "64270258c0eced720f7960aecf8cef31afd39f8d"
+    ],
+    "notes": [
+      "a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23",
+      "64270258c0eced720f7960aecf8cef31afd39f8d",
+      "CPE_RANGE:6.21.3",
+      "REFERENCES_COMMIT:64270258c0eced720f7960aecf8cef31afd39f8d",
+      "REFERENCES_TAG:a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible large memory usage for exceptions in strict mode",
+    "tag_contains": {
+      "a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23": true,
+      "64270258c0eced720f7960aecf8cef31afd39f8d": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-115585",
+    "git_fixed": [
+      "37d05f6916262371f01460d9c1705ab48c9e3a45",
+      "68a0e5046cc9e14a6c24a21a713f3c7fbde18b4b"
+    ],
+    "notes": [
+      "37d05f6916262371f01460d9c1705ab48c9e3a45",
+      "68a0e5046cc9e14a6c24a21a713f3c7fbde18b4b",
+      "AFFECTED_FIELD:6.21.2",
+      "REFERENCES_COMMIT:68a0e5046cc9e14a6c24a21a713f3c7fbde18b4b",
+      "REFERENCES_TAG:37d05f6916262371f01460d9c1705ab48c9e3a45"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible long runtimes for repeated malformed cross-reference entries (Follow-up)",
+    "tag_contains": {
+      "37d05f6916262371f01460d9c1705ab48c9e3a45": true,
+      "68a0e5046cc9e14a6c24a21a713f3c7fbde18b4b": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-119204",
+    "git_fixed": [
+      "b2c3fa2ee689f582a0de256a45e30bd96c68f807",
+      "ea4ac663133f1b3de1d7a8f2e6fa239802fde79e"
+    ],
+    "notes": [
+      "b2c3fa2ee689f582a0de256a45e30bd96c68f807",
+      "ea4ac663133f1b3de1d7a8f2e6fa239802fde79e",
+      "CPE_RANGE:6.21.4",
+      "REFERENCES_COMMIT:ea4ac663133f1b3de1d7a8f2e6fa239802fde79e",
+      "REFERENCES_TAG:b2c3fa2ee689f582a0de256a45e30bd96c68f807"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible large memory usage when parsing page tree",
+    "tag_contains": {
+      "b2c3fa2ee689f582a0de256a45e30bd96c68f807": true,
+      "ea4ac663133f1b3de1d7a8f2e6fa239802fde79e": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-119206",
+    "git_fixed": [
+      "a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23",
+      "b891fef37000cd86baa6e9848a3387d080b3b03e"
+    ],
+    "notes": [
+      "a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23",
+      "b891fef37000cd86baa6e9848a3387d080b3b03e",
+      "CPE_RANGE:6.21.3",
+      "REFERENCES_COMMIT:b891fef37000cd86baa6e9848a3387d080b3b03e",
+      "REFERENCES_TAG:a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible long runtimes when retrieving page labels",
+    "tag_contains": {
+      "a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23": true,
+      "b891fef37000cd86baa6e9848a3387d080b3b03e": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-57204",
+    "git_fixed": [
+      "9aa05e7bde29a55e3ddb938347082e0d6e333e17"
+    ],
+    "notes": [
+      "9aa05e7bde29a55e3ddb938347082e0d6e333e17",
+      "AFFECTED_FIELD:6.13.3",
+      "REFERENCES_TAG:9aa05e7bde29a55e3ddb938347082e0d6e333e17",
+      "CPE_RANGE:6.13.3"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Missing stream length values ignore defined limits",
+    "tag_contains": {
+      "9aa05e7bde29a55e3ddb938347082e0d6e333e17": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-119209",
+    "git_fixed": [
+      "a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23",
+      "a93fe3a901fd00af38f0a105c3ba7175fa72dcb4"
+    ],
+    "notes": [
+      "a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23",
+      "a93fe3a901fd00af38f0a105c3ba7175fa72dcb4",
+      "CPE_RANGE:6.21.3",
+      "REFERENCES_COMMIT:a93fe3a901fd00af38f0a105c3ba7175fa72dcb4",
+      "REFERENCES_TAG:a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible large memory usage when parsing cross-reference streams",
+    "tag_contains": {
+      "a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23": true,
+      "a93fe3a901fd00af38f0a105c3ba7175fa72dcb4": true
+    },
+    "all_git_fixed_contained": true
+  },
+  {
+    "id": "CVE-2026-119208",
+    "git_fixed": [
+      "a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23",
+      "82b91951dc74496bb3efe6465434f041bb6a5e6b"
+    ],
+    "notes": [
+      "a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23",
+      "82b91951dc74496bb3efe6465434f041bb6a5e6b",
+      "CPE_RANGE:6.21.3",
+      "REFERENCES_COMMIT:82b91951dc74496bb3efe6465434f041bb6a5e6b",
+      "REFERENCES_TAG:a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23"
+    ],
+    "listed_6_21_4": false,
+    "summary": "pypdf: Possible long runtimes/large memory usage for encrypted PDF files",
+    "tag_contains": {
+      "a9f9c4f16f1fb6b48be089ef6eae250dbaef5d23": true,
+      "82b91951dc74496bb3efe6465434f041bb6a5e6b": true
+    },
+    "all_git_fixed_contained": true
+  }
+]

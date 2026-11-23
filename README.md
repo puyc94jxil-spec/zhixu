@@ -12,7 +12,7 @@ A 期供测基准固定为 `bc0698bc571f9b859eb28e46aa88058c75ded77d`，不因�
 - 契约草稿 `docs/constraints/DOC-ZHIXU-IMPL-CONTRACT-001-v0.1-draft.md` 只是方案内的细化，不是新的批准或测试通过。
 - 测试计划 `DOC-ZHIXU-TEST-PLAN-001` 与用例 `DOC-ZHIXU-TEST-CASES-001` 均为 `v0.1-draft`，未审定、未执行。仓库里的自测不能代替它们。
 
-A 期接手步骤在 `docs/delivery/PHASE-A-HANDOFF.md`。B 期接手步骤在 `docs/delivery/PHASE-B-HANDOFF.md`。C 期开发侧回归在 `docs/delivery/PHASE-C-DEV-VERIFICATION.md`。与契约不一致的地方仍写在 `docs/delivery/DEVIATIONS.md`，没有为了措辞把差异删掉。C 期开发回归完成不是独立验收，也不是上线批准。其后对 DEF-ZHIXU-A-TEST-001 的取消修复也不替换固定 A、固定 B 和 C 期回归的提交，夹具通过不是真实模型取消。依赖扫描原文和兼容约束写在 `docs/delivery/DOC-ZHIXU-DEPSEC-EVIDENCE-001.md`。后续只读调查给出一组待判候选，写在 `docs/delivery/DOC-ZHIXU-DEPSEC-EVIDENCE-002.md`。两份调查都没有改依赖版本。页面脚本 404 和登录表单失败关闭的修复写在 `docs/delivery/DEF-ZHIXU-B-TEST-001.md`。TEST 脱敏日志里的查询串没有被当成已经证实的口令泄露。
+A 期接手步骤在 `docs/delivery/PHASE-A-HANDOFF.md`。B 期接手步骤在 `docs/delivery/PHASE-B-HANDOFF.md`。C 期开发侧回归在 `docs/delivery/PHASE-C-DEV-VERIFICATION.md`。与契约不一致的地方仍写在 `docs/delivery/DEVIATIONS.md`，没有为了措辞把差异删掉。C 期开发回归完成不是独立验收，也不是上线批准。其后对 DEF-ZHIXU-A-TEST-001 的取消修复也不替换固定 A、固定 B 和 C 期回归的提交，夹具通过不是真实模型取消。依赖扫描原文和兼容约束写在 `docs/delivery/DOC-ZHIXU-DEPSEC-EVIDENCE-001.md`。后续只读调查给出一组待判候选，写在 `docs/delivery/DOC-ZHIXU-DEPSEC-EVIDENCE-002.md`。页面脚本 404 和登录表单失败关闭写在 `docs/delivery/DEF-ZHIXU-B-TEST-001.md`。随后按已审组合升级依赖，并把测试工具拆出生产安装集，说明在 `docs/delivery/DOC-ZHIXU-DEPSEC-EVIDENCE-003.md`。取消的独立通过只属于 `43b0fc3`，不能挪到后来的提交。开发自测不是独立验收，也没有合并或上线。
 
 ## 现在能做什么
 

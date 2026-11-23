@@ -43,6 +43,19 @@ def test_login_isolation_and_server_session(client):
     assert "甲的会话" not in denied.text
 
 
+def test_json_without_content_type_is_rejected(client):
+    """0.132 起默认检查 JSON 的 Content-Type。缺少类型必须拒绝，不能关掉这项检查。"""
+    body = b'{"username":"ctype_user","password":"0123456789ab"}'
+    missing = client.post("/api/auth/login", content=body)
+    assert missing.status_code == 422
+    present = client.post(
+        "/api/auth/login",
+        content=body,
+        headers={"Content-Type": "application/json"},
+    )
+    assert present.status_code == 401
+
+
 def test_csrf_and_origin(client):
     login(client, "user_c", PASSWORD)
     saved = client.headers["Origin"]
