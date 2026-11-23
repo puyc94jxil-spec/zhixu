@@ -8,12 +8,13 @@
 
 - 分支：`cursor/zhixu-p0-phase-a-71ab`
 - 源锚点（需求与设计来源，不是本实现）：`ac62ee813425b2a8494324ae9cb28585e1303e29`
-- 实现提交：`54f84fce2fef4dd3bf75eab893e16b4437734b54`
+- A 期供测 SHA（固定基准，后续分支 HEAD 移动不得替换）：`bc0698bc571f9b859eb28e46aa88058c75ded77d`
+- 实现祖先：`54f84fce2fef4dd3bf75eab893e16b4437734b54`
 - 合并请求：https://github.com/puyc94jxil-spec/zhixu/pull/1 （不合并）
-- 接手版本：分支 HEAD。若本说明在实现提交之后又有补记，以 `git rev-parse HEAD` 的完整 SHA 为准，并在 `git log` 里确认上面的实现提交仍是祖先。
-- 服务版本字符串：`0.1.0-phase-a`
+- 本文件在供测 SHA 之后若有措辞补记，只修正读法，不改写该供测基准。B 期快照另记在 `docs/delivery/PHASE-B-HANDOFF.md`，不能拿来替换 A 期供测 SHA。
+- 服务版本字符串：`0.1.0-phase-a`（只描述上述供测 SHA 上的 A 期代码）
 
-根目录原型文件相对源锚点没有改动。生产界面在 `web/`。原型快照在 `prototype/`，服务只在 `/prototype-snapshot/` 下提供对照页面。
+根目录原型文件相对源锚点没有改动。A 期业务界面在 `web/`，由服务端提供，不是上线或对外发布入口。原型快照在 `prototype/`，服务只在 `/prototype-snapshot/` 下提供对照页面。
 
 ## 2. 依赖、版本与启动
 
@@ -67,7 +68,7 @@ python3 -m pytest -q --tb=line
 | --- | --- | --- |
 | `ZHIXU_DATA_DIR` | 数据库、对象和日志目录 | `./data` |
 | `ZHIXU_ALLOWED_ORIGINS` | 允许的浏览器来源，逗号分隔 | `http://127.0.0.1:8000,http://localhost:8000` |
-| `ZHIXU_COOKIE_SECURE` | 生产置 `1` 后会话 Cookie 带 Secure | 关闭 |
+| `ZHIXU_COOKIE_SECURE` | 置 `1` 后会话 Cookie 带 Secure，用于 HTTPS 访问 | 关闭 |
 | `ZHIXU_SESSION_TTL_HOURS` | 会话小时数 | 12 |
 | `ZHIXU_UPSTREAM_MODE` | `live`、`fixture` 或 `unconfigured` | 有地址和模型名则视为 `live`，否则 `unconfigured` |
 | `ZHIXU_UPSTREAM_CONNECT_TIMEOUT` | 连接超时秒 | 15 |
@@ -100,9 +101,9 @@ python3 -m pytest -q --tb=line
 
 真实 Qwen 连通：**未验证**。本环境没有访问批准附件中的内网服务，没有隧道，也没有扫描。`GET /api/health` 的 `model_configured` 只表示环境变量是否齐，不表示连通。
 
-协议夹具与生产隔离的方式：
+协议夹具与常规启动隔离的方式：
 
-1. 生产启动保持 `ZHIXU_UPSTREAM_MODE=unconfigured` 或显式 `live`。不要把夹具地址配进生产。
+1. 常规（非夹具）启动保持 `ZHIXU_UPSTREAM_MODE=unconfigured` 或显式 `live`。不要把夹具地址配进常规启动。
 2. 自测夹具是 `server/tests/conftest.py` 里的 `FixtureUpstream`。它只在 pytest 进程中监听 `127.0.0.1` 的临时端口，测试再把 `ZHIXU_UPSTREAM_MODE=fixture` 和 `ZHIXU_MODEL_BASE_URL` 指到这个临时地址，模型名使用 `fixture-model`。
 3. `fixture` 模式仍然按配置地址发 HTTP。若把真实模型地址填进去，那就是真实调用，不再是夹具。夹具成功不能写成真实模型、真实引用或检索质量通过。
 4. `ZHIXU_FIXTURE_HOLD=1` 只在 `fixture` 模式生效，用来制造「已经写出第一段、上游还停着」的窗口。
@@ -162,9 +163,9 @@ DEV 自测 `test_backup_and_restore_roundtrip` 做过一次往返。C 期恢复�
 - 每行是 JSON。关心的事件名包括 `boot`、`isolation_probe`、`isolation_unavailable`、`login`、`login_failed`、`login_rate_limited`、`file_stored`、`parse_ready`、`parse_failed`、`file_deleted_online`、`generation_completed`、`generation_withdrawn`、`generation_stopped`、`generation_failed`、`cancel`、`unhandled`。
 - 字段名属于密码、密钥、Cookie、正文、引用、提示词的会被丢掉。`unhandled` 只记路径和 `error_code=internal`，不记异常原文。
 
-## 9. A 已实现并经 DEV 自测
+## 9. A 期 DEV 已运行的自测范围
 
-下列是自测脚本实际走到的行为，不是正式用例通过。
+下列是 DEV 在供测 SHA 上实际运行自测脚本时走到的项。这些命令当时确实跑过，结果记在第 2 节。它们不是独立 TEST 签收，不是正式用例通过，也不能当作行为验收、安全验收、模型联调或上线已经通过。独立验证仍待 TEST 回执。
 
 - 未登录拒绝；注册登录后服务端会话；换账号看不到对方资源（跨用户返回 403）。
 - 登录后写操作同时检查 Origin 和 CSRF。登录失败限流。
