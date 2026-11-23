@@ -62,3 +62,5 @@
 | ruff check server | `docs/delivery/scans/ruff-6265ee4.txt` | `82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18` | All checks passed |
 
 这三份不是独立 TEST，也不覆盖真实 Qwen。Starlette 的 httpx 弃用警告还在，没有因此改用 httpx2。
+
+`6265ee4` 上取消和页面的独立关闭不推广到后来的提交。其后的占位句核对、pip 安装器边界和内网验收包见 `DOC-ZHIXU-DELETE-PLACEHOLDER-001.md`、`DOC-ZHIXU-PIP-TOOLING-001.md`、`DOC-ZHIXU-QWEN-INTRANET-001.md`。

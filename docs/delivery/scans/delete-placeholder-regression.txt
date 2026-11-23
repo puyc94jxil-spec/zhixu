@@ -1,0 +1,16 @@
+.                                                                        [100%]
+=============================== warnings summary ===============================
+../../tmp/zhixu-dev-site/fastapi/testclient.py:1
+  /tmp/zhixu-dev-site/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+../../tmp/zhixu-dev-site/starlette/testclient.py:53
+  /tmp/zhixu-dev-site/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+../../tmp/zhixu-dev-site/jieba/_compat.py:18
+  /tmp/zhixu-dev-site/jieba/_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 3 warnings in 8.12s

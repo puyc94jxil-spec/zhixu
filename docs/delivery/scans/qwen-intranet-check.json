@@ -1,0 +1,13 @@
+{
+  "action": "check",
+  "python": {
+    "version": "3.12.3",
+    "at_least_3_10": true
+  },
+  "bwrap": true,
+  "prod_lock": "server/requirements-prod.lock",
+  "prod_lock_exists": true,
+  "model_contacted": false,
+  "intranet_acceptance": "pending_user_network",
+  "fixture_used": false
+}

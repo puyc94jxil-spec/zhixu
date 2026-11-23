@@ -1,0 +1,20 @@
+{
+  "source": "https://api.osv.dev/v1/query",
+  "query": {"package": {"name": "pip", "ecosystem": "PyPI"}, "version": "24.0"},
+  "installed_observed": {
+    "command": "python3 -m pip --version",
+    "version": "24.0",
+    "location": "/usr/lib/python3/dist-packages/pip",
+    "package": "python3-pip 24.0+dfsg-1ubuntu1.3"
+  },
+  "note": "这是本云端对已安装的 Ubuntu pip 24.0 做的 OSV 版本查询。记录按别名合并后是 6 组。TEST 没有附上他们的 6 条编号和 site-packages 安装树，不能把这 6 组说成就是他们的那一次。对整个 /usr/lib/python3/dist-packages 的 pip-audit 在遇到 Debian 版本号 0.8.3ubuntu7.5 时中断，没有产出那次的 JSON。",
+  "unique_groups": [
+    {"id": "GHSA-4xh5-x5gv-qwph", "aliases": ["CVE-2025-8869", "PYSEC-2026-1795"], "fixed": "25.3"},
+    {"id": "GHSA-58qw-9mgm-455v", "aliases": ["CVE-2026-3219", "PYSEC-2026-2875"], "fixed": "26.1"},
+    {"id": "GHSA-6vgw-5pg2-w6jp", "aliases": ["CVE-2026-1703", "PYSEC-2026-1796"], "fixed": "26.0"},
+    {"id": "GHSA-jp4c-xjxw-mgf9", "aliases": ["CVE-2026-6357", "PYSEC-2026-2876"], "fixed": "26.1"},
+    {"id": "GHSA-qwm4-qh6w-59xr", "aliases": ["CVE-2026-13346", "PYSEC-2026-3721"], "fixed": "26.2.0"},
+    {"id": "GHSA-wf93-45jw-7689", "aliases": ["CVE-2026-8643", "PYSEC-2026-196"], "fixed": "26.1.2"}
+  ],
+  "same_query_for_pip_26_3": {"version": "26.3", "unique_groups": 0, "where": "本云端审计虚拟环境已安装的 pip，不是产品锁"}
+}
