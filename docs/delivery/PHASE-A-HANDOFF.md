@@ -9,6 +9,7 @@
 - 分支：`cursor/zhixu-p0-phase-a-71ab`
 - 源锚点（需求与设计来源，不是本实现）：`ac62ee813425b2a8494324ae9cb28585e1303e29`
 - 实现提交：`54f84fce2fef4dd3bf75eab893e16b4437734b54`
+- 合并请求：https://github.com/puyc94jxil-spec/zhixu/pull/1 （不合并）
 - 接手版本：分支 HEAD。若本说明在实现提交之后又有补记，以 `git rev-parse HEAD` 的完整 SHA 为准，并在 `git log` 里确认上面的实现提交仍是祖先。
 - 服务版本字符串：`0.1.0-phase-a`
 
