@@ -1,5 +1,7 @@
 # B 期接手说明
 
+C 期开发侧回归和文件状态 `progress` 不在本文件里改写。见 `docs/delivery/PHASE-C-DEV-VERIFICATION.md`。本文件仍是 B 期快照：中文 PDF、浏览器点击和漏洞查询在写下 B 期时确实还没做。
+
 A 期供测基准保持不动：`bc0698bc571f9b859eb28e46aa88058c75ded77d`。实现祖先仍是 `54f84fce2fef4dd3bf75eab893e16b4437734b54`。措辞修正提交是 `5ddbc5827741b49802f5bc2df302874537109f6d`。后面的分支 HEAD 不能替换这个 A 期供测 SHA。
 
 B 期实现提交（含本说明初稿）：`e54c405f400ee2571692c23b704bd50f6808fff9`。补记这一行的提交只是把该 SHA 写进说明，不替换 A 期供测基准。交付时的分支 HEAD 若比它新，只应多出这种 SHA 补记。

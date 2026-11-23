@@ -68,7 +68,7 @@ python3 -m pytest -q --tb=line
 | --- | --- | --- |
 | `ZHIXU_DATA_DIR` | 数据库、对象和日志目录 | `./data` |
 | `ZHIXU_ALLOWED_ORIGINS` | 允许的浏览器来源，逗号分隔 | `http://127.0.0.1:8000,http://localhost:8000` |
-| `ZHIXU_COOKIE_SECURE` | 置 `1` 后会话 Cookie 带 Secure，用于 HTTPS 访问 | 关闭 |
+| `ZHIXU_COOKIE_SECURE` | 置 `1` 后会话 Cookie 带 Secure。只在实际使用 HTTPS 时打开 | 关闭。这是本机默认，不是生产豁免 |
 | `ZHIXU_SESSION_TTL_HOURS` | 会话小时数 | 12 |
 | `ZHIXU_UPSTREAM_MODE` | `live`、`fixture` 或 `unconfigured` | 有地址和模型名则视为 `live`，否则 `unconfigured` |
 | `ZHIXU_UPSTREAM_CONNECT_TIMEOUT` | 连接超时秒 | 15 |
@@ -88,6 +88,12 @@ python3 -m pytest -q --tb=line
 - `ZHIXU_FIXTURE_USER2_PASSWORD`
 
 `live` 却缺少地址或模型名时，会降为 `unconfigured` 并拒绝生成。代码、前端和测试树不写死批准附件中的内网地址。该地址只存在于冻结的批准快照里。
+
+本机不设 `ZHIXU_COOKIE_SECURE`、来源只用 `http://127.0.0.1:8000` 和 `http://localhost:8000`，只适合在这台机器上用普通 HTTP 打开。把这组默认值抄到 HTTPS 或别的网址上，并不满足获批的生产安全默认，偏差记录也不能把它写成已经豁免。对外或 HTTPS 部署必须同时做到：
+
+- `ZHIXU_COOKIE_SECURE=1`，让会话 Cookie 带 Secure。
+- `ZHIXU_ALLOWED_ORIGINS` 写成浏览器地址栏里的实际来源，包含协议、主机和端口，多个来源用逗号分隔。页面来源不在这份名单里，写操作会被拒绝。
+- 登录之后的写操作继续同时检查 CSRF 令牌和 Origin。不要改回契约示例里的「有其中一个即可」。
 
 ## 4. 数据库、私有对象与解析隔离
 

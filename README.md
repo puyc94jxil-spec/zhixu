@@ -12,7 +12,7 @@ A 期供测基准固定为 `bc0698bc571f9b859eb28e46aa88058c75ded77d`，不因�
 - 契约草稿 `docs/constraints/DOC-ZHIXU-IMPL-CONTRACT-001-v0.1-draft.md` 只是方案内的细化，不是新的批准或测试通过。
 - 测试计划 `DOC-ZHIXU-TEST-PLAN-001` 与用例 `DOC-ZHIXU-TEST-CASES-001` 均为 `v0.1-draft`，未审定、未执行。仓库里的自测不能代替它们。
 
-A 期接手步骤在 `docs/delivery/PHASE-A-HANDOFF.md`。B 期接手步骤在 `docs/delivery/PHASE-B-HANDOFF.md`。与契约不一致的地方仍写在 `docs/delivery/DEVIATIONS.md`，没有为了措辞把差异删掉。
+A 期接手步骤在 `docs/delivery/PHASE-A-HANDOFF.md`。B 期接手步骤在 `docs/delivery/PHASE-B-HANDOFF.md`。C 期开发侧回归在 `docs/delivery/PHASE-C-DEV-VERIFICATION.md`。与契约不一致的地方仍写在 `docs/delivery/DEVIATIONS.md`，没有为了措辞把差异删掉。C 期开发回归完成不是独立验收，也不是上线批准。
 
 ## 现在能做什么
 
@@ -28,7 +28,7 @@ A 期接手步骤在 `docs/delivery/PHASE-A-HANDOFF.md`。B 期接手步骤在 `
 
 上面 5 条对应 A 期供测 SHA 上 DEV 已经跑过的自测。后来的 B 期又在同一分支补了 PDF/DOCX、反馈、账号在线删除、标题搜索、安全排版、可追踪摘要和 30 天备份清除，并另有一轮 DEV 自测。细节和命令以 B 期接手说明为准。独立 TEST 对 A、B 都还没有签收。
 
-仍然不能当成已经验收的事：真实模型连通和质量、引用是否在语义上站得住、真实上游取消、安全验收，以及中文编码 PDF 的提取样例。没有用户自己点的恢复按钮。
+仍然不能当成已经验收的事：真实模型连通和质量、引用是否在语义上站得住、真实上游取消、浏览器点击，以及独立 TEST 的安全签收。C 期开发自测里已经用可提取文字的中文 PDF 跑过解析，这不是中文质量验收。没有用户自己点的恢复按钮。
 
 ## 常规（非夹具）启动
 
@@ -44,6 +44,12 @@ python3 -m zhixu_server.main
 ```
 
 浏览器打开 `http://127.0.0.1:8000/`。健康检查是 `GET /api/health`，只返回模式和「模型是否已配置」，不会访问模型，也不会写出模型地址。
+
+上面这组启动命令只适合本机 HTTP。它默认不给 Cookie 加 Secure，来源也只允许本机两个地址。这不是生产环境可以照抄的安全配置，偏差记录也不豁免下面这些约束：
+
+- 用 HTTPS 或放到本机以外时，必须设置 `ZHIXU_COOKIE_SECURE=1`。
+- `ZHIXU_ALLOWED_ORIGINS` 必须写成用户浏览器里真正打开的来源，包含 `http` 或 `https`、主机和端口。写错或漏写，登录后的写入会被拒绝。
+- 登录后的写入同时要 CSRF 令牌和 Origin。契约草稿里的「二者择一」不能拿来放宽。
 
 要接真实模型，只通过环境变量注入，不要写进代码或前端：
 

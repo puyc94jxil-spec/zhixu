@@ -31,4 +31,24 @@ FTS 删除使用普通 `DELETE FROM chunks_fts`。特殊的 FTS5 `INSERT ... VAL
 | 账号在线删除 | `DELETE /api/auth/me?confirm=true` 会立刻撤销会话、移除在线对象和索引，并把助手事件里的摘录清掉 | A 期那一行的 405 只对供测 SHA 成立。安全有效性未签收 |
 | 30 天备份清除 | 备份目录写入 `zhixu-backup.json`。`tools purge --yes` 和配置了 `ZHIXU_BACKUP_DIR` 时的启动会删除超过保留天数的子目录。默认 30 天 | DEV 用改过时间的目录跑过。不是 C 期恢复验收。没有用户自助恢复 |
 | 标题搜索与删除确认 | 列表按更新时间排序，标题可改可搜；删除会话必须 `confirm=true`，并可选择是否连同只属于该会话的附件一起删除 | 浏览器点击路径未采集 |
-| PDF/DOCX | 在同一隔离子进程里用 pypdf 5.9.0、python-docx 1.2.0 提取。缺库或隔离不可用则失败，不改在主进程解析 | 中文编码 PDF 样例未采集。许可证只做了声明登记，没有漏洞扫描或合规结论 |
+| PDF/DOCX | 在同一隔离子进程里用 pypdf 5.9.0、python-docx 1.2.0 提取。缺库或隔离不可用则失败，不改在主进程解析 | 写下 B 期时，中文编码 PDF 样例未采集。许可证登记不是漏洞扫描 |
+
+## DIFF-06 与固定 A 的静态评审
+
+来源是 ARCH 的 `DOC-ZHIXU-ARCH-DEVREV-001` / `RV-ZHIXU-ARCH-PR1-A-001` v0.2。它只审固定 A 供测 SHA `bc0698bc571f9b859eb28e46aa88058c75ded77d` 的接口、配置和 FTS 源码，没有运行程序。
+
+该评审把下面四项看成获批方案里的实现细化，不需要另开变更请求：接口增补、查询词用 OR、FTS 使用普通 `DELETE FROM chunks_fts`、登录后同时校验 CSRF 令牌和 Origin。这比契约草稿里的「令牌或 Origin」更严，保持同时校验，不改回择一。
+
+这份静态意见的效力停在固定 A 的上述范围。它不是安全验收，不是越权或竞态的运行通过，不是独立 TEST 签收，也不能外推成 B 期或 C 期已经通过。A 期表里的原行继续保留，不改写成「已无差异」。
+
+生产环境的 Secure Cookie 和 Origin 白名单没有被豁免。`ZHIXU_COOKIE_SECURE` 默认关闭、`ZHIXU_ALLOWED_ORIGINS` 默认只含本机地址，只表示本机 HTTP 的出厂值。抄到 HTTPS 或别的网址上，不能称为已经满足获批安全默认。
+
+## C 期开发侧补上的缺陷
+
+这些是本次开发回归里看到并改的实现缺口，不是旧批准，也不是旧缺陷单。
+
+| 发现 | 关联 | 改动 | 还不能说的 |
+| --- | --- | --- | --- |
+| ADV-11 | 契约 `GET /files/:id/status` 的 `progress`；REQ-ZHIXU-P0-05 | B 期 SHA `7e6ad8a6d37009d545316091ea2eb751e6427458` 的状态接口仍不返回 progress。`f62debf71f02f889fc340a241c686accbbbc94e1` 的 `server/zhixu_server/api.py` 按当前任务回传 `progress` 和 `job_id` | 不是独立验收。越权仍返回 403 |
+| FIND-ZHIXU-CDEV-001 | REQ-ZHIXU-P0-05，DES-ZHIXU-BE-001 | 重启后未完成的解析改为按已保存文件重新排队，最多三次；进行中的生成标为中断，不自动重放给模型 | 不是真实上游取消验收 |
+| FIND-ZHIXU-CDEV-002 | REQ-ZHIXU-P0-05，同一版本索引 | 重新索引前先删掉该版本旧分块，避免重试后检索到重复段 | 不是检索质量验收 |
