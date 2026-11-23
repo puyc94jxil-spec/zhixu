@@ -65,4 +65,4 @@ FTS 删除使用普通 `DELETE FROM chunks_fts`。特殊的 FTS5 `INSERT ... VAL
 
 ## DEF-ZHIXU-B-TEST-001
 
-TEST 在固定 B 上证实三个页面脚本 404，`app.js`、`input_rules.js`、`stream_state.js` 为 200，`/api/auth/me` 200 但 `#app` 仍隐藏。访问日志还有一条脱敏的 `GET /?[REDACTED]` 200。TEST 没有表单 HTML、地址栏截图和 MIME，不能把这条脱敏 GET 写成已经证实口令进入地址。DEV 后来用公开标记在已提交树上复核了缺省表单和修复后的失败关闭，来源分开写在 `docs/delivery/DEF-ZHIXU-B-TEST-001.md`。修复补的是页面资源，以及无脚本时不把有 name 的字段送进地址。没有改取消或 progress。这还不是独立 TEST 复验。
+TEST 在固定 B 上证实三个页面脚本 404，`app.js`、`input_rules.js`、`stream_state.js` 为 200，`/api/auth/me` 200 但 `#app` 仍隐藏。随后的独立浏览器在 C 与 `43b0fc3` 上看到这三个 404 的 MIME 是 `application/json`，表单没有 `method`、DOM method 为 `get`，脚本失败或禁用时会组出带用户名和口令参数名的 GET。该请求在到达服务前被拦住，没有留下口令日志，不能推断生产泄漏。修复补的是页面资源，以及无脚本时不再组出这种 GET。没有改取消或 progress。`43b0fc3` 上的取消独立通过只属于那个 SHA。细节在 `docs/delivery/DEF-ZHIXU-B-TEST-001.md`。这还不是对新提交的独立复验。
