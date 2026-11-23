@@ -1,0 +1,8 @@
+fastapi==0.121.0
+uvicorn==0.38.0
+argon2-cffi==25.1.0
+httpx==0.28.1
+python-multipart==0.0.20
+jieba==0.42.1
+pytest==9.0.1
+ruff==0.14.5
