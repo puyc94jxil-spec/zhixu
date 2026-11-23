@@ -37,7 +37,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         recovered=recovered,
         backup_purged=purged.get("removed", 0),
     )
-    app = FastAPI(title="知序", version="0.2.0-phase-b")
+    app = FastAPI(title="知序", version="0.3.0-phase-c")
     app.state.settings = settings
 
     @app.middleware("http")

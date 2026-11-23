@@ -1,7 +1,7 @@
 """SQLite 在线备份。禁止在 WAL 期间直接拷贝主库文件。
 
 恢复函数只给运维或测试调用，没有用户自助恢复接口。
-30 天备份清除期限尚未实现。
+过期备份由 purge_expired_backups 按保留天数删除。
 """
 
 from __future__ import annotations

@@ -1,3 +1,4 @@
+import { copyFeedback } from "./copy_feedback.js";
 import { normalizeContent, shouldSendOnEnter } from "./input_rules.js";
 import { renderMarkdown } from "./markdown.js";
 import { applyEvent, createState, visibleCitations } from "./stream_state.js";
@@ -162,9 +163,9 @@ function renderMessages(messages) {
       copy.onclick = async () => {
         try {
           await navigator.clipboard.writeText(message.content || "");
-          toast("已复制");
+          toast(copyFeedback(true));
         } catch {
-          toast("复制失败，请手动选择文字");
+          toast(copyFeedback(false));
         }
       };
       row.append(copy);
@@ -401,7 +402,8 @@ async function pollFile(fileId) {
 }
 
 function fileNameStatus(body) {
-  return fileStatusLabel(body.status) + (body.error_message ? "：" + body.error_message : "");
+  const progress = Number.isInteger(body.progress) ? " " + body.progress + "%" : "";
+  return fileStatusLabel(body.status) + progress + (body.error_message ? "：" + body.error_message : "");
 }
 
 async function deleteFile(fileId) {

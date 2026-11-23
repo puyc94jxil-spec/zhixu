@@ -534,10 +534,30 @@ def file_status(request: Request, file_id: str):
         ).fetchone()
         if row is None or row["deleted_at"] is not None:
             return _error(403, "forbidden", "不能查看这个文件", _rid(request))
+        job = conn.execute(
+            """
+            SELECT id, progress FROM parse_jobs
+             WHERE file_id = ? AND version = ?
+             ORDER BY updated_at DESC, rowid DESC
+             LIMIT 1
+            """,
+            (row["id"], row["version"]),
+        ).fetchone()
+        if job is not None:
+            progress = int(job["progress"])
+            job_id = job["id"]
+        elif row["status"] == "ready":
+            progress = 100
+            job_id = None
+        else:
+            progress = 0
+            job_id = None
         return {
             "file_id": row["id"],
             "version": row["version"],
             "status": row["status"],
+            "progress": progress,
+            "job_id": job_id,
             "error_code": row["error_code"],
             "error_message": ERROR_TEXT.get(row["error_code"] or "", None),
             "page_count": row["page_count"],

@@ -461,7 +461,19 @@ def _mark_job(conn, job_id, file_id, version, status, progress, error) -> None:
     _status(conn, file_id, version, file_status, error)
 
 
+def _clear_chunks(conn: sqlite3.Connection, file_id: str, version: int) -> None:
+    partial = conn.execute(
+        "SELECT id, fts_rowid, fts_lex FROM chunks WHERE file_id = ? AND version = ?",
+        (file_id, version),
+    ).fetchall()
+    for chunk in partial:
+        if chunk["fts_rowid"] is not None:
+            _delete_fts(conn, chunk["fts_rowid"], chunk["fts_lex"], chunk["id"])
+    conn.execute("DELETE FROM chunks WHERE file_id = ? AND version = ?", (file_id, version))
+
+
 def _index_document(conn: sqlite3.Connection, file_row: sqlite3.Row, document: dict) -> None:
+    _clear_chunks(conn, file_row["id"], file_row["version"])
     pages = document.get("pages") or []
     wrote = 0
     for page in pages:
@@ -557,9 +569,11 @@ def cancel_parse(conn: sqlite3.Connection, owner: str, file_id: str) -> dict:
 
 
 def recover_jobs(settings: Settings) -> int:
+    """重启后接着解析尚未完成的文件。生成中的请求不自动重放给模型。"""
     from zhixu_server.db import connect
 
     conn = connect(settings)
+    resumed = []
     try:
         rows = conn.execute(
             """
@@ -569,7 +583,28 @@ def recover_jobs(settings: Settings) -> int:
         ).fetchall()
         for row in rows:
             job = conn.execute("SELECT * FROM parse_jobs WHERE id = ?", (row["id"],)).fetchone()
-            _mark_job(conn, job["id"], job["file_id"], job["version"], "failed", 100, "interrupted")
+            file_row = conn.execute("SELECT * FROM files WHERE id = ?", (job["file_id"],)).fetchone()
+            object_ready = (
+                file_row is not None
+                and file_row["deleted_at"] is None
+                and (settings.objects_dir / file_row["object_key"]).exists()
+            )
+            if object_ready and int(job["attempts"]) < 3:
+                _clear_chunks(conn, job["file_id"], job["version"])
+                conn.execute(
+                    """
+                    UPDATE parse_jobs
+                       SET status = 'uploaded', progress = 0, error_code = NULL,
+                           attempts = attempts + 1, updated_at = ?
+                     WHERE id = ?
+                    """,
+                    (iso(), job["id"]),
+                )
+                _status(conn, job["file_id"], job["version"], "uploaded")
+                resumed.append((job["file_id"], job["id"]))
+                log_event("parse_requeued", file_id=job["file_id"], job_id=job["id"])
+            else:
+                _mark_job(conn, job["id"], job["file_id"], job["version"], "failed", 100, "interrupted")
         requests = conn.execute(
             """
             SELECT id, assistant_message_id FROM requests
@@ -599,9 +634,12 @@ def recover_jobs(settings: Settings) -> int:
                 "error",
                 {"request_id": row["id"], "code": "internal", "message": "服务重启，生成已中断"},
             )
-        return len(rows) + len(requests)
+        count = len(rows) + len(requests)
     finally:
         conn.close()
+    for file_id, job_id in resumed:
+        start_parse(settings, file_id, job_id)
+    return count
 
 
 def _append_event(conn, request_id: str, event: str, data: dict) -> None:
