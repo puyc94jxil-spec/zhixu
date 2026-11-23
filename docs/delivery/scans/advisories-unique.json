@@ -1,0 +1,952 @@
+{
+  "pypdf": [
+    {
+      "id": "CVE-2026-113786",
+      "aliases": [
+        "GHSA-5hx5-vpf9-5wcv"
+      ],
+      "fix_versions": [
+        "6.21.1"
+      ],
+      "min_listed_fix": "6.21.1",
+      "description": "pypdf: Unvalidated JPEG image data loading"
+    },
+    {
+      "id": "CVE-2026-113789",
+      "aliases": [
+        "GHSA-6vvc-x485-93v7"
+      ],
+      "fix_versions": [
+        "6.21.0"
+      ],
+      "min_listed_fix": "6.21.0",
+      "description": "pypdf: Possible long runtimes/large memory usage when retrieving form fields"
+    },
+    {
+      "id": "CVE-2026-113790",
+      "aliases": [
+        "GHSA-f54x-cmq8-qg57"
+      ],
+      "fix_versions": [
+        "6.21.0"
+      ],
+      "min_listed_fix": "6.21.0",
+      "description": "pypdf: Possible large memory usage when parsing arrays and dictionaries"
+    },
+    {
+      "id": "CVE-2026-113791",
+      "aliases": [
+        "GHSA-cgf9-327m-v77c"
+      ],
+      "fix_versions": [
+        "6.21.0"
+      ],
+      "min_listed_fix": "6.21.0",
+      "description": "pypdf: Possible large memory usage when parsing content streams"
+    },
+    {
+      "id": "CVE-2026-113792",
+      "aliases": [
+        "GHSA-qfv9-64jg-mh7p"
+      ],
+      "fix_versions": [
+        "6.20.1"
+      ],
+      "min_listed_fix": "6.20.1",
+      "description": "pypdf: Possible infinite loop in PdfWriter.find_outline_item"
+    },
+    {
+      "id": "CVE-2026-113793",
+      "aliases": [
+        "GHSA-9mx8-4j7g-633p"
+      ],
+      "fix_versions": [
+        "6.20.1"
+      ],
+      "min_listed_fix": "6.20.1",
+      "description": "pypdf: Possible infinite loop when removing tree items"
+    },
+    {
+      "id": "CVE-2026-113794",
+      "aliases": [
+        "GHSA-39mj-jf6j-2qj3"
+      ],
+      "fix_versions": [
+        "6.20.0"
+      ],
+      "min_listed_fix": "6.20.0",
+      "description": "pypdf: Possible infinite loop when hitting EOF in standard xref table"
+    },
+    {
+      "id": "CVE-2026-113795",
+      "aliases": [
+        "GHSA-7mh2-4gg2-979f"
+      ],
+      "fix_versions": [
+        "6.20.0"
+      ],
+      "min_listed_fix": "6.20.0",
+      "description": "pypdf: Possible large memory usage for streams with multiple filters"
+    },
+    {
+      "id": "CVE-2026-115572",
+      "aliases": [
+        "GHSA-6c7f-9265-g8fw"
+      ],
+      "fix_versions": [
+        "6.21.2"
+      ],
+      "min_listed_fix": "6.21.2",
+      "description": "pypdf: Possible long runtimes for repeated references to the same missing object"
+    },
+    {
+      "id": "CVE-2026-115580",
+      "aliases": [
+        "GHSA-gmh7-3g9r-mjh5"
+      ],
+      "fix_versions": [
+        "6.21.2"
+      ],
+      "min_listed_fix": "6.21.2",
+      "description": "pypdf: Possible long runtimes for large xref table header limits"
+    },
+    {
+      "id": "CVE-2026-115585",
+      "aliases": [
+        "GHSA-jr96-gvgh-j3r4"
+      ],
+      "fix_versions": [
+        "6.21.2"
+      ],
+      "min_listed_fix": "6.21.2",
+      "description": "pypdf: Possible long runtimes for repeated malformed cross-reference entries (Follow-up)"
+    },
+    {
+      "id": "CVE-2026-119203",
+      "aliases": [
+        "GHSA-5849-834g-hvw5"
+      ],
+      "fix_versions": [
+        "6.21.4"
+      ],
+      "min_listed_fix": "6.21.4",
+      "description": "pypdf has possible infinite loop when hitting EOF in standard xref table during trailer search"
+    },
+    {
+      "id": "CVE-2026-119204",
+      "aliases": [
+        "GHSA-cggf-277g-3q54"
+      ],
+      "fix_versions": [
+        "6.21.4"
+      ],
+      "min_listed_fix": "6.21.4",
+      "description": "pypdf has possible large memory usage when parsing page tree"
+    },
+    {
+      "id": "CVE-2026-119205",
+      "aliases": [
+        "GHSA-mfr5-77xh-9j7h"
+      ],
+      "fix_versions": [
+        "6.21.4"
+      ],
+      "min_listed_fix": "6.21.4",
+      "description": "pypdf has possible infinite loop when cloning dictionaries"
+    },
+    {
+      "id": "CVE-2026-119206",
+      "aliases": [
+        "GHSA-42gh-23hr-vphw"
+      ],
+      "fix_versions": [
+        "6.21.3"
+      ],
+      "min_listed_fix": "6.21.3",
+      "description": "pypdf has possible long runtimes when retrieving page labels"
+    },
+    {
+      "id": "CVE-2026-119207",
+      "aliases": [
+        "GHSA-4vqv-7265-gm2w"
+      ],
+      "fix_versions": [
+        "6.21.3"
+      ],
+      "min_listed_fix": "6.21.3",
+      "description": "pypdf has possible large memory usage for exceptions in strict mode"
+    },
+    {
+      "id": "CVE-2026-119208",
+      "aliases": [
+        "GHSA-62m5-6wh8-28x7"
+      ],
+      "fix_versions": [
+        "6.21.3"
+      ],
+      "min_listed_fix": "6.21.3",
+      "description": "pypdf has possible long runtimes/large memory usage for encrypted PDF files"
+    },
+    {
+      "id": "CVE-2026-119209",
+      "aliases": [
+        "GHSA-x3rh-gjgm-fmqc"
+      ],
+      "fix_versions": [
+        "6.21.3"
+      ],
+      "min_listed_fix": "6.21.3",
+      "description": "pypdf has possible large memory usage when parsing cross-reference streams"
+    },
+    {
+      "id": "CVE-2026-57204",
+      "aliases": [
+        "GHSA-jm82-fx9c-mx94"
+      ],
+      "fix_versions": [
+        "6.13.3"
+      ],
+      "min_listed_fix": "6.13.3",
+      "description": "pypdf: Missing stream length values ignore defined limits"
+    },
+    {
+      "id": "PYSEC-2026-1827",
+      "aliases": [
+        "GHSA-2q4j-m29v-hq73",
+        "CVE-2026-24688"
+      ],
+      "fix_versions": [
+        "6.6.2"
+      ],
+      "min_listed_fix": "6.6.2",
+      "description": "pypdf has possible Infinite Loop when processing outlines/bookmarks"
+    },
+    {
+      "id": "PYSEC-2026-1828",
+      "aliases": [
+        "GHSA-4f6g-68pf-7vhv",
+        "CVE-2026-22691"
+      ],
+      "fix_versions": [
+        "6.6.0"
+      ],
+      "min_listed_fix": "6.6.0",
+      "description": "pypdf has possible long runtimes for malformed startxref"
+    },
+    {
+      "id": "PYSEC-2026-1829",
+      "aliases": [
+        "GHSA-4xc4-762w-m6cg",
+        "CVE-2026-22690"
+      ],
+      "fix_versions": [
+        "6.6.0"
+      ],
+      "min_listed_fix": "6.6.0",
+      "description": "pypdf has possible long runtimes for missing /Root object with large /Size values"
+    },
+    {
+      "id": "PYSEC-2026-1830",
+      "aliases": [
+        "CVE-2025-55197",
+        "GHSA-7hfw-26vp-jp8m"
+      ],
+      "fix_versions": [
+        "6.0.0"
+      ],
+      "min_listed_fix": "6.0.0",
+      "description": "PyPDF's Manipulated FlateDecode streams can exhaust RAM"
+    },
+    {
+      "id": "PYSEC-2026-1831",
+      "aliases": [
+        "GHSA-jfx9-29x2-rv3j",
+        "CVE-2025-62708"
+      ],
+      "fix_versions": [
+        "6.1.3"
+      ],
+      "min_listed_fix": "6.1.3",
+      "description": "pypdf can exhaust RAM via manipulated LZWDecode streams"
+    },
+    {
+      "id": "PYSEC-2026-1832",
+      "aliases": [
+        "CVE-2025-66019",
+        "GHSA-m449-cwjh-6pw7"
+      ],
+      "fix_versions": [
+        "6.4.0"
+      ],
+      "min_listed_fix": "6.4.0",
+      "description": "pypdf's LZWDecode streams be manipulated to exhaust RAM"
+    },
+    {
+      "id": "PYSEC-2026-1833",
+      "aliases": [
+        "CVE-2025-62707",
+        "GHSA-vr63-x8vc-m265"
+      ],
+      "fix_versions": [
+        "6.1.3"
+      ],
+      "min_listed_fix": "6.1.3",
+      "description": "pypdf possibly loops infinitely when reading DCT inline images without EOF marker"
+    },
+    {
+      "id": "PYSEC-2026-3004",
+      "aliases": [
+        "CVE-2026-48156",
+        "GHSA-248m-82v9-q6g6"
+      ],
+      "fix_versions": [
+        "6.12.0"
+      ],
+      "min_listed_fix": "6.12.0",
+      "description": "pypdf: Possible long runtimes for zero-only width values in cross-reference streamsuntimes for zero-only width values in cross-reference streams"
+    },
+    {
+      "id": "PYSEC-2026-3005",
+      "aliases": [
+        "CVE-2026-27628",
+        "GHSA-2rw7-x74f-jg35"
+      ],
+      "fix_versions": [
+        "6.7.2"
+      ],
+      "min_listed_fix": "6.7.2",
+      "description": "pypdf has a possible infinite loop when loading circular /Prev entries in cross-reference streams"
+    },
+    {
+      "id": "PYSEC-2026-3006",
+      "aliases": [
+        "CVE-2026-40260",
+        "GHSA-3crg-w4f6-42mx"
+      ],
+      "fix_versions": [
+        "6.10.0"
+      ],
+      "min_listed_fix": "6.10.0",
+      "description": "pypdf: Manipulated XMP metadata entity declarations can exhaust RAM"
+    },
+    {
+      "id": "PYSEC-2026-3007",
+      "aliases": [
+        "CVE-2026-41313",
+        "GHSA-4pxv-j86v-mhcw"
+      ],
+      "fix_versions": [
+        "6.10.2"
+      ],
+      "min_listed_fix": "6.10.2",
+      "description": "pypdf: Possible long runtimes for wrong size values in incremental mode"
+    },
+    {
+      "id": "PYSEC-2026-3009",
+      "aliases": [
+        "CVE-2026-54530",
+        "GHSA-52x6-gq3r-vpf4"
+      ],
+      "fix_versions": [
+        "6.13.0"
+      ],
+      "min_listed_fix": "6.13.0",
+      "description": "pypdf: Possible infinite loop when retrieving fonts for layout-mode text extraction"
+    },
+    {
+      "id": "PYSEC-2026-3010",
+      "aliases": [
+        "CVE-2026-49460",
+        "GHSA-5hgr-hg42-57jg"
+      ],
+      "fix_versions": [
+        "6.12.2"
+      ],
+      "min_listed_fix": "6.12.2",
+      "description": "pypdf: Inefficient decoding of FlateDecode PNG predictor streams"
+    },
+    {
+      "id": "PYSEC-2026-3011",
+      "aliases": [
+        "CVE-2026-41312",
+        "GHSA-7gw9-cf7v-778f"
+      ],
+      "fix_versions": [
+        "6.10.2"
+      ],
+      "min_listed_fix": "6.10.2",
+      "description": "pypdf: Manipulated FlateDecode predictor parameters can exhaust RAM"
+    },
+    {
+      "id": "PYSEC-2026-3012",
+      "aliases": [
+        "GHSA-87mj-5ggw-8qc3",
+        "CVE-2026-33699"
+      ],
+      "fix_versions": [
+        "6.9.2"
+      ],
+      "min_listed_fix": "6.9.2",
+      "description": "pypdf: Possible infinite loop during recovery attempts in DictionaryObject.read_from_stream"
+    },
+    {
+      "id": "PYSEC-2026-3013",
+      "aliases": [
+        "CVE-2026-27024",
+        "GHSA-996q-pr4m-cvgq"
+      ],
+      "fix_versions": [
+        "6.7.1"
+      ],
+      "min_listed_fix": "6.7.1",
+      "description": "pypdf has a possible infinite loop when processing TreeObject"
+    },
+    {
+      "id": "PYSEC-2026-3014",
+      "aliases": [
+        "GHSA-9m86-7pmv-2852",
+        "CVE-2026-28804"
+      ],
+      "fix_versions": [
+        "6.7.5"
+      ],
+      "min_listed_fix": "6.7.5",
+      "description": "pypdf vulnerable to inefficient decoding of ASCIIHexDecode streams"
+    },
+    {
+      "id": "PYSEC-2026-3015",
+      "aliases": [
+        "GHSA-9mvc-8737-8j8h",
+        "CVE-2026-27026"
+      ],
+      "fix_versions": [
+        "6.7.1"
+      ],
+      "min_listed_fix": "6.7.1",
+      "description": "pypdf possibly has long runtimes for malformed FlateDecode streams"
+    },
+    {
+      "id": "PYSEC-2026-3016",
+      "aliases": [
+        "CVE-2026-48155",
+        "GHSA-cj93-chg6-vgv8"
+      ],
+      "fix_versions": [
+        "6.12.0"
+      ],
+      "min_listed_fix": "6.12.0",
+      "description": "pypdf: Possible large memory usage for large offsets for layout mode text"
+    },
+    {
+      "id": "PYSEC-2026-3017",
+      "aliases": [
+        "GHSA-f2v5-7jq9-h8cg",
+        "CVE-2026-28351"
+      ],
+      "fix_versions": [
+        "6.7.4"
+      ],
+      "min_listed_fix": "6.7.4",
+      "description": "pypdf: Manipulated RunLengthDecode streams can exhaust RAM"
+    },
+    {
+      "id": "PYSEC-2026-3018",
+      "aliases": [
+        "GHSA-g9xf-7f8q-9mcj",
+        "CVE-2026-54651"
+      ],
+      "fix_versions": [
+        "6.13.1"
+      ],
+      "min_listed_fix": "6.13.1",
+      "description": "pypdf: Possible infinite loop when processing threads/articles in writer"
+    },
+    {
+      "id": "PYSEC-2026-3019",
+      "aliases": [
+        "CVE-2026-31826",
+        "GHSA-hqmh-ppp3-xvm7"
+      ],
+      "fix_versions": [
+        "6.8.0"
+      ],
+      "min_listed_fix": "6.8.0",
+      "description": "pypdf: manipulated stream length values can exhaust RAM"
+    },
+    {
+      "id": "PYSEC-2026-3020",
+      "aliases": [
+        "CVE-2026-49461",
+        "GHSA-j543-4vmf-qm7v"
+      ],
+      "fix_versions": [
+        "6.12.2"
+      ],
+      "min_listed_fix": "6.12.2",
+      "description": "pypdf: Possible large memory usage for form XObjects during text extraction"
+    },
+    {
+      "id": "PYSEC-2026-3021",
+      "aliases": [
+        "CVE-2026-41168",
+        "GHSA-jj6c-8h6c-hppx"
+      ],
+      "fix_versions": [
+        "6.10.1"
+      ],
+      "min_listed_fix": "6.10.1",
+      "description": "pypdf has long runtimes for wrong size values in cross-reference and object streams"
+    },
+    {
+      "id": "PYSEC-2026-3022",
+      "aliases": [
+        "GHSA-m2v9-299j-rv96",
+        "CVE-2026-54531"
+      ],
+      "fix_versions": [
+        "6.13.0"
+      ],
+      "min_listed_fix": "6.13.0",
+      "description": "pypdf: Possible infinite loop when processing outlines/bookmarks in writer"
+    },
+    {
+      "id": "PYSEC-2026-3023",
+      "aliases": [
+        "GHSA-qpxp-75px-xjcp",
+        "CVE-2026-33123"
+      ],
+      "fix_versions": [
+        "6.9.1"
+      ],
+      "min_listed_fix": "6.9.1",
+      "description": "pypdf has inefficient decoding of array-based streams"
+    },
+    {
+      "id": "PYSEC-2026-3024",
+      "aliases": [
+        "GHSA-wgvp-vg3v-2xq3",
+        "CVE-2026-27025"
+      ],
+      "fix_versions": [
+        "6.7.1"
+      ],
+      "min_listed_fix": "6.7.1",
+      "description": "pypdf has possible long runtimes/large memory usage for large /ToUnicode streams"
+    },
+    {
+      "id": "PYSEC-2026-3025",
+      "aliases": [
+        "GHSA-wjqc-6w8f-h24c",
+        "CVE-2026-48735"
+      ],
+      "fix_versions": [
+        "6.12.1"
+      ],
+      "min_listed_fix": "6.12.1",
+      "description": "pypdf: Manipulated XMP metadata streams can exhaust RAM"
+    },
+    {
+      "id": "PYSEC-2026-3026",
+      "aliases": [
+        "CVE-2026-41314",
+        "GHSA-x284-j5p8-9c5p"
+      ],
+      "fix_versions": [
+        "6.10.2"
+      ],
+      "min_listed_fix": "6.10.2",
+      "description": "pypdf: Manipulated FlateDecode image dimensions can exhaust RAM"
+    },
+    {
+      "id": "PYSEC-2026-3027",
+      "aliases": [
+        "CVE-2026-27888",
+        "GHSA-x7hp-r3qg-r3cj"
+      ],
+      "fix_versions": [
+        "6.7.3"
+      ],
+      "min_listed_fix": "6.7.3",
+      "description": "pypdf: Manipulated FlateDecode XFA streams can exhaust RAM"
+    },
+    {
+      "id": "PYSEC-2026-3610",
+      "aliases": [
+        "CVE-2026-59937",
+        "GHSA-55h5-xmcq-c37v"
+      ],
+      "fix_versions": [
+        "6.14.0"
+      ],
+      "min_listed_fix": "6.14.0",
+      "description": "pypdf: Possible long runtimes for repeated malformed cross-reference entries "
+    },
+    {
+      "id": "PYSEC-2026-3611",
+      "aliases": [
+        "GHSA-5qjq-93h5-hrgp",
+        "CVE-2026-59938"
+      ],
+      "fix_versions": [
+        "6.14.0"
+      ],
+      "min_listed_fix": "6.14.0",
+      "description": "pypdf: Possible large memory usage for wrong image dimensions"
+    },
+    {
+      "id": "PYSEC-2026-3612",
+      "aliases": [
+        "GHSA-5xf7-4p34-54qr",
+        "CVE-2026-59936"
+      ],
+      "fix_versions": [
+        "6.14.1"
+      ],
+      "min_listed_fix": "6.14.1",
+      "description": "pypdf: Possible infinite loop for not terminated inline images"
+    },
+    {
+      "id": "PYSEC-2026-3613",
+      "aliases": [
+        "CVE-2026-59935",
+        "GHSA-g867-7843-wf8q"
+      ],
+      "fix_versions": [
+        "6.14.2"
+      ],
+      "min_listed_fix": "6.14.2",
+      "description": "pypdf: Possible infinite loop for not terminated inline images (ASCII85 and ASCIIHex filter)"
+    },
+    {
+      "id": "PYSEC-2026-3655",
+      "aliases": [
+        "CVE-2026-71870",
+        "GHSA-fp3f-mc75-235c"
+      ],
+      "fix_versions": [
+        "6.15.0"
+      ],
+      "min_listed_fix": "6.15.0",
+      "description": "pypdf: Possible large memory usage for large /ToUnicode streams"
+    },
+    {
+      "id": "PYSEC-2026-3656",
+      "aliases": [
+        "CVE-2026-71852",
+        "GHSA-fwg2-594c-jp42"
+      ],
+      "fix_versions": [
+        "6.15.0"
+      ],
+      "min_listed_fix": "6.15.0",
+      "description": "pypdf: Possible long runtimes/large memory usage for large CID font width ranges"
+    },
+    {
+      "id": "PYSEC-2026-3910",
+      "aliases": [
+        "CVE-2026-84310",
+        "GHSA-23w6-3w8w-8484"
+      ],
+      "fix_versions": [
+        "6.16.1"
+      ],
+      "min_listed_fix": "6.16.1",
+      "description": "pypdf: Possible long runtimes/large memory usage when retrieving outlines"
+    },
+    {
+      "id": "PYSEC-2026-3911",
+      "aliases": [
+        "GHSA-763m-79hh-57f2",
+        "CVE-2026-84311"
+      ],
+      "fix_versions": [
+        "6.16.1"
+      ],
+      "min_listed_fix": "6.16.1",
+      "description": "pypdf: Possible long runtimes/large memory usage when extracting XForm objects"
+    },
+    {
+      "id": "PYSEC-2026-3912",
+      "aliases": [
+        "GHSA-fc8x-2rww-xw9m",
+        "CVE-2026-82398"
+      ],
+      "fix_versions": [
+        "6.15.0"
+      ],
+      "min_listed_fix": "6.15.0",
+      "description": "pypdf: Inefficient handling of non-whitespace inputs in read_until_whitespace"
+    },
+    {
+      "id": "PYSEC-2026-3913",
+      "aliases": [
+        "CVE-2026-84309",
+        "GHSA-jp53-mhqp-8xcg"
+      ],
+      "fix_versions": [
+        "6.16.0"
+      ],
+      "min_listed_fix": "6.16.0",
+      "description": "pypdf: Possible infinite loop for TreeObject.insert_child"
+    },
+    {
+      "id": "PYSEC-2026-4153",
+      "aliases": [
+        "GHSA-5jq2-8x83-x246",
+        "CVE-2026-102994"
+      ],
+      "fix_versions": [
+        "6.18.0"
+      ],
+      "min_listed_fix": "6.18.0",
+      "description": "pypdf: Possible long runtimes/large memory usage when parsing indirect objects"
+    },
+    {
+      "id": "PYSEC-2026-4154",
+      "aliases": [
+        "CVE-2026-102995",
+        "GHSA-fp3h-c4fm-7vvf"
+      ],
+      "fix_versions": [
+        "6.18.1"
+      ],
+      "min_listed_fix": "6.18.1",
+      "description": "pypdf: Possible large memory usage for large /ToUnicode streams (Follow-up 2)"
+    },
+    {
+      "id": "PYSEC-2026-4155",
+      "aliases": [
+        "GHSA-g9cg-prrw-2r8q",
+        "CVE-2026-102996"
+      ],
+      "fix_versions": [
+        "6.18.1"
+      ],
+      "min_listed_fix": "6.18.1",
+      "description": "pypdf: Possible large memory usage when parsing font data"
+    },
+    {
+      "id": "PYSEC-2026-4156",
+      "aliases": [
+        "GHSA-jw7q-gvrg-4vj3",
+        "CVE-2026-102997"
+      ],
+      "fix_versions": [
+        "6.18.1"
+      ],
+      "min_listed_fix": "6.18.1",
+      "description": "pypdf: Possible long runtimes for partially malformed FlateDecode streams (Follow-up)"
+    },
+    {
+      "id": "PYSEC-2026-4157",
+      "aliases": [
+        "CVE-2026-102998",
+        "GHSA-php9-fj8v-98fj"
+      ],
+      "fix_versions": [
+        "6.19.0"
+      ],
+      "min_listed_fix": "6.19.0",
+      "description": "pypdf: Possible long runtimes when generating appearance streams"
+    },
+    {
+      "id": "PYSEC-2026-4158",
+      "aliases": [
+        "GHSA-qv6h-rv94-w285",
+        "CVE-2026-102993"
+      ],
+      "fix_versions": [
+        "6.17.0"
+      ],
+      "min_listed_fix": "6.17.0",
+      "description": "pypdf: Possible large memory usage when retrieving Roman page labels"
+    },
+    {
+      "id": "PYSEC-2026-4159",
+      "aliases": [
+        "GHSA-v247-6f48-mgcj",
+        "CVE-2026-102999"
+      ],
+      "fix_versions": [
+        "6.19.0"
+      ],
+      "min_listed_fix": "6.19.0",
+      "description": "pypdf: Possible long runtimes with large amount of embedded files"
+    },
+    {
+      "id": "PYSEC-2026-4160",
+      "aliases": [
+        "CVE-2026-103000",
+        "GHSA-w23x-9jrw-r45c"
+      ],
+      "fix_versions": [
+        "6.19.0"
+      ],
+      "min_listed_fix": "6.19.0",
+      "description": "pypdf: Possible large memory usage when retrieving alphabetical page labels"
+    }
+  ],
+  "pytest": [
+    {
+      "id": "PYSEC-2026-1845",
+      "aliases": [
+        "GHSA-6w46-j5rx-g56g",
+        "CVE-2025-71176"
+      ],
+      "fix_versions": [
+        "9.0.3"
+      ],
+      "min_listed_fix": "9.0.3",
+      "description": "pytest has vulnerable tmpdir handling"
+    }
+  ],
+  "python-multipart": [
+    {
+      "id": "PYSEC-2026-1852",
+      "aliases": [
+        "CVE-2026-24486",
+        "GHSA-wp53-j4wj-2cfg"
+      ],
+      "fix_versions": [
+        "0.0.22"
+      ],
+      "min_listed_fix": "0.0.22",
+      "description": "Python-Multipart has Arbitrary File Write via Non-Default Configuration"
+    },
+    {
+      "id": "PYSEC-2026-3036",
+      "aliases": [
+        "CVE-2026-53539",
+        "GHSA-5rvq-cxj2-64vf"
+      ],
+      "fix_versions": [
+        "0.0.30"
+      ],
+      "min_listed_fix": "0.0.30",
+      "description": "python-multipart: Quadratic-time querystring parsing with semicolon separators causes CPU denial of service"
+    },
+    {
+      "id": "PYSEC-2026-3037",
+      "aliases": [
+        "GHSA-6jv3-5f52-599m",
+        "CVE-2026-53538"
+      ],
+      "fix_versions": [
+        "0.0.30"
+      ],
+      "min_listed_fix": "0.0.30",
+      "description": "python-multipart: Semicolon treated as querystring field separator enables parameter smuggling"
+    },
+    {
+      "id": "PYSEC-2026-3038",
+      "aliases": [
+        "CVE-2026-40347",
+        "GHSA-mj87-hwqh-73pj"
+      ],
+      "fix_versions": [
+        "0.0.26"
+      ],
+      "min_listed_fix": "0.0.26",
+      "description": "python-multipart affected by Denial of Service via large multipart preamble or epilogue data"
+    },
+    {
+      "id": "PYSEC-2026-3039",
+      "aliases": [
+        "CVE-2026-42561",
+        "GHSA-pp6c-gr5w-3c5g"
+      ],
+      "fix_versions": [
+        "0.0.27"
+      ],
+      "min_listed_fix": "0.0.27",
+      "description": "python-multipart has Denial of Service via unbounded multipart part headers"
+    },
+    {
+      "id": "PYSEC-2026-3040",
+      "aliases": [
+        "CVE-2026-53540",
+        "GHSA-v9pg-7xvm-68hf"
+      ],
+      "fix_versions": [
+        "0.0.31"
+      ],
+      "min_listed_fix": "0.0.31",
+      "description": "python-multipart: Negative Content-Length in parse_form buffers the entire body in memory"
+    },
+    {
+      "id": "PYSEC-2026-3041",
+      "aliases": [
+        "GHSA-vffw-93wf-4j4q",
+        "CVE-2026-53537"
+      ],
+      "fix_versions": [
+        "0.0.30"
+      ],
+      "min_listed_fix": "0.0.30",
+      "description": "python-multipart: Content-Disposition parameter smuggling via RFC 2231/5987 extended parameters"
+    }
+  ],
+  "starlette": [
+    {
+      "id": "PYSEC-2026-161",
+      "aliases": [
+        "X41-2026-002",
+        "CVE-2026-48710",
+        "GHSA-86qp-5c8j-p5mr"
+      ],
+      "fix_versions": [
+        "1.0.1"
+      ],
+      "min_listed_fix": "1.0.1",
+      "description": "BadHost: Missing Host header validation poisons request.url.path, bypassing path-based security checks"
+    },
+    {
+      "id": "PYSEC-2026-2280",
+      "aliases": [
+        "CVE-2026-48817",
+        "GHSA-x746-7m8f-x49c"
+      ],
+      "fix_versions": [
+        "1.1.0"
+      ],
+      "min_listed_fix": "1.1.0",
+      "description": "Starlette is a lightweight ASGI framework/toolkit. In versions 1.0.1 and below, when dispatching a request, HTTPEndpoint selects the handler by lowercasing the HTTP method and looking it up as an attribute with getattr, without restricting the lookup to a known set of HTTP verbs. When an HTTPEndpoint subclass is registered through Route(...) without an explicit methods= argument, the route does not constrain the method and every method reaches the endpoint. If a non-standard HTTP method whose lowercased name matches an attribute on the endpoint subclass reaches the endpoint, that attribute is invoked as if it were a request handler. An attacker can use this to reach methods that were never meant to be HTTP handlers, such as internal helpers, without the authorization checks applied by the intended public handler. An application (including Starlette-based frameworks like FastAPI) is affected if it registers an HTTPEndpoint subclass via Route(...) without explicitly setting methods=, and that subclass includes extra methods named like non-standard HTTP verbs that take one request argument and return a response. This issue has been fixed in version 1.1.0."
+    },
+    {
+      "id": "PYSEC-2026-2281",
+      "aliases": [
+        "GHSA-wqp7-x3pw-xc5r",
+        "CVE-2026-48818"
+      ],
+      "fix_versions": [
+        "1.1.0"
+      ],
+      "min_listed_fix": "1.1.0",
+      "description": "Starlette is a lightweight ASGI framework/toolkit. In versions 1.0.1 and earlier, StaticFiles on Windows is vulnerable to SSRF. An UNC path such as \\\\attacker.com\\share can cause os.path.realpath to initiate an outbound SMB connection before the path is rejected, exposing the service account’s NTLMv2 credentials for offline cracking or relay even though the HTTP response is only a 404. The issue affects default follow_symlink=False deployments, including frameworks built on Starlette such as FastAPI; POSIX systems and follow_symlink=True are unaffected. The issue is fixed in 1.1.0."
+    },
+    {
+      "id": "PYSEC-2026-248",
+      "aliases": [
+        "GHSA-jp82-jpqv-5vv3",
+        "CVE-2026-54282"
+      ],
+      "fix_versions": [
+        "1.3.0"
+      ],
+      "min_listed_fix": "1.3.0",
+      "description": "Starlette is a lightweight ASGI framework/toolkit. Prior to 1.3.0, the HTTP request path is not validated before being used to reconstruct request.url. Because request.url is rebuilt by concatenating {scheme}://{host}{path} and re-parsing the result, a path that does not begin with / (for example @google.com) moves the authority boundary during re-parsing, so request.url.hostname and request.url.netloc become attacker-controlled. Code that reads request.url.hostname (rather than the Host header or scope) can therefore be misled into trusting an attacker-supplied host. This vulnerability is fixed in 1.3.0."
+    },
+    {
+      "id": "PYSEC-2026-249",
+      "aliases": [
+        "CVE-2026-54283",
+        "GHSA-82w8-qh3p-5jfq"
+      ],
+      "fix_versions": [
+        "1.3.1"
+      ],
+      "min_listed_fix": "1.3.1",
+      "description": "Starlette is a lightweight ASGI framework/toolkit. From 0.4.1 until 1.3.1, request.form() accepts max_fields and max_part_size to bound resource consumption while parsing form data. These limits are enforced for multipart/form-data, but silently ignored for application/x-www-form-urlencoded. An unauthenticated attacker can therefore send a urlencoded body with an arbitrarily large number of fields or an arbitrarily large field, even when the application configured limits it believed would apply. This vulnerability is fixed in 1.3.1."
+    }
+  ]
+}
