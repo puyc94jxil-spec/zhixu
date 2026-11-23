@@ -1,0 +1,42 @@
+{
+  "sha": "bfb7b84f99b4f4ea55d3ac579d8223960e9a77a8",
+  "source": "git archive of parent before page fix",
+  "assets": [
+    {
+      "path": "/markdown.js",
+      "status": 404,
+      "content_type": "application/json",
+      "bytes": 22
+    },
+    {
+      "path": "/templates.js",
+      "status": 404,
+      "content_type": "application/json",
+      "bytes": 22
+    },
+    {
+      "path": "/upload_rules.js",
+      "status": 404,
+      "content_type": "application/json",
+      "bytes": 22
+    },
+    {
+      "path": "/app.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 19322
+    },
+    {
+      "path": "/input_rules.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 421
+    },
+    {
+      "path": "/stream_state.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 1500
+    }
+  ]
+}

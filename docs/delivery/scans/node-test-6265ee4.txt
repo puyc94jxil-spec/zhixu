@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: blank content is not sendable
+ok 1 - blank content is not sendable
+  ---
+  duration_ms: 0.583708
+  type: 'test'
+  ...
+# Subtest: enter sends, shift-enter and IME do not
+ok 2 - enter sends, shift-enter and IME do not
+  ---
+  duration_ms: 0.196933
+  type: 'test'
+  ...
+# Subtest: events stay on their conversation and deltas are not citations
+ok 3 - events stay on their conversation and deltas are not citations
+  ---
+  duration_ms: 0.228992
+  type: 'test'
+  ...
+# Subtest: markdown blocks keep script text as text
+ok 4 - markdown blocks keep script text as text
+  ---
+  duration_ms: 2.267687
+  type: 'test'
+  ...
+# Subtest: template availability follows ready files
+ok 5 - template availability follows ready files
+  ---
+  duration_ms: 1.000813
+  type: 'test'
+  ...
+# Subtest: upload rules explain limits before submit
+ok 6 - upload rules explain limits before submit
+  ---
+  duration_ms: 2.126227
+  type: 'test'
+  ...
+# Subtest: dangerous markup stays text and the renderer source has no innerHTML
+ok 7 - dangerous markup stays text and the renderer source has no innerHTML
+  ---
+  duration_ms: 1.507616
+  type: 'test'
+  ...
+# Subtest: copy feedback is a short message and does not include the answer
+ok 8 - copy feedback is a short message and does not include the answer
+  ---
+  duration_ms: 1.453774
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 78.8291
