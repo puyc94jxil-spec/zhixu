@@ -1,0 +1,79 @@
+{
+  "label": "after",
+  "tree": "/workspace",
+  "marker": "NOSSECRET-MARKER",
+  "assets": [
+    {
+      "path": "/",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 5399
+    },
+    {
+      "path": "/styles.css",
+      "status": 200,
+      "content_type": "text/css; charset=utf-8",
+      "bytes": 13856
+    },
+    {
+      "path": "/extra.css",
+      "status": 200,
+      "content_type": "text/css; charset=utf-8",
+      "bytes": 1192
+    },
+    {
+      "path": "/app.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 19510
+    },
+    {
+      "path": "/input_rules.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 421
+    },
+    {
+      "path": "/stream_state.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 1500
+    },
+    {
+      "path": "/markdown.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 3357
+    },
+    {
+      "path": "/templates.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 810
+    },
+    {
+      "path": "/upload_rules.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 932
+    },
+    {
+      "path": "/copy_feedback.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=utf-8",
+      "bytes": 201
+    }
+  ],
+  "form_tag": "<form class=\"auth-card\" id=\"auth-form\" method=\"post\" action=\"/\">",
+  "method_attribute": "post",
+  "effective_method": "post",
+  "action_attribute": "/",
+  "named_enabled_controls": [],
+  "login_disabled": true,
+  "submitted_target_has_marker": false,
+  "submitted_target_has_query": false,
+  "response_status": 405,
+  "response_body_has_marker": false,
+  "access_log_has_marker": false,
+  "access_log_has_query": false
+}

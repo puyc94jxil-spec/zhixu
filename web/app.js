@@ -6,6 +6,9 @@ import { templateState } from "./templates.js";
 import { fileStatusLabel, uploadBlockReason } from "./upload_rules.js";
 
 const $ = (id) => document.getElementById(id);
+// 模块图完整执行后才开放登录。脚本缺失或中途失败时按钮保持关闭，表单也不会带上口令。
+$("login").disabled = false;
+$("register").disabled = false;
 const state = createState();
 const readers = new Map();
 let activeId = null;

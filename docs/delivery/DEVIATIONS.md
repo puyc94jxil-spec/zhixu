@@ -62,3 +62,7 @@ FTS 删除使用普通 `DELETE FROM chunks_fts`。特殊的 FTS5 `INSERT ... VAL
 原因是后一次取消先读到进行中，生成线程已经写成 `stopped` 之后，取消接口仍把状态改回 `cancel_requested`，`finalized` 保持 1。进行中的取消继续拒绝再发，这条 409 没有放宽。
 
 修复只让尚未结束的请求写成 `cancel_requested`。已经结束的行不再被改回去。生成侧第一个终态才能落库，完成和失败不能盖过取消。修后同样步骤连续 16 次，16 次都是 `stopped`、`finalized=1`、一条完成事件、半句保留、再发 202。上游返回 500，以及流在 `[DONE]` 之前断开，终态都是 `failed`，各有一条错误事件，之后可以再发。这仍是夹具协议，不是真实 Qwen 取消，也不是独立 TEST 复验。
+
+## DEF-ZHIXU-B-TEST-001
+
+TEST 在固定 B 上证实三个页面脚本 404，`app.js`、`input_rules.js`、`stream_state.js` 为 200，`/api/auth/me` 200 但 `#app` 仍隐藏。访问日志还有一条脱敏的 `GET /?[REDACTED]` 200。TEST 没有表单 HTML、地址栏截图和 MIME，不能把这条脱敏 GET 写成已经证实口令进入地址。DEV 后来用公开标记在已提交树上复核了缺省表单和修复后的失败关闭，来源分开写在 `docs/delivery/DEF-ZHIXU-B-TEST-001.md`。修复补的是页面资源，以及无脚本时不把有 name 的字段送进地址。没有改取消或 progress。这还不是独立 TEST 复验。

@@ -9,18 +9,19 @@
 </head>
 <body>
   <section class="auth-view" id="auth-view">
-    <form class="auth-card" id="auth-form">
+    <form class="auth-card" id="auth-form" method="post" action="/">
       <h1>知序</h1>
       <p>登录后才能使用。这是生产界面，演示原型仍留在对照目录。</p>
       <label for="username">用户名</label>
-      <input id="username" name="username" autocomplete="username" required>
+      <input id="username" autocomplete="username" required>
       <label for="password">密码</label>
-      <input id="password" name="password" type="password" autocomplete="current-password" required minlength="10">
+      <input id="password" type="password" autocomplete="current-password" required minlength="10">
       <div class="auth-actions">
-        <button class="primary" type="submit">登录</button>
-        <button class="secondary" type="button" id="register">注册</button>
+        <button class="primary" type="submit" id="login" disabled>登录</button>
+        <button class="secondary" type="button" id="register" disabled>注册</button>
       </div>
       <p class="unavailable" id="auth-message" role="status"></p>
+      <noscript><p class="unavailable">页面脚本没有运行，登录已关闭，口令不会提交。</p></noscript>
     </form>
   </section>
   <div class="app hidden" id="app">
@@ -57,7 +58,7 @@
         <p class="unavailable" id="template-note">模板在发送前可以修改。没有就绪文档时，文档类模板会说明原因。</p>
       </section>
       <section id="chat" class="chat hidden"><div class="messages" id="messages" aria-live="polite"></div></section>
-      <form class="composer" id="composer">
+      <form class="composer" id="composer" method="post" action="/">
         <div id="attachments" class="attachments"></div>
         <textarea id="prompt" rows="2" maxlength="6000" placeholder="输入问题。Enter 发送，Shift+Enter 换行。" aria-label="输入你的问题"></textarea>
         <div class="composer-bottom">
@@ -81,5 +82,14 @@
   <input type="file" id="files" accept=".txt,.md,.pdf,.docx,text/plain,text/markdown,application/pdf" hidden>
   <div class="toast" id="toast" role="status"></div>
   <script type="module" src="/app.js"></script>
+  <script>
+    var pageScript = document.querySelector("script[src='/app.js']");
+    if (pageScript) {
+      pageScript.addEventListener("error", function () {
+        var note = document.getElementById("auth-message");
+        if (note) note.textContent = "页面脚本没有加载，登录已关闭，口令不会提交。";
+      });
+    }
+  </script>
 </body>
 </html>

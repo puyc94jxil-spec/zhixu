@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from datetime import timedelta
+from pathlib import Path
 
 from fastapi import APIRouter, Body, FastAPI, File, Form, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse, Response, StreamingResponse
@@ -1038,30 +1039,48 @@ def _store_idempotent(conn, user_id: str, key: str | None, body_hash: str, statu
     )
 
 
+# 页面真正会请求的文件。测试脚本和 package.json 不在此列，避免把测试入口公开。
+# 新增页面脚本时必须加进这里；启动时缺文件就拒绝启动，而不是打开一个登录脚本残缺的页面。
+WEB_ASSETS: dict[str, str] = {
+    "index.html": "text/html; charset=utf-8",
+    "styles.css": "text/css; charset=utf-8",
+    "extra.css": "text/css; charset=utf-8",
+    "app.js": "text/javascript; charset=utf-8",
+    "copy_feedback.js": "text/javascript; charset=utf-8",
+    "input_rules.js": "text/javascript; charset=utf-8",
+    "markdown.js": "text/javascript; charset=utf-8",
+    "stream_state.js": "text/javascript; charset=utf-8",
+    "templates.js": "text/javascript; charset=utf-8",
+    "upload_rules.js": "text/javascript; charset=utf-8",
+}
+
+
+def web_asset_path(settings: Settings, name: str) -> Path | None:
+    """只接受白名单里的文件名。拒绝目录跳转和 web 目录以外的路径。"""
+    if name not in WEB_ASSETS:
+        return None
+    root = settings.web_dir.resolve()
+    path = (root / name).resolve()
+    if path.parent != root or not path.is_file():
+        return None
+    return path
+
+
 def mount_pages(app: FastAPI, settings: Settings) -> None:
+    missing = [name for name in WEB_ASSETS if web_asset_path(settings, name) is None]
+    if missing:
+        raise RuntimeError("页面资源缺失，拒绝启动：" + ",".join(missing))
+
     @app.get("/")
     def index():
-        return FileResponse(settings.web_dir / "index.html")
+        return FileResponse(web_asset_path(settings, "index.html"), media_type=WEB_ASSETS["index.html"])
 
-    @app.get("/styles.css")
-    def styles():
-        return FileResponse(settings.web_dir / "styles.css")
-
-    @app.get("/extra.css")
-    def extra():
-        return FileResponse(settings.web_dir / "extra.css")
-
-    @app.get("/app.js")
-    def app_js():
-        return FileResponse(settings.web_dir / "app.js")
-
-    @app.get("/input_rules.js")
-    def rules():
-        return FileResponse(settings.web_dir / "input_rules.js")
-
-    @app.get("/stream_state.js")
-    def stream_state():
-        return FileResponse(settings.web_dir / "stream_state.js")
+    @app.get("/{asset_name}")
+    def asset(asset_name: str):
+        path = web_asset_path(settings, asset_name)
+        if path is None:
+            return JSONResponse(status_code=404, content={"error": {"code": "not_found", "message": "没有这个文件"}})
+        return FileResponse(path, media_type=WEB_ASSETS[asset_name])
 
     allowed = {"index.html", "styles.css", "app.js"}
 
