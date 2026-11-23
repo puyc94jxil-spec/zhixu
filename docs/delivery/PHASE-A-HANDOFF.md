@@ -8,7 +8,8 @@
 
 - 分支：`cursor/zhixu-p0-phase-a-71ab`
 - 源锚点（需求与设计来源，不是本实现）：`ac62ee813425b2a8494324ae9cb28585e1303e29`
-- 接手版本：该分支的 HEAD。在仓库里执行 `git rev-parse HEAD` 得到完整 SHA。PR 链接以仓库内建合并请求为准，本交付不合并。
+- 实现提交：`54f84fce2fef4dd3bf75eab893e16b4437734b54`
+- 接手版本：分支 HEAD。若本说明在实现提交之后又有补记，以 `git rev-parse HEAD` 的完整 SHA 为准，并在 `git log` 里确认上面的实现提交仍是祖先。
 - 服务版本字符串：`0.1.0-phase-a`
 
 根目录原型文件相对源锚点没有改动。生产界面在 `web/`。原型快照在 `prototype/`，服务只在 `/prototype-snapshot/` 下提供对照页面。
