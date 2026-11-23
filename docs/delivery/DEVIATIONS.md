@@ -52,3 +52,13 @@ FTS 删除使用普通 `DELETE FROM chunks_fts`。特殊的 FTS5 `INSERT ... VAL
 | ADV-11 | 契约 `GET /files/:id/status` 的 `progress`；REQ-ZHIXU-P0-05 | B 期 SHA `7e6ad8a6d37009d545316091ea2eb751e6427458` 的状态接口仍不返回 progress。`f62debf71f02f889fc340a241c686accbbbc94e1` 的 `server/zhixu_server/api.py` 按当前任务回传 `progress` 和 `job_id` | 不是独立验收。越权仍返回 403 |
 | FIND-ZHIXU-CDEV-001 | REQ-ZHIXU-P0-05，DES-ZHIXU-BE-001 | 重启后未完成的解析改为按已保存文件重新排队，最多三次；进行中的生成标为中断，不自动重放给模型 | 不是真实上游取消验收 |
 | FIND-ZHIXU-CDEV-002 | REQ-ZHIXU-P0-05，同一版本索引 | 重新索引前先删掉该版本旧分块，避免重试后检索到重复段 | 不是检索质量验收 |
+
+## DEF-ZHIXU-A-TEST-001
+
+独立 TEST 的 `followup.json` 校验和是 `b993c029e67086f81ddaae856d3be283e2b620d0213b2ed47fce4329a739be93`。那份记录是他们在固定 A `bc0698bc571f9b859eb28e46aa88058c75ded77d` 上的 8 次：6 次停在 `cancel_requested` 且 `finalized=1`、再发 409，2 次 `stopped` 且再发 202。那不是这次开发自己的次数。已撤回的两条删除误报不在这次修改里。
+
+这次先在已提交的 `5c2b93eabcf784ddbdcc90d0d125e83bbb0edfaa` 上按同样步骤复现：夹具、`ZHIXU_FIXTURE_HOLD=1`、同一登录的 Cookie、Origin 和 CSRF，等第一条 `delta`，连续两次取消，再向同一会话发送。8 次里 5 次停在 `cancel_requested` 且 `finalized=1`、再发 409 `generation_in_progress`；3 次 `stopped` 且再发 202。助手正文仍是已经写出的半句，终态事件只有一条。
+
+原因是后一次取消先读到进行中，生成线程已经写成 `stopped` 之后，取消接口仍把状态改回 `cancel_requested`，`finalized` 保持 1。进行中的取消继续拒绝再发，这条 409 没有放宽。
+
+修复只让尚未结束的请求写成 `cancel_requested`。已经结束的行不再被改回去。生成侧第一个终态才能落库，完成和失败不能盖过取消。修后同样步骤连续 16 次，16 次都是 `stopped`、`finalized=1`、一条完成事件、半句保留、再发 202。上游返回 500，以及流在 `[DONE]` 之前断开，终态都是 `failed`，各有一条错误事件，之后可以再发。这仍是夹具协议，不是真实 Qwen 取消，也不是独立 TEST 复验。

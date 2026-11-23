@@ -28,7 +28,9 @@ from zhixu_server.textutil import (
 
 _ACTIVE: dict[str, httpx.Client] = {}
 _EVENTS: dict[str, threading.Event] = {}
+_PENDING_CANCEL: set[str] = set()
 _GUARD = threading.Lock()
+_OPEN = ("accepted", "streaming", "verifying", "cancel_requested")
 _PROMPT_LIMIT = 80000
 
 _SYSTEM_DOC = (
@@ -45,7 +47,9 @@ def signal_requests(request_ids: list[str]) -> None:
     with _GUARD:
         for request_id in request_ids:
             event = _EVENTS.get(request_id)
-            if event is not None:
+            if event is None:
+                _PENDING_CANCEL.add(request_id)
+            else:
                 event.set()
             client = _ACTIVE.get(request_id)
             if client is not None:
@@ -64,6 +68,9 @@ def start_generation(settings: Settings, request_id: str) -> None:
 def _run(settings: Settings, request_id: str) -> None:
     event = threading.Event()
     with _GUARD:
+        if request_id in _PENDING_CANCEL:
+            event.set()
+            _PENDING_CANCEL.discard(request_id)
         _EVENTS[request_id] = event
     try:
         _generate(settings, request_id, event)
@@ -78,6 +85,7 @@ def _run(settings: Settings, request_id: str) -> None:
         with _GUARD:
             _EVENTS.pop(request_id, None)
             _ACTIVE.pop(request_id, None)
+            _PENDING_CANCEL.discard(request_id)
 
 
 def _generate(settings: Settings, request_id: str, event: threading.Event) -> None:
@@ -86,7 +94,11 @@ def _generate(settings: Settings, request_id: str, event: threading.Event) -> No
         req = conn.execute("SELECT * FROM requests WHERE id = ?", (request_id,)).fetchone()
         if req is None or req["finalized"]:
             return
-        _set_status(conn, request_id, "streaming")
+        if event.is_set() or req["status"] == "cancel_requested" or not _set_status(conn, request_id, "streaming"):
+            current = conn.execute("SELECT * FROM requests WHERE id = ?", (request_id,)).fetchone()
+            if current is not None and not current["finalized"]:
+                _finish_stopped(conn, current, "")
+            return
         built = _build_context(conn, req)
         if built["revoked"]:
             _finish_withdrawn(conn, req, "source_deleted")
@@ -352,6 +364,7 @@ def _call_upstream(settings, request_id, messages, event, conn, req) -> str | No
         forwarded = False
         collected: list[str] = []
         visible: list[str] = []
+        saw_done = False
         started = time.monotonic()
         try:
             with client.stream("POST", url, headers=headers, json=payload) as response:
@@ -379,6 +392,7 @@ def _call_upstream(settings, request_id, messages, event, conn, req) -> str | No
                         continue
                     data = line[5:].strip()
                     if data == "[DONE]":
+                        saw_done = True
                         break
                     piece = _delta_text(data)
                     if not piece:
@@ -406,6 +420,22 @@ def _call_upstream(settings, request_id, messages, event, conn, req) -> str | No
                         if reason == "material_revoked":
                             _finish_withdrawn(conn, req, "source_deleted")
                             return None
+            if not saw_done:
+                reason = _stop_requested(conn, request_id, event)
+                if reason == "material_revoked":
+                    _finish_withdrawn(conn, req, "source_deleted")
+                elif reason == "cancel":
+                    _finish_stopped(conn, req, "".join(visible))
+                else:
+                    _fail(conn, request_id, "network", _public_error("network"), partial="".join(visible))
+                return None
+            reason = _stop_requested(conn, request_id, event)
+            if reason == "material_revoked":
+                _finish_withdrawn(conn, req, "source_deleted")
+                return None
+            if reason == "cancel":
+                _finish_stopped(conn, req, "".join(visible))
+                return None
             return "".join(collected)
         except _UpstreamStatus as exc:
             if forwarded or attempt >= 2:
@@ -504,7 +534,12 @@ def _verify_material(conn, settings: Settings, req, raw: str, chunks: list) -> N
     if _revoked_now(conn, req):
         _finish_withdrawn(conn, req, "source_deleted")
         return
-    _set_status(conn, req["id"], "verifying")
+    if not _set_status(conn, req["id"], "verifying"):
+        current = conn.execute("SELECT * FROM requests WHERE id = ?", (req["id"],)).fetchone()
+        if current is not None and not current["finalized"] and current["status"] == "cancel_requested":
+            answer, _claims = parse_claims(raw)
+            _finish_stopped(conn, current, answer.strip())
+        return
     answer, claims = parse_claims(raw)
     by_id = {chunk["id"]: chunk for chunk in chunks}
     kept = []
@@ -554,6 +589,11 @@ def _revoked_now(conn, req) -> bool:
 def _finish_completed(conn, req, content: str, material: bool, citations: list) -> None:
     if _revoked_now(conn, req):
         _finish_withdrawn(conn, req, "source_deleted")
+        return
+    if not _claim(conn, req["id"], "completed"):
+        current = conn.execute("SELECT * FROM requests WHERE id = ?", (req["id"],)).fetchone()
+        if current is not None and not current["finalized"] and current["status"] == "cancel_requested":
+            _finish_stopped(conn, current, content)
         return
     stamp = iso()
     conn.execute(
@@ -615,16 +655,13 @@ def _finish_completed(conn, req, content: str, material: bool, citations: list) 
             "status": "completed",
         },
     )
-    conn.execute(
-        "UPDATE requests SET status = 'completed', finalized = 1, updated_at = ? WHERE id = ?",
-        (stamp, req["id"]),
-    )
     log_event("generation_completed", request_id=req["id"], material=material, citations=len(citations))
 
 
 def _finish_withdrawn(conn, req, reason: str) -> None:
+    if not _claim(conn, req["id"], "withdrawn"):
+        return
     content = PLACEHOLDER if reason == "source_deleted" else NOT_FOUND
-    stamp = iso()
     conn.execute(
         """
         UPDATE messages
@@ -646,14 +683,6 @@ def _finish_withdrawn(conn, req, reason: str) -> None:
             "withdrawal_reason": reason,
         },
     )
-    conn.execute(
-        """
-        UPDATE requests
-           SET status = 'withdrawn', finalized = 1, updated_at = ?
-         WHERE id = ?
-        """,
-        (stamp, req["id"]),
-    )
     log_event("generation_withdrawn", request_id=req["id"], reason=reason)
 
 
@@ -661,8 +690,9 @@ def _finish_stopped(conn, req, partial: str) -> None:
     if _revoked_now(conn, req):
         _finish_withdrawn(conn, req, "source_deleted")
         return
+    if not _claim(conn, req["id"], "stopped"):
+        return
     text = partial or "本次生成已停止。"
-    stamp = iso()
     conn.execute(
         "UPDATE messages SET content = ?, status = 'stopped' WHERE id = ?",
         (text, req["assistant_message_id"]),
@@ -677,10 +707,6 @@ def _finish_stopped(conn, req, partial: str) -> None:
             "status": "stopped",
         },
     )
-    conn.execute(
-        "UPDATE requests SET status = 'stopped', finalized = 1, updated_at = ? WHERE id = ?",
-        (stamp, req["id"]),
-    )
     log_event("generation_stopped", request_id=req["id"])
 
 
@@ -688,7 +714,17 @@ def _fail(conn, request_id: str, code: str, message: str, partial: str = "", ext
     req = conn.execute("SELECT * FROM requests WHERE id = ?", (request_id,)).fetchone()
     if req is None or req["finalized"]:
         return
-    stamp = iso()
+    if _revoked_now(conn, req):
+        _finish_withdrawn(conn, req, "source_deleted")
+        return
+    if req["status"] == "cancel_requested":
+        _finish_stopped(conn, req, partial)
+        return
+    if not _claim(conn, request_id, "failed"):
+        current = conn.execute("SELECT * FROM requests WHERE id = ?", (request_id,)).fetchone()
+        if current is not None and not current["finalized"] and current["status"] == "cancel_requested":
+            _finish_stopped(conn, current, partial)
+        return
     content = partial or message
     conn.execute(
         """
@@ -702,11 +738,21 @@ def _fail(conn, request_id: str, code: str, message: str, partial: str = "", ext
     if extra:
         payload.update(extra)
     _append_event(conn, request_id, "error", payload)
-    conn.execute(
-        "UPDATE requests SET status = 'failed', finalized = 1, updated_at = ? WHERE id = ?",
-        (stamp, request_id),
-    )
     log_event("generation_failed", request_id=request_id, error_code=code)
+
+
+def _claim(conn, request_id: str, status: str) -> bool:
+    """只有尚未结束的请求能写入终态。完成和失败不能盖过取消。"""
+    allowed = ("accepted", "streaming", "verifying") if status in {"completed", "failed"} else _OPEN
+    changed = conn.execute(
+        f"""
+        UPDATE requests
+           SET status = ?, finalized = 1, updated_at = ?
+         WHERE id = ? AND finalized = 0 AND status IN ({",".join("?" for _ in allowed)})
+        """,
+        (status, iso(), request_id, *allowed),
+    ).rowcount
+    return changed == 1
 
 
 def _redact_deltas(conn, request_id: str) -> None:
@@ -731,11 +777,17 @@ def _append_event(conn, request_id: str, event: str, data: dict) -> None:
     )
 
 
-def _set_status(conn, request_id: str, status: str) -> None:
-    conn.execute(
-        "UPDATE requests SET status = ?, updated_at = ? WHERE id = ? AND finalized = 0",
+def _set_status(conn, request_id: str, status: str) -> bool:
+    changed = conn.execute(
+        """
+        UPDATE requests SET status = ?, updated_at = ?
+         WHERE id = ? AND finalized = 0
+           AND status IN ('accepted', 'streaming', 'verifying')
+        """,
         (status, iso(), request_id),
-    )
+    ).rowcount
+    if not changed:
+        return False
     row = conn.execute(
         "SELECT assistant_message_id FROM requests WHERE id = ?",
         (request_id,),
@@ -745,6 +797,7 @@ def _set_status(conn, request_id: str, status: str) -> None:
             "UPDATE messages SET status = ? WHERE id = ? AND status NOT IN ('failed', 'stopped', 'withdrawn', 'completed')",
             (status, row["assistant_message_id"]),
         )
+    return True
 
 
 def _set_upstream_started(conn, request_id: str) -> None:

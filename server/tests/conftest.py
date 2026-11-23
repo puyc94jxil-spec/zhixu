@@ -46,6 +46,14 @@ class FixtureUpstream:
                 if state.mode == "silent":
                     time.sleep(2)
                     return
+                if state.mode == "cutoff":
+                    payload = json.dumps(
+                        {"choices": [{"delta": {"content": state.chunks[0]}}]},
+                        ensure_ascii=False,
+                    )
+                    self.wfile.write(f"data: {payload}\n\n".encode())
+                    self.wfile.flush()
+                    return
                 for chunk in state.chunks:
                     payload = json.dumps({"choices": [{"delta": {"content": chunk}}]}, ensure_ascii=False)
                     self.wfile.write(f"data: {payload}\n\n".encode())

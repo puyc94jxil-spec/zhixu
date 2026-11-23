@@ -14,7 +14,7 @@
 | B 期 SHA 补记，已交 PM | `7e6ad8a6d37009d545316091ea2eb751e6427458` |
 | C 期开发回归和 ADV-11 进度字段 | `f62debf71f02f889fc340a241c686accbbbc94e1` |
 
-若后面还有只改说明、不改行为的提交，它不替换上面这一行，也不替换固定 A 或固定 B。
+若后面还有只改说明、不改行为的提交，它不替换上面这一行，也不替换固定 A 或固定 B。DEF-ZHIXU-A-TEST-001 的取消修复在这些提交之后，同样不替换它们。轨迹写在 `docs/delivery/DEVIATIONS.md`。那次修复用的是夹具，不是真实 Qwen 取消，也还没有独立 TEST 复验。
 
 合并请求仍是 https://github.com/puyc94jxil-spec/zhixu/pull/1 ，开着，未合并。分支是 `cursor/zhixu-p0-phase-a-71ab`。
 

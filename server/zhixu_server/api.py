@@ -900,15 +900,24 @@ def cancel_request(request: Request, request_id: str):
         ).fetchone()
         if row is None:
             return _error(403, "forbidden", "不能取消这个请求", _rid(request))
-        if row["status"] in _ACTIVE:
-            conn.execute(
-                "UPDATE requests SET status = 'cancel_requested', updated_at = ? WHERE id = ?",
-                (iso(), request_id),
-            )
+        # 只改尚未结束的请求。已经写成 stopped 的行不能再被改回 cancel_requested。
+        updated = conn.execute(
+            f"""
+            UPDATE requests
+               SET status = 'cancel_requested', updated_at = ?
+             WHERE id = ? AND owner_user_id = ? AND finalized = 0
+               AND status IN ({','.join('?' * len(_ACTIVE))})
+            """,
+            (iso(), request_id, user["user_id"], *_ACTIVE),
+        ).rowcount
+        if updated:
             signal_requests([request_id])
             status = "stopped"
         else:
-            status = row["status"]
+            status = row["status"] if row["finalized"] else conn.execute(
+                "SELECT status FROM requests WHERE id = ?",
+                (request_id,),
+            ).fetchone()["status"]
         log_event("cancel", request_id=request_id, status=status)
         return {"request_id": request_id, "status": status if status != "cancel_requested" else "stopped"}
     finally:
